@@ -27,15 +27,19 @@ abstract class Model
         echo '  table '.$table;
         $var = [];
         $req = $this->getBdd()->prepare('SELECT * FROM '.$table);
-        //echo '  req1 : '.$req;
 
         $req->execute();
+      
+        //echo '  req1 : '.$req;
         while($data = $req->fetch(PDO::FETCH_ASSOC))
         {
+            //   var_dump($data);
             $var[] = new $obj($data);
+            // var_dump($var);
         }
-        var_dump($var[0]->getId());
-        die();
+        // die();
+        //var_dump($var[0]->getId());
+        //die();
         return $var;
         $req->closeCursor();
     }

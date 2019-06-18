@@ -1,1 +1,1 @@
-<?= "   Fuque   "; ?>
+<?= $errorMsg ?>

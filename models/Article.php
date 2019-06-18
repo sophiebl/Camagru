@@ -6,24 +6,25 @@
         private $_content;
         private $_date;
 
-        public function __contruct(array $data)
+        public function __construct(array $data)
         {
-            //var_dump("Hey");
-            //die();
+            // var_dump($data);
+            // die();
             $this->hydrate($data);
         }
 
         public function hydrate(array $data)
         {
-            var_dump("coucouc");
-            die();
+            // var_dump("coucouc");
+            // die();
             foreach($data as $key => $value)
             {
                 $method = 'set'.ucfirst($key);
-
+                // var_dump($method);
                 if (method_exists($this, $method))
                     $this->$method($value);
             }
+            // die();
         }
 
         public function setId($id)

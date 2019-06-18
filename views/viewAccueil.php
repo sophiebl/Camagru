@@ -1,6 +1,7 @@
 <?php
-foreach($articles as $articles): ?>
-<h2><?= $article->title() ?></h2>
-<time><?= $article->date() ?></time>
+$this->_t = 'Camagru';
+foreach($articles as $article): ?>
+<h2><?= $article->getTitle() ?></h2>
+<time><?= $article->getDate() ?></time>
 <?php endforeach; ?>
 <?= 'ViewAccueil' ?>
