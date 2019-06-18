@@ -1,6 +1,42 @@
 <?php
-    include_once 'Controller/connexion.php';
-    include_once 'Controller/users.php';
+    require_once('controllers/Router.php');
+    echo "  Index    ";
+    $router = new Router();
+    $router->routeReq();
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<?php
+//    include_once 'Controller/connexion.php';
+//    include_once 'Controller/users.php';
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +47,7 @@
     </head>
     <body>
         <?php
+        /*
             //$object = new Database;
             //$object->connect();
            // $object = new User;
@@ -60,7 +97,7 @@
                     }
                 }
             }
-
+*/
         ?>
         <h1>Login</h1>
         <form action="login.php" method="post">
@@ -71,4 +108,4 @@
             <input type="submit" name="login" value="Login">
         </form>
     </body>
-</html>
+</html>-->
