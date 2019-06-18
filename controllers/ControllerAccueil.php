@@ -4,6 +4,7 @@ require_once('views/View.php');
 class ControllerAccueil
 {
     private $_articleManager;
+    private $_userManager;
     private $_view;
 
     public function __construct($url)
@@ -19,8 +20,13 @@ class ControllerAccueil
         $this->_articleManager = new ArticleManager;
         $articles = $this->_articleManager->getArticles();
 
+        $this->_userManager = new UserManager;
+        $users = $this->_userManager->getUsers();
+
         //require_once('views/viewAccueil.php');
         $this->_view = new View('Accueil');
-        $this->_view->generate(array('articles' => $articles));
+        $this->_view->generate(array('articles' => $articles, 'users' => $users));
     }
+
+
 }
