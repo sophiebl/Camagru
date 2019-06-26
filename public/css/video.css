@@ -1,0 +1,20 @@
+video, img, #startbutton {
+    display: block;
+    float: left;
+    border: 10px solid #fff;
+    border-radius: 10px;
+}
+#startbutton {
+    background: green;
+    border: none;
+    color: #fff;
+    margin: 100px 20px 20px 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+}
+.canvas__container, #canvas {
+    overflow: hidden;
+    width: 660px;
+    height: 480px;
+    margin: 20px auto;
+}
