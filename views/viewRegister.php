@@ -1,9 +1,20 @@
 <?php
-$this->_t = 'Camagru';
+$this->_t = 'REGISTER';
 foreach($articles as $article): ?>
 <h2><?= $article->getTitle() ?></h2>
 <time><?= $article->getDate() ?></time>
 <?php endforeach; ?>
+
+<form action="">
+	<label for="email">Entrer votre email</label>
+	<input type="text" name="email" id="email" required>
+	<label for="username">Entrer votre nom d'utilisateur</label>
+	<input type="text" name="username" id="username" required>
+	<label for="mdp">Entrer votre mot de passe</label>
+	<input type="password" name="mdp" id="mdp">
+</form>
+
+
 
 <link rel="stylesheet" type="text/css" href="../public/css/video.css">
 

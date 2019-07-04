@@ -3,6 +3,7 @@
     {
 
         private $_id;
+        private $_email;
         private $_username;
         private $_password;
 
@@ -28,11 +29,19 @@
             if ($id > 0)
                 $this->_id = $id;
         }
+
+        public function setEmail($email)
+        {
+            if (is_string($email))
+                $this->_email = $email;
+        }
         public function setUsername($username)
+
         {
             if (is_string($username))
                 $this->_username = $username;
         }
+
         public function setPassword($password)
         {
             if (is_string($password))
@@ -43,15 +52,21 @@
         {
             return $this->_id;
         }
+
+        public function getEmail()
+        {
+            return $this->_email;
+        }
+
         public function getUsername()
         {
             return $this->_username;
         }
+
         public function getPassword()
         {
             return $this->_password;
         }                
-
     }
 
 

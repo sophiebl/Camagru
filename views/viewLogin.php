@@ -1,9 +1,17 @@
 <?php
-$this->_t = 'Camagru';
+$this->_t = 'LOGIN';
 foreach($articles as $article): ?>
 <h2><?= $article->getTitle() ?></h2>
 <time><?= $article->getDate() ?></time>
 <?php endforeach; ?>
+
+<form method="post" action="<?=URL?>?url=Accueil&submit=OK">
+	<label for="username">Entrer votre nom d'utilisateur</label>
+	<input type="text" name="username" id="username" required pattern="[A-Za-z]+">
+	<label for="mdp">Entrer votre mot de passe</label>
+	<input type="password" name="mdp" id="mdp">
+	<input type="submit" value="Envoyer">
+</form>
 
 <link rel="stylesheet" type="text/css" href="../public/css/video.css">
 

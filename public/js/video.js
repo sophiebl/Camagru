@@ -19,7 +19,6 @@ var cnvs = document.getElementById('canvas'),
     ctx = cnvs.getContext('2d'),
     mirror = document.getElementById('mirror');
 
-
 cnvs.width = mirror.width = window.innerWidth;
 cnvs.height = mirror.height = window.innerHeight;
 
