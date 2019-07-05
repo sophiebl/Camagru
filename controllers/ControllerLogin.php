@@ -1,7 +1,7 @@
 <?php
 require_once('views/View.php');
 
-class ControllerUser
+class ControllerLogin
 {
     private $_userManager;
     private $_view;
@@ -10,8 +10,10 @@ class ControllerUser
     {
         if (isset($url) && count($url) > 1)
             throw new Exception('Page introuvable');
+        else if ($_GET['submit' == 'OK'])    
+            $this->userTryLogin();
         else
-            $this->userProfil();
+            $this->userLogin();
     }
     
     private function userLogin()
@@ -28,7 +30,7 @@ class ControllerUser
         }
     }
 
-    public function userReqLogin()
+    public function userTryLogin()
     {
         $this->_userManager = new UserManager();
         $user = $this->_userManager->login();
@@ -45,8 +47,10 @@ class ControllerUser
         }
         else
         {
+            var_dump('user not log');
+            die();
             $this->_view = new View('Accueil');
-			$this->_view->generate(array('user' => $user, 'msg' => "Bon retour parmis nous " . $user->getLogin()));
+			$this->_view->generate(array('user' => $user, 'msg' => "Welcom again " . $user->getLogin()));
         }
     }
 }
