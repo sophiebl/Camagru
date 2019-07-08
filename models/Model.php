@@ -17,8 +17,12 @@ abstract class Model
     //R2cupere la connexion a la bdd
     protected function getBdd()
     {
+        echo "enter BDD";
         if(self::$_bdd == null)
+        {
+            echo "connexion BDD";
             self::setBdd();
+        }
         return self::$_bdd;
     }
 
@@ -46,7 +50,8 @@ abstract class Model
 
     protected function ifUsernameExist($username)
     {
-        $req = self::$_bdd->prepare("SELECT * FROM users WHERE username = '$username'");
+        $req = $this->getBdd()->prepare("SELECT * FROM users WHERE username = '$username'");
+        //$req = self::$_bdd->prepare("SELECT * FROM users WHERE username = '$username'");
         $req->execute();
         $data = $req->fetch(PDO::FETCH_ASSOC);
         //return($data);
@@ -58,7 +63,8 @@ abstract class Model
 
     protected function ifEmailExist($email)
     {
-        $req = self::$_bdd->prepare("SELECT * FROM user WHERE email = '$email'");
+        $req = $this->getBdd()->prepare("SELECT * FROM users WHERE email = '$email'");
+        //$req = self::$_bdd->prepare("SELECT * FROM users WHERE email = '$email'");
         $req->execute();
         $data = $req->fetch(PDO::FETCH_ASSOC);
         //return($data);

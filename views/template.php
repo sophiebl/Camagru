@@ -5,11 +5,15 @@
         <title><?= $t ?></title>
     </head>
     <header>
-        <h1><a href="<?= URL ?>">Camagru</a></h1>
-        <p>Bienvenue sur Camagru</p>
+        <?php
+            require_once('modules/header.php');
+        ?>
+
     </header>
     <?= $content ?>
     <footer>
-        <p>Sboulaao</p>
+        <?php
+            require_once('modules/footer.php');
+        ?>
     </footer>
 </html>

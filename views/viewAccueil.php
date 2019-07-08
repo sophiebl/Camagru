@@ -6,8 +6,9 @@ foreach($articles as $article): ?>
 <?php endforeach; ?>
 
 <h1>PAGE D'ACCUEIL</h1>
-<a href="<?= URL ?>?url=login">LOGIN</a>
 <a href="<?= URL ?>?url=register">REGISTER</a>
+<a href="<?= URL ?>?url=modification">MODIFICATION</a>
+<a href="<?= URL ?>?url=logout">DECONNEXION</a>
 
 <!--
 <link rel="stylesheet" type="text/css" href="../public/css/video.css">

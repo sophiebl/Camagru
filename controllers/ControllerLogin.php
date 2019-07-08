@@ -18,7 +18,7 @@ class ControllerLogin
     
     private function userLogin()
     {
-        session_start();
+        //session_start();
         if ($_SESSION['user'])
         {
             $this->_view = new View('Accueil');
