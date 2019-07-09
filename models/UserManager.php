@@ -100,33 +100,34 @@ class UserManager extends Model
             $password = $_POST['password'];
             $newpassword = $_POST['newpassword'];
             $newpassword2 = $_POST['newpassword2'];
+            $idUsr = $_SESSION['user']->getIdUser();
             $err = [];
             $i = 0;
 
-                if (strlen($_POST['newpassword']) < 8)
-                    $err[$i++] = "Veuillez entre un mot de passe de plus de 8 caractères";
-                if (strcmp($_POST['newpassword'], $_POST['newpassword2']) != 0)
-                    $err[$i++] = "Les mots de passe ne sont pas identique";
-                $username = $this->secureString($_POST['username']);
-                $email = $this->secureString($_POST['email']);
-                if (filter_var($email, FILTER_VALIDATE_EMAIL) == 1) 
-                    $err[$i++] = "L'adresse mail n'est pas correcte";
-                //$password = hash("SHA512", $password); 
-                if ($this->ifUsernameExist($username) != NULL)
-                    $err[$i++] = "Le nom d'utilisateur est déjà utilisé";
-                if ($this->ifEmailExist($email))   
-                    $err[$i++] = "L'adresse email est déjà utilisée";
-                if (isset($err) && !empty($err))
-                    return $err;
-                else
-                {
-                    $req = $this->getBdd()->prepare("INSERT INTO users (username, newpassword, email) VALUES (:username, :password, :email)");
-                    $req->execute([':username' => $username, ':newpassword' => $password, ':email' => $email]);
-                    $req->closeCursor();
+            if (strlen($_POST['newpassword']) < 8)
+                $err[$i++] = "Veuillez entre un mot de passe de plus de 8 caractères";
+            if (strcmp($_POST['newpassword'], $_POST['newpassword2']) != 0)
+                $err[$i++] = "Les mots de passe ne sont pas identique";
+            $username = $this->secureString($_POST['username']);
+            $email = $this->secureString($_POST['email']);
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) == 1) 
+                $err[$i++] = "L'adresse mail n'est pas correcte";
+            //$password = hash("SHA512", $password); 
+            if ($this->ifUsernameExist($username) != NULL)
+                $err[$i++] = "Le nom d'utilisateur est déjà utilisé";
+            if ($this->ifEmailExist($email))   
+                $err[$i++] = "L'adresse email est déjà utilisée";
+            if (isset($err) && !empty($err))
+                return $err;
+            else
+            {
+                $req = $this->getBdd()->prepare("UPDATE users SET username = :username, password = :newpassword, email = :email WHERE id = :idUsr");
+                $req->execute([':username' => $username, ':password' => $newpassword, ':email' => $email, ':id' => $idUsr]);
+                $req->closeCursor();
 
-                    //$hash = md5(rand(0,10000));
-                    
-                }
+                //$hash = md5(rand(0,10000));
+                
+            }
         }
     }
 

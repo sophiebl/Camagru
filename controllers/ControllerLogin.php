@@ -8,20 +8,30 @@ class ControllerLogin
 
     public function __construct($url)
     {
+        //var_dump($_GET);
+        //die();
         if (isset($url) && count($url) > 1)
             throw new Exception('Page introuvable');
         else if ($_GET['submit' == 'OK'])    
+        {
+            echo "TRY LOGIN";
+            die();
             $this->userTryLogin();
+        }
         else
             $this->userLogin();
     }
     
     private function userLogin()
     {
-        //session_start();
+        session_start();
+        var_dump($_SESSION['user']);
+        echo "user log";
+    //die();
         if ($_SESSION['user'])
         {
             $this->_view = new View('Accueil');
+            //$this->_view->generate(array('users' => $users));
         }
         else
         {
@@ -32,6 +42,10 @@ class ControllerLogin
 
     public function userTryLogin()
     {
+        //session_start();
+        echo "try log";
+        var_dump($_SESSION['user']);
+        die();
         $this->_userManager = new UserManager();
         $user = $this->_userManager->login();
 
@@ -47,10 +61,10 @@ class ControllerLogin
         }
         else
         {
-            var_dump('user not log');
-            die();
+            //var_dump('user not log');
+            //die();
             $this->_view = new View('Accueil');
-			$this->_view->generate(array('user' => $user, 'msg' => "Welcom again " . $user->getLogin()));
+		//	$this->_view->generate(array('user' => $user, 'msg' => "Welcom again " . $user->getUsername()));
         }
     }
 }

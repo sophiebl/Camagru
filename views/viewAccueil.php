@@ -5,6 +5,11 @@ foreach($articles as $article): ?>
 <time><?= $article->getDate() ?></time>
 <?php endforeach; ?>
 
+<?php
+    session_start();
+    var_dump($_SESSION['user']);
+	//die();
+	?>
 <h1>PAGE D'ACCUEIL</h1>
 <a href="<?= URL ?>?url=register">REGISTER</a>
 <a href="<?= URL ?>?url=modification">MODIFICATION</a>

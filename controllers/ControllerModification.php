@@ -10,7 +10,7 @@ class ControllerModification
     {
         if (isset($url) && count($url) > 1)
             throw new Exception('Page introuvable');
-        else if ($_POST['submit' == 'OK'])    
+        else if ($_GET['submit' == 'OK'])    
             $this->userModif();
         else
             $this->userIsLogged();
@@ -19,22 +19,23 @@ class ControllerModification
     public function userIsLogged()
     {
         session_start();
-        if ($_SESSIOn['user'] == NULL)
-        {
-            $this->_view = new View('Login');
-            $this->_view->generate(array('err' => "Vous devez vous connecter"));
-        }
-        else 
+        if ($_SESSION['user'])
         {
             $this->_view = new View('Modification');
             $this->_view->generate(array('Modification' => NULL));
+        }
+        else 
+        {
+            $this->_view = new View('Accueil');
+            $this->_view->generate(array('err' => "Vous devez vous connecter"));
         }
     }   
 
     private function userModif()
     {
         $this->_userManager = new UserManager();
-        $res = $this->_userManager->modifUserInfo();
+        $res = $this->_userManager->modif();
+        $users = $this->_userManager->getUsers();
         $this->_view = new View('Modification');
         $this->_view->generate(array('modification' => NULL));
     }

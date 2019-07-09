@@ -1,7 +1,8 @@
 <?php
 $this->_t = 'MODIFICATION DE COMPTE';
-?>
 
+session_start();
+?>
 <form id="formModif" method="post" action="<?=URL?>?url=Modification&submit=OK">
 	<label for="email">Entrer votre nouvelle adresse email</label>
 	<input type="text" name="email" id="email" value="<?= $user->getEmail() ?>">

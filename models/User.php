@@ -22,7 +22,7 @@
             }
         }
 
-        public function setId($id)
+        public function setIdUser($id)
         {
             $id = (int) $id;
 
@@ -48,7 +48,7 @@
                 $this->_password = $password;
         }
 
-        public function getId()
+        public function getIdUser()
         {
             return $this->_id;
         }
