@@ -42,4 +42,5 @@ foreach($articles as $article): ?>
 <?php foreach($users as $user): ?>
 <h2><?= $user->getUsername() ?></h2>
 <h2><?= $user->getEmail() ?></h2>
+<h2><?= $user->getIdUser() ?></h2>
 <?php endforeach; ?>

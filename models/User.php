@@ -50,6 +50,8 @@
 
         public function getIdUser()
         {
+            echo "id username";
+            echo "$this->_id";
             return $this->_id;
         }
 

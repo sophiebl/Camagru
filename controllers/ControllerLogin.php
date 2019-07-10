@@ -8,7 +8,10 @@ class ControllerLogin
 
     public function __construct($url)
     {
-        //var_dump($_GET);
+        echo "GET :  ";
+        var_dump($_GET);
+        echo "user dans construct :  ";
+        var_dump($_SESSION['user']);
         //die();
         if (isset($url) && count($url) > 1)
             throw new Exception('Page introuvable');
@@ -25,16 +28,19 @@ class ControllerLogin
     private function userLogin()
     {
         session_start();
+        echo "user :  ";
         var_dump($_SESSION['user']);
         echo "user log";
     //die();
         if ($_SESSION['user'])
         {
+            echo "LE USER EXISTE";
             $this->_view = new View('Accueil');
-            //$this->_view->generate(array('users' => $users));
+            $this->_view->generate(array('users' => $user));
         }
         else
         {
+            echo "LE USER N'EXISTE PAS";
             $this->_view = new View('Login');
             $this->_view->generate(array('login' => NULL));
         }
@@ -45,14 +51,21 @@ class ControllerLogin
         session_start();
         echo "try log";
         var_dump($_SESSION['user']);
+        $_SESSION['user'] = $_POST['username'];
+        var_dump($_SESSION['user']);
+        var_dump($_POST['username']);
         //die();
         $this->_userManager = new UserManager();
+        var_dump($this->_userManager);
         $user = $this->_userManager->login();
+        echo "SUCESS";
 
         if ($user == "USERNAME")
         {
-            $this->_view = new View('Login');
-            $this->_view->generate(array('err' => 'Vous n\'avez pas vérifié votre nom d\'utilisateur'));
+            $this->_view = new View('Accueil');
+            $this->_view->generate(array('users' => $user));
+            //$this->_view = new View('Login');
+            //$this->_view->generate(array('err' => 'Vous n\'avez pas vérifié votre nom d\'utilisateur'));
         }
         else if ($user == "EMPTY")
         {
@@ -61,7 +74,7 @@ class ControllerLogin
         }
         else
         {
-            //var_dump('user not log');
+            var_dump('user not log');
             //die();
             $this->_view = new View('Accueil');
 		//	$this->_view->generate(array('user' => $user, 'msg' => "Welcom again " . $user->getUsername()));

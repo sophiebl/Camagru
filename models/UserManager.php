@@ -17,7 +17,7 @@ class UserManager extends Model
             {
                 $err = [];
                 $i = 0;
-                $this->getBdd;
+                $this->getBdd();
                 if (strlen($_POST['password']) < 8)
                     $err[$i++] = "Veuillez entre un mot de passe de plus de 8 caractères";
                 if (strcmp($_POST['password'], $_POST['password2']) != 0)
@@ -55,20 +55,35 @@ class UserManager extends Model
     }
 
     public function login(){
+                var_dump("hello on est dans login()");
         if (isset($_POST) && !empty($_POST)
             && isset($_POST['username']) && !empty($_POST['username'])
-            && isset($_POST['password']) && !empty($_POST['password'])){
-           //     var_dump("hello");
+            /*&& isset($_POST['password']) && !empty($_POST['password'])*/){
+                var_dump("hello on est dans login()");
             //    die();
-            $this->getBdd;
-            $username = secureString($_POST['username']);
-            $password = $_POST['password'];
+            //echo " OKKKKKKKK";
+            $this->getBdd();
+            session_start();
+               echo " USER : ";
+        var_dump($_SESSION['user']);
+        var_dump($_POST['username']);
+            //$this->getBdd;
+            echo " OKKKKKKKK 1";
+            //$idUsr = $_SESSION['user']->getIdUser();
+            $username = $this->secureString($_POST['username']);
+            echo " OKKKKKKKK before req";
+            //$password = $_POST['password'];
             //$password = hash("SHA512", $password); 
-            $req = $this->getBdd()->prepare("SELECT * FROM users WHERE username = '$username' AND password = '$password' ");
+            //$req = $this->getBdd()->prepare("SELECT * FROM users WHERE username = '$username' AND password = '$password' ");
+            $req = $this->getBdd()->prepare("SELECT * FROM users WHERE username = '$username'");
+            echo " OKKKKKKKK after requetE";
             $req->execute();
             $data = $req->fetch(PDO::FETCH_ASSOC);
             if ($data['isVerif'] == '0' && isset($data['username']))
+            {
+                echo "YESSSSSSSSSSSSSSSSS      ";
                 return "USERNAME";
+            }
             if (empty($data['username']))
             {
                 echo "PAS OKKKKKKKK";
@@ -94,7 +109,7 @@ class UserManager extends Model
             && isset($_POST['newpassword']) && !empty($_POST['newpassword'])
             && isset($_POST['newpassword2']) && !empty($_POST['newpassword2'])){
 
-            $this->getBdd;
+            $this->getBdd();
 
             $username = secureString($_POST['username']);
             $password = $_POST['password'];
