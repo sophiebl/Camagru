@@ -48,7 +48,7 @@ class ControllerModification
             //var_dump($user);
             $this->_view = new View('Modification');
             //$this->_view->generate(array('Modification' => $user2));
-            $this->_view->generate(array('Modification' => NULL, 'user' => $user));
+            $this->_view->generate(array('Modification' => NULL, 'user' => $user, 'msg' => $msg));
         }
         else 
         {
@@ -64,6 +64,7 @@ class ControllerModification
         $res = $this->_userManager->modif();
         $user = $this->_userManager->getUser($_SESSION['id']);
         $this->_view = new View('Modification');
-        $this->_view->generate(array('Modification' => NULL, 'user' => $user));
+        $this->_view->generate(array('Modification' => NULL, 'user' => $user, 'msg' => $msg));
+        //$this->_view->generate(array('Modification' => NULL, 'user' => $user));
     }
 }
