@@ -12,6 +12,8 @@ class ControllerModification
             throw new Exception('Page introuvable');
         else if ($_GET['submit'] === 'OK')    
             $this->userModif();
+        else if ($_GET['submit'] === 'MDP')    
+            $this->userModif();
         else
             $this->userIsLogged();
     }
@@ -20,27 +22,33 @@ class ControllerModification
     {
         session_start();
         echo "user :  ";
-        var_dump($_SESSION['user']);
+        var_dump($_SESSION['id']);
         echo "user log";
 //            die();
-        if ($_SESSION['user'])
+        if ($_SESSION['id'])
         {
                 echo "Tu DOiS aFFICHER PAGE MODIFIcat";
             $this->_userManager = new UserManager();
-            var_dump($this->_userManager);
+            $user = $this->_userManager->getUser($_SESSION['id']);
+            echo "<pre>";
+            print_r($_SESSION['id']);
+            echo "</pre>";
+
                 echo "hello pfou";
-            $user = $this->_userManager->getUsers();
-            //$idUsr = $user->getIdUser();
+            //$user = $this->_userManager->getUsers();
+            //$idUsr = $user->getId();
+            //$idUsr = $user->getId();
             //$user = $this->_userManager->getUsers();
                 echo "    hello again    ";
+                var_dump($user->getId());
             //$this->_view->generate(array('users' => NULL));
-            //$user2 = $_SESSION['user'];
+            //$user2 = $_SESSION['id'];
 
-           echo "\n USER = \n";
-            var_dump($user);
+           //echo "\n USER = \n";
+            //var_dump($user);
             $this->_view = new View('Modification');
             //$this->_view->generate(array('Modification' => $user2));
-            $this->_view->generate(array('Modification' => NULL));
+            $this->_view->generate(array('Modification' => NULL, 'user' => $user));
         }
         else 
         {
@@ -54,8 +62,8 @@ class ControllerModification
     {
         $this->_userManager = new UserManager();
         $res = $this->_userManager->modif();
-        $user = $this->_userManager->getUsers();
+        $user = $this->_userManager->getUser($_SESSION['id']);
         $this->_view = new View('Modification');
-        $this->_view->generate(array('modification' => NULL));
+        $this->_view->generate(array('Modification' => NULL, 'user' => $user));
     }
 }

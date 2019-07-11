@@ -11,7 +11,7 @@ class ControllerLogin
         echo "GET :  ";
         var_dump($_GET);
         echo "user dans construct :  ";
-        var_dump($_SESSION['user']);
+        var_dump($_SESSION['id']);
         //die();
         if (isset($url) && count($url) > 1)
             throw new Exception('Page introuvable');
@@ -29,10 +29,10 @@ class ControllerLogin
     {
         session_start();
         echo "user :  ";
-        var_dump($_SESSION['user']);
+        var_dump($_SESSION['id']);
         echo "user log";
     //die();
-        if ($_SESSION['user'])
+        if ($_SESSION['id'])
         {
             echo "LE USER EXISTE";
             $this->_view = new View('Accueil');
@@ -50,9 +50,8 @@ class ControllerLogin
     {
         session_start();
         echo "try log";
-        var_dump($_SESSION['user']);
-        $_SESSION['user'] = $_POST['username'];
-        var_dump($_SESSION['user']);
+        var_dump($_SESSION['id']);
+        var_dump($_SESSION['id']);
         var_dump($_POST['username']);
         //die();
         $this->_userManager = new UserManager();
@@ -74,10 +73,10 @@ class ControllerLogin
         }
         else
         {
-            var_dump('user not log');
+            //var_dump('user not log');
             //die();
             $this->_view = new View('Accueil');
-		//	$this->_view->generate(array('user' => $user, 'msg' => "Welcom again " . $user->getUsername()));
+			$this->_view->generate(array('user' => $user, 'msg' => "Welcom again " . $user->getUsername()));
         }
     }
 }

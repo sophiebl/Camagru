@@ -17,7 +17,7 @@ class ControllerUser
     private function userProfil()
     {
         session_start();
-        if ($_SESSION['user'] == NULL)
+        if ($_SESSION['id'] == NULL)
         {
             $this->_view = new View('Accueil');
             $this->_view->generate(array('err' => "Vous devez etre connecte"));
