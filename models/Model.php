@@ -49,6 +49,21 @@ abstract class Model
         $req->closeCursor();
     }
 
+    protected function get($table, $obj, $id)
+    {
+        $var = [];
+        //Ajouter if req echoue
+        $req = $this->getBdd()->prepare("SELECT * FROM $table WHERE id = '$id'");
+
+        $req->execute();
+      
+        $var = new $obj($req->fetch(PDO::FETCH_ASSOC));
+
+        var_dump($var);
+        return $var;
+        $req->closeCursor();
+    }
+
     protected function ifUsernameExist($username)
     {
         $req = $this->getBdd()->prepare("SELECT * FROM users WHERE username = '$username'");
@@ -73,6 +88,22 @@ abstract class Model
             return FALSE;
         return TRUE;
         $req->closeCursor();
+    }
+
+    protected function sendEmailVerif($email, $username, $token)
+    {
+        $dest = $email;
+        $subject = 'Veuillez verifier votre compte';
+        $message = '
+
+            Bonjour '. $username .',
+
+            Merci de vérifier votre compte en cliquant sur le lien suivant :\n
+            '. URL .'?url=verifEmail&email='. $email .'&token='. $token .' ';
+            
+        $header = 'From:noreply@camagru.com' . "\r\n";    
+        $send = mail($dest, $subject, $message, $header); 
+        return ($send);
     }
 
     protected function secureString($string)

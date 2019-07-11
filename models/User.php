@@ -22,7 +22,7 @@
             }
         }
 
-        public function setIdUser($id)
+        public function setId($id)
         {
             $id = (int) $id;
 
@@ -35,8 +35,8 @@
             if (is_string($email))
                 $this->_email = $email;
         }
-        public function setUsername($username)
 
+        public function setUsername($username)
         {
             if (is_string($username))
                 $this->_username = $username;
@@ -48,7 +48,7 @@
                 $this->_password = $password;
         }
 
-        public function getIdUser()
+        public function getId()
         {
             return $this->_id;
         }
