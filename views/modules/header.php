@@ -1,6 +1,6 @@
 <?php
-    session_start();
-    if ($_SESSION['user'])
+    //session_start();
+    if ($_SESSION['id'])
     {
 ?>
         <h1><a href="<?= URL ?>">Camagru</a></h1>

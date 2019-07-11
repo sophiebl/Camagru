@@ -5,16 +5,17 @@ foreach($articles as $article): ?>
 <time><?= $article->getDate() ?></time>
 <?php endforeach; ?>
 
+
 <?php
     session_start();
-    var_dump($_SESSION['user']);
+    var_dump($_SESSION['id']);
 	//die();
 	?>
 <h1>PAGE D'ACCUEIL</h1>
 <a href="<?= URL ?>?url=register">REGISTER</a>
 <a href="<?= URL ?>?url=modification">MODIFICATION</a>
 <a href="<?= URL ?>?url=logout">DECONNEXION</a>
-
+<?= $msg ?>
 <!--
 <link rel="stylesheet" type="text/css" href="../public/css/video.css">
 
@@ -42,5 +43,5 @@ foreach($articles as $article): ?>
 <?php foreach($users as $user): ?>
 <h2><?= $user->getUsername() ?></h2>
 <h2><?= $user->getEmail() ?></h2>
-<h2><?= $user->getIdUser() ?></h2>
+<h2><?= $user->getId() ?></h2>
 <?php endforeach; ?>
