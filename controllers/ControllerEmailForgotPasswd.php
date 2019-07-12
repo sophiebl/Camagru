@@ -1,7 +1,7 @@
 <?php
 require_once('views/View.php');
 
-class ControllerForgotPasswd
+class ControllerEmailForgotPasswd
 {
     private $_userManager;
     private $_view;
@@ -18,25 +18,33 @@ class ControllerForgotPasswd
 
     private function forgotPasswd()
     {
-        session_start();
+        /*session_start();
         if ($_SESSION['id'])
-        {
+        {*/
             $this->_view = new View('EmailForgotPasswd');
-            $this->_view->generate(array('EmailForgotPasswd' => NULL));
-        }
+            $this->_view->generate(array('hello' => NULL));
+        /*}
         else {
             $this->_view = new View('Accueil');
             $this->_view->generate(array('Accueil' => NULL));
 
-        }
+        }*/
     }
 
     private function userReqForgot()
     {
         $this->_userManager = new UserManager();
         $res = $this->_userManager->forgotReqPasswd();
-        $this->_view = new View('Modification');
-        $this->_view->generate(array('Modification' => NULL, 'user' => $user, 'res' => $res));
+        if ($res == "MAIL")
+        {
+            $this->_view = new View('EmailForgotPasswd');
+            $this->_view->generate(array('msg' => 'Un Email vous a été envoyé'));
+        }
+        else 
+        {
+            $this->_view = new View('EmailForgotPasswd');
+            $this->_view->generate(array('err' => $res));
+        }
     }
 
 }

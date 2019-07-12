@@ -284,7 +284,34 @@ class UserManager extends Model
                     $req->execute([':token' => $token, ':email' => $email]);
                     if (!($this->sendEmailReset($email, $token)))
                         return "Une erreur est survenue lors de l'envoi du mail";
-                    return "Un mail de réinitialisation de mot de passe vous a été envoyé";
+                    return "MAIL";
+                    //return "Un mail de reinitialisation de mot de passe vous a eété envoyé";
+                }
+            }
+    }
+
+    public function resetReqPasswd()
+    {
+        if (isset($_POST) && !empty($_POST)
+            && isset($_POST['newpassword']) && !empty($_POST['newpassword'])
+            && isset($_POST['newpassword2']) && !empty($_POST['newpassword2']))
+            {
+                if (strcmp($_POST['newpassword'], $_POST['newpassword2']) != 0)
+                    return ("Les mots de passe ne correspondent pas");
+                if (strlen($_POST['newpassword']) <= 8)
+                    return ("Le nouveau mot de passe est trop court");
+                $new = hash("SHA512", $this->secureString($_POST['newpassword']));
+                $id = $_SESSION['id'];
+                $req = $this->getBdd()->prepare("SELECT * FROM users WHERE email = '$email' AND token = '$token");
+                $req->execute();
+                $data = $req->fetch(PDO::FETCH_ASSOC);
+                if ($data == NULL)
+                    return "ERR";
+                else
+                {
+                    $req = $this->getBdd()->prepare("UPDATE users SET password = :password WHERE email = :email");
+                    $req->execute([':password' => $new, ':email' => $email]);
+                    return "OK";
                 }
             }
     }

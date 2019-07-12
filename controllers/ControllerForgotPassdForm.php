@@ -11,12 +11,12 @@ class ControllerForgotPasswd
         if (isset($url) && count($url) > 1)
             throw new Exception('Page introuvable');
         else if ($_GET['submit'] === 'OK')    
-            $this->userReqForgot();
+            $this->userReqReset();
         else
-            $this->forgotPasswd();
+            $this->resetForm();
     }
 
-    private function forgotPasswd()
+    private function resetForm()
     {
         session_start();
         if ($_SESSION['id'])
@@ -31,10 +31,10 @@ class ControllerForgotPasswd
         }
     }
 
-    private function userReqForgot()
+    private function userReqReset()
     {
         $this->_userManager = new UserManager();
-        $res = $this->_userManager->forgotReqPasswd();
+        $res = $this->_userManager->resetReqPasswd();
         $this->_view = new View('Modification');
         $this->_view->generate(array('Modification' => NULL, 'user' => $user, 'res' => $res));
     }
