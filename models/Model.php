@@ -106,6 +106,22 @@ abstract class Model
         return ($send);
     }
 
+    protected function sendEmailReset($email, $token)
+    {
+        $dest = $email;
+        $subject = 'Réinitialisation de mot de passe ';
+        $message = '
+
+            Bonjour,
+
+            Merci de réinitialiser votre mot de passe en cliquant sur le lien suivant :\n
+            '. URL .'?url=ForgotPasswdForm&email='. $email .'&token='. $token .' ';
+            
+        $header = 'From:noreply@camagru.com' . "\r\n";    
+        $send = mail($dest, $subject, $message, $header); 
+        return ($send);
+    }
+
     protected function secureString($string)
     {
         // Match Emoticons

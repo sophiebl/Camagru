@@ -216,6 +216,8 @@ class UserManager extends Model
 //            var_dump($data);
             if (empty($data))
                 return ("Nous n'arrivons pas a récupérer vos informations dans la base de données");
+            else if ($data['isVerif'] == '0')
+                return "Vous devez d'abord verifié votre adresse email";
             else
             {
                 $req = $this->getBdd()->prepare("UPDATE users SET username = :username, email = :email WHERE id = :id");
@@ -258,6 +260,33 @@ class UserManager extends Model
             }
             $req->closeCursor();
         }
+    }
+
+    public function forgotReqPasswd()
+    {
+        if (isset($_POST) && !empty($_POST)
+            && isset($_POST['email']) && !empty($_POST['email']))
+            {
+                $email = $this->secureString($_POST['email']);
+                if (filter_var($email, FILTER_VALIDATE_EMAIL) == 1) 
+                    return("L'adresse mail n'est pas correcte");
+                $token = rand( 0, 10000);
+                $req = $this->getBdd()->prepare("SELECT * FROM users WHERE email = '$email'");
+                $req->execute();
+                $data = $req->fetch(PDO::FETCH_ASSOC); 
+                if (empty($data))
+                    return ("Cet email n'est rattaché a aucun utilisateur");
+                else if ($data['isVerif'] == '0')
+                    return "Vous devez d'abord verifié votre adresse email";
+                else 
+                {
+                    $req = $this->getBdd()->prepare("UPDATE users SET token = :token WHERE email = :email");
+                    $req->execute([':token' => $token, ':email' => $email]);
+                    if (!($this->sendEmailReset($email, $token)))
+                        return "Une erreur est survenue lors de l'envoi du mail";
+                    return "Un mail de réinitialisation de mot de passe vous a été envoyé";
+                }
+            }
     }
 
 }
