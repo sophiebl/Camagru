@@ -24,8 +24,8 @@ class UserManager extends Model
                 $err = [];
                 $i = 0;
                 $this->getBdd();
-                if (strlen($_POST['password']) < 8)
-                    $err[$i++] = "Veuillez entre un mot de passe de plus de 8 caractères";
+                //if (strlen($_POST['password']) < 8)
+                  //  $err[$i++] = "Veuillez entre un mot de passe de plus de 8 caractères";
                 if (strcmp($_POST['password'], $_POST['password2']) != 0)
                     $err[$i++] = "Les mots de passe ne sont pas identique";
                 $username = $this->secureString($_POST['username']);
@@ -148,22 +148,34 @@ class UserManager extends Model
     public function modif(){
         session_start();
         if (isset($_POST) && !empty($_POST)
-            && isset($_POST['email']) && !empty($_POST['email'])
-            && isset($_POST['username']) && !empty($_POST['username']))
+            && ((isset($_POST['email']) && !empty($_POST['email'])) || (isset($_POST['username']) && !empty($_POST['username']))) )
         {
 
 //            $this->getBdd();
 
             //$username = $this->secureString($_POST['username']);
-            $username = $this->secureString($_POST['username']);
+            $user = $this->getUser($_SESSION['id']);
             $id = $_SESSION['id'];
-            $err = [];
-            $i = 0;
-
+            //$err = [];
+            //$i = 0;
+            echo "email username";
+            /*
+            if (empty($_POST['username']))
+                $username = $user->getUsername();
+            else
+                $username = $this->secureString($_POST['username']);
+            if (empty($_POST['email']))
+                $email = $user->getEmail();
+            else
+                $email = $this->secureString($_POST['email']);
+                */
             $username = $this->secureString($_POST['username']);
-            //$username = $this->secureString($_POST['username']);
             $email = $this->secureString($_POST['email']);
-            if (filter_var($email, FILTER_VALIDATE_EMAIL) == 1) 
+            var_dump($username);
+            //$username = $this->secureString($_POST['username']);
+            var_dump($email);
+                echo "before req";
+/*            if (filter_var($email, FILTER_VALIDATE_EMAIL) == 1) 
                 $err[$i++] = "L'adresse mail n'est pas correcte";
             if ($this->ifUsernameExist($username) != NULL)
                 $err[$i++] = "Le nom d'utilisateur est déjà utilisé";
@@ -173,44 +185,79 @@ class UserManager extends Model
                 return $err;
             else
             {
-                echo "before req";
-                $req = $this->getBdd()->prepare("UPDATE users SET username = :username, email = :email WHERE id = :id");
-                echo "after req";
-                $req->execute([':username' => $username, ':email' => $email, ':id' => $id]);
+            $req = $this->getBdd()->prepare("SELECT * FROM users WHERE id = '$id'");
+            $req->execute();
+                $data = $req->fetch(PDO::FETCH_ASSOC); 
+                var_dump($data);
+                if (empty($data))
+                    return ("Nous n'arrivons pas a récupérer vos informations dans la base de données");
+                else
+                {
+                    $req = $this->getBdd()->prepare("UPDATE users SET username = :username, email = :email WHERE id = :id");
+                    echo "after req";
+                    $req->execute([':username' => $username, ':email' => $email, ':id' => $id]);
+                    return ("Vos infos ont bien été modifiés");
+                }
                 $req->closeCursor();
-
-                //$hash = md5(rand(0,10000));
-                
-            }
-        }
-        if (isset($_POST) && !empty($_POST)
-            && isset($_POST['password']) && !empty($_POST['password'])
-            && isset($_POST['newpassword']) && !empty($_POST['newpassword'])
-            && isset($_POST['newpassword2']) && !empty($_POST['newpassword2'])){
-
-            $password = $_POST['password'];
-            $newpassword = $_POST['newpassword'];
-            $newpassword2 = $_POST['newpassword2'];
-
-            $id = $_SESSION['id'];
-            $err = [];
-            $i = 0;
-
-            if (strlen($_POST['newpassword']) < 8)
-                $err[$i++] = "Veuillez entre un mot de passe de plus de 8 caractères";
-            if (strcmp($_POST['newpassword'], $_POST['newpassword2']) != 0)
-                $err[$i++] = "Les mots de passe ne sont pas identique";
-            //$password = hash("SHA512", $password); 
-            if (isset($err) && !empty($err))
-                return $err;
+            }*/
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) == 1) 
+                return("L'adresse mail n'est pas correcte");
+            if ($this->ifUsernameExist($username) != NULL && ($username != $user->getUsername()) )
+                return("Le nom d'utilisateur est déjà utilisé");
+            echo "BEFORE EMAIL EXIST";
+            if ($this->ifEmailExist($email) && ($email != $user->getEmail()))   
+                return("L'adresse email est déjà utilisée");
+            
+            echo "BEFORE REQ YES";
+            echo "BEFORE REQ YES";
+            $req = $this->getBdd()->prepare("SELECT * FROM users WHERE id = '$id'");
+            $req->execute();
+            $data = $req->fetch(PDO::FETCH_ASSOC); 
+//            var_dump($data);
+            if (empty($data))
+                return ("Nous n'arrivons pas a récupérer vos informations dans la base de données");
             else
             {
-                $req = $this->getBdd()->prepare("UPDATE users SET password = :newpassword WHERE id = :id");
-                $req->execute([':password' => $newpassword, ':id' => $id]);
-                $req->closeCursor();
+                $req = $this->getBdd()->prepare("UPDATE users SET username = :username, email = :email WHERE id = :id");
+ //               echo "after req";
+                $req->execute([':username' => $username, ':email' => $email, ':id' => $id]);
+                return ("Vos infos ont bien été modifiés");
             }
+            $req->closeCursor();
+        
         }
+    }
 
+    public function modifPassword()
+    {
+        session_start();
+        if (isset($_POST) && !empty($_POST)
+            && isset($_SESSION['id']) && !empty($_SESSION)
+            && isset($_POST['password']) && !empty($_POST['password'])
+            && isset($_POST['newpassword']) && !empty($_POST['newpassword'])
+            && isset($_POST['newpassword2']) && !empty($_POST['newpassword2']))
+        {
+            echo "password";
+            if (strcmp($_POST['newpassword'], $_POST['newpassword2']) != 0)
+                return ("Les mots de passe ne correspondent pas");
+            if (strlen($_POST['newpassword']) <= 8)
+                return ("Le nouveau mot de passe est trop court");
+            $old = hash("SHA512", $this->secureString($_POST['password']));
+            $new = hash("SHA512", $this->secureString($_POST['newpassword']));
+            $id = $_SESSION['id'];
+            $req = $this->getBdd()->prepare("SELECT * FROM users WHERE id = '$id'");
+            $req->execute();
+            $data = $req->fetch(PDO::FETCH_ASSOC); 
+            if (empty($data))
+                return ("Mot de passe incorrect");
+            else
+            {
+                $req = $this->getBdd()->prepare("UPDATE users SET password = :password WHERE id = :id");
+                $req->execute([':password' => $new, ':id' => $id]);
+                return ("Votre Mot de passe a bien été modifié");
+            }
+            $req->closeCursor();
+        }
     }
 
 }

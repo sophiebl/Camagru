@@ -21,7 +21,7 @@ abstract class Model
         echo "enter BDD";
         if(self::$_bdd == null)
         {
-            echo "connexion BDD";
+            echo "connexion BDD FAIL";
             self::setBdd();
         }
         return self::$_bdd;
@@ -59,7 +59,7 @@ abstract class Model
       
         $var = new $obj($req->fetch(PDO::FETCH_ASSOC));
 
-        var_dump($var);
+        //var_dump($var);
         return $var;
         $req->closeCursor();
     }

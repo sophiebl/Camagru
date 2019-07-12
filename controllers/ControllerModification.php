@@ -13,7 +13,7 @@ class ControllerModification
         else if ($_GET['submit'] === 'OK')    
             $this->userModif();
         else if ($_GET['submit'] === 'MDP')    
-            $this->userModif();
+            $this->userModifPassword();
         else
             $this->userIsLogged();
     }
@@ -21,38 +21,15 @@ class ControllerModification
     public function userIsLogged()
     {
         session_start();
-        echo "user :  ";
-        var_dump($_SESSION['id']);
-        echo "user log";
-//            die();
         if ($_SESSION['id'])
         {
-                echo "Tu DOiS aFFICHER PAGE MODIFIcat";
             $this->_userManager = new UserManager();
             $user = $this->_userManager->getUser($_SESSION['id']);
-            echo "<pre>";
-            print_r($_SESSION['id']);
-            echo "</pre>";
-
-                echo "hello pfou";
-            //$user = $this->_userManager->getUsers();
-            //$idUsr = $user->getId();
-            //$idUsr = $user->getId();
-            //$user = $this->_userManager->getUsers();
-                echo "    hello again    ";
-                var_dump($user->getId());
-            //$this->_view->generate(array('users' => NULL));
-            //$user2 = $_SESSION['id'];
-
-           //echo "\n USER = \n";
-            //var_dump($user);
             $this->_view = new View('Modification');
-            //$this->_view->generate(array('Modification' => $user2));
-            $this->_view->generate(array('Modification' => NULL, 'user' => $user, 'msg' => $msg));
+            $this->_view->generate(array('Modification' => NULL, 'user' => $user));
         }
         else 
         {
-                echo "TU DOIS PA AFFICHER PAGE MODIF";
             $this->_view = new View('Accueil');
             $this->_view->generate(array('err' => "Vous devez vous connecter"));
         }
@@ -64,7 +41,19 @@ class ControllerModification
         $res = $this->_userManager->modif();
         $user = $this->_userManager->getUser($_SESSION['id']);
         $this->_view = new View('Modification');
-        $this->_view->generate(array('Modification' => NULL, 'user' => $user, 'msg' => $msg));
-        //$this->_view->generate(array('Modification' => NULL, 'user' => $user));
+        $this->_view->generate(array('Modification' => NULL, 'user' => $user, 'res' => $res));
     }
+
+    private function userModifPassword()
+    {
+        echo "userModifPassword";
+        $this->_userManager = new UserManager();
+        $res = $this->_userManager->modifPassword();
+        $user = $this->_userManager->getUser($_SESSION['id']);
+        var_dump($res);
+        //var_dump($user);
+        $this->_view = new View('Modification');
+        $this->_view->generate(array('Modification' => NULL, 'user' => $user, 'res' => $res));
+    }
+
 }
