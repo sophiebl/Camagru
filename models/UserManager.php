@@ -23,7 +23,7 @@ class UserManager extends Model
             {
                 $err = [];
                 $i = 0;
-                $this->getBdd();
+                //$this->getBdd();
                 //if (strlen($_POST['password']) < 8)
                   //  $err[$i++] = "Veuillez entre un mot de passe de plus de 8 caractères";
                 if (strcmp($_POST['password'], $_POST['password2']) != 0)
@@ -47,7 +47,10 @@ class UserManager extends Model
                    // $token = random_int(0, 10000);
                     $token = rand( 0, 10000);
                     echo "after random_int";
-                    $req = $this->getBdd()->prepare("INSERT INTO users (username, password, email) VALUES (:username, :password, :email)");
+                    $req = $this->getBdd()->prepare("INSERT INTO users (username, password, email, token) VALUES (:username, :password, :email, :token)");
+                    $req->execute([':username' => $username, ':password' => $password, ':email' => $email, ':token' => $token]);
+                    //$req->execute();
+                    $req->closeCursor();
 
                     echo "before encvoi Email ";
                     if (!($this->sendEMailVerif($email, $username, $token)))
@@ -55,8 +58,8 @@ class UserManager extends Model
                     echo "After envoi Email !!! ";
                     $this->_view = new View('Accueil');
                     $this->_view->generate(array("msg" => "Un lien d'activation de votre compte vous a été par mail"));
-                    $req->execute([':username' => $username, ':password' => $password, ':email' => $email]);
-                    $req->closeCursor();
+                    //$req->execute([':username' => $username, ':password' => $password, ':email' => $email]);
+                    //$req->closeCursor();
 
                     //$hash = md5(rand(0,10000));
                    /* $req = $this->getBdd()->prepare("INSERT INTO users (email, username, password) VALUES ('$email', '$username', '$password')");
@@ -73,9 +76,9 @@ class UserManager extends Model
             && isset($_GET['email']) && !empty($_GET['email'])
             && isset($_GET['token']) && !empty($_GET['token']))
         {
-            $this->getBdd();
+            //$this->getBdd();
             $email = $this->secureString($_GET['email']);
-            //$token = $this->secureString($_GET['token']);
+            $token = $this->secureString($_GET['token']);
             $req = $this->getBdd()->prepare("SELECT * FROM users WHERE email = '$email' AND token = '$token'");
             $req->execute();
             echo "hello";
@@ -88,7 +91,7 @@ class UserManager extends Model
                 return 'La verification a échouée';
             else if ($data['isVerif'] == 0)
             {
-                $req = $this->getBdd()->prepare("UPDATE users SET isVerif = true WHERE email = :email");
+                $req = $this->getBdd()->prepare("UPDATE users SET isVerif = 1 WHERE email = :email");
                 $req->execute([':email' => $email]);
                 return "La verification de votre compte a été faites avec succès";
             }
@@ -274,6 +277,7 @@ class UserManager extends Model
                 $req = $this->getBdd()->prepare("SELECT * FROM users WHERE email = '$email'");
                 $req->execute();
                 $data = $req->fetch(PDO::FETCH_ASSOC); 
+                //var_dump($data);
                 if (empty($data))
                     return ("Cet email n'est rattaché a aucun utilisateur");
                 else if ($data['isVerif'] == '0')
@@ -296,13 +300,21 @@ class UserManager extends Model
             && isset($_POST['newpassword']) && !empty($_POST['newpassword'])
             && isset($_POST['newpassword2']) && !empty($_POST['newpassword2']))
             {
-                if (strcmp($_POST['newpassword'], $_POST['newpassword2']) != 0)
+                /*if (strcmp($_POST['newpassword'], $_POST['newpassword2']) != 0)
                     return ("Les mots de passe ne correspondent pas");
                 if (strlen($_POST['newpassword']) <= 8)
-                    return ("Le nouveau mot de passe est trop court");
+                    return ("Le nouveau mot de passe est trop court");*/
                 $new = hash("SHA512", $this->secureString($_POST['newpassword']));
-                $id = $_SESSION['id'];
-                $req = $this->getBdd()->prepare("SELECT * FROM users WHERE email = '$email' AND token = '$token");
+                //start_session();
+                //$id = $_SESSION['id'];
+                $email = $this->secureString($_POST['email']);
+                $token = $_POST['token'];
+                echo "chqnge passwd";
+                var_dump($new);
+                var_dump($email);
+                var_dump($token);
+                //$req = $this->getBdd()->prepare("SELECT * FROM users WHERE email = '$email' AND token = '$token");
+                $req = $this->getBdd()->prepare("SELECT * FROM users WHERE email = '$email' AND token = '$token'");
                 $req->execute();
                 $data = $req->fetch(PDO::FETCH_ASSOC);
                 if ($data == NULL)
