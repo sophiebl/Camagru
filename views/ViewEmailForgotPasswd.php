@@ -19,7 +19,7 @@ $this->_t = 'Camagru';
 	echo $err;
 }	?>
 
-<form action="<?=URl?>?url=EmailForgotPasswd&submit=OK" method="post">
+<form action="<?=URL?>?url=EmailForgotPasswd&submit=OK" method="post">
 	<input type="email" placeholder="email" name="email" required>
 	<button type="submit"></button>
 </form>

@@ -3,8 +3,8 @@ $this->_t = 'Camagru';
 ?>
 
 <?php
-    session_start();
-    var_dump($_SESSION['id']);
+    //session_start();
+    //var_dump($_SESSION['id']);
 	//die();
 	?>
 <h1>FORGOT PASSWD</h1>
@@ -19,7 +19,9 @@ $this->_t = 'Camagru';
 	echo $err;
 }	?>
 
-<form id="formPasswd" action="<?= URL ?>?url=forgotPasswdForm&submit=OK" method="post">
+<form id="formPasswd" action="<?= URL ?>?url=ForgotPasswdForm&submit=OK" method="post">
+	<input class="input" type="password" name="email" value="<?=$_GET['email']?>" style="display:none">
+	<input class="input" type="password" name="token" value="<?=$_GET['token']?>" style="display:none">
 	<label for="newpassword">Entrer votre nouveau mot de passe</label>
 	<input type="password" name="newpassword" id="newpassword" placeholder="Nouveau mot de passe">
 	<label for="newpassword2">Retaper votre nouveau mot de passe</label>
