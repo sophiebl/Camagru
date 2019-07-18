@@ -1,19 +1,29 @@
 <!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../public/css/css/bulma.min.css">
 <html>
     <head>
         <meta charset="utf-8">
         <title><?= $t ?></title>
     </head>
-    <header>
-        <?php
-            require_once('modules/header.php');
-        ?>
+    <body>
+        <header>
+            <nav id="navbar-brand" class="navbar has-shadow is-spaced">
+                <div class="container">
+                    <div class="navbar-brand">
+                        <a href="<?= URL ?>?url=accueil" class="navbar-item">Home</a>
+                        <a href="" class="navbar-item">Gallery</a>
+                        <?php require_once('modules/header.php'); ?>
+                    </div>
+                </div>
 
-    </header>
-    <?= $content ?>
-    <footer>
-        <?php
-            require_once('modules/footer.php');
-        ?>
-    </footer>
+            </nav>
+        </header>
+        <?= $content ?>
+        <footer>
+            <?php
+                require_once('modules/footer.php');
+            ?>
+        </footer>
+    <body>
 </html>

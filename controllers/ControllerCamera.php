@@ -18,11 +18,7 @@ class ControllerCamera
     
     private function savePicture()
     {
-        
-
         $img = $_POST["img"];
-
-
         print_r($img); 
         $img = str_replace('data:image/png;base64,', '', $img);
         $img = str_replace(' ', '+', $img);
@@ -30,17 +26,19 @@ class ControllerCamera
         file_put_contents("public/img/tmp.png", $dest);
     }
 
-    private function getViewCamera()
+    private function takePicture()
     {
-        $this->_cameraManager = new ArticleManager;
-        $articles = $this->_cameraManager->getCamera();
-
-        //$this->_userManager = new UserManager;
-        //$users = $this->_userManager->getUsers();
-
-        //require_once('views/viewAccueil.php');
-        $this->_view = new View('Camera');
-        $this->_view->generate(array('articles' => $articles, 'users' => $users));
+        session_start();
+        if ($_SESSION['id'] == NULL)
+        {
+            $this->_view = new View('Accueil');
+            $this->_view->generate(array('err' => "Vous devez vous connecter"));
+        }
+        else 
+        {
+            $this->_view = new View('Camera');
+            $this->_view->generate(array('Camera' => NULL));
+        }
     }
 
 }

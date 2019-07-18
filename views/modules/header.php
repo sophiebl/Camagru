@@ -1,20 +1,16 @@
 <?php
     //session_start();
-    if ($_SESSION['id'])
+    if (!isset($_SESSION['id']) && $_SESSION['id'] == NULL)
     {
 ?>
-        <h1><a href="<?= URL ?>">Camagru</a></h1>
-        <p>Bienvenue sur Camagru</p>
+        <a href="<?= URL ?>?url=login" class="navbar-item">Login</a> 
+        <a href="<?= URL ?>?url=register" class="navbar-item">Sign in</a>
 <?php        
     } else {
 ?>
-
-        <h1><a href="<?= URL ?>">Camagru</a></h1>
-        <p>LOGGUER VOUS</p>
-        <a href="<?= URL ?>?url=login">LOGIN</a>
-
+        <a href="<?= URL ?>?url=camera" class="navbar-item">Take your pic!</a>
+        <a href="<?= URL ?>?url=modification" class="navbar-item">Settings</a>
+        <a href="<?= URL ?>?url=logout" class="navbar-item">Logout</a>
 <?php
     }
 ?> 
-    
-    

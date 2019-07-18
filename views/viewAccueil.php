@@ -12,10 +12,6 @@ foreach($articles as $article): ?>
 	//die();
 	?>
 <h1>PAGE D'ACCUEIL</h1>
-<a href="<?= URL ?>?url=register">REGISTER</a>
-<a href="<?= URL ?>?url=modification">MODIFICATION</a>
-<a href="<?= URL ?>?url=logout">DECONNEXION</a>
-<a href="<?= URL ?>?url=EmailForgotPasswd">FORGOT PASSWD</a>
 <?= $msg ?>
 <!--
 <link rel="stylesheet" type="text/css" href="../public/css/video.css">
