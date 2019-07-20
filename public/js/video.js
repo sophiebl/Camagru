@@ -1,33 +1,137 @@
-video = document.querySelector('#video');
+// import file
+/*
+window.onload = () => {
 
-if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({ video: true })
-    .then(function (stream) {
-        video.srcObject = stream;
-	})
-	.catch(function (error) {
-		console.log("Something went wrong!");
-	});
+	var formRegister = document.getElementById('formRegister');
+	var input_file = document.querySelector('#import_file');
+	var	publish = document.getElementById('publi');
+	var name = document.querySelector('#file_name');
+	var name2 = document.querySelector('#file_name2');
+	var trash = document.getElementById('trash');
+	input_file.addEventListener('change', handleFiles);
+	trash.addEventListener('click', delete_files);
+
+function handleFiles(e) {
+	file = e.target.files[0];
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+	var blank = document.getElementById('blank');
+	if (canvas.toDataURL() !== blank.toDataURL())
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var img = new Image;
+    img.src = URL.createObjectURL(file);
+    img.onload = function() {
+		filter.style.display = '';
+		name.innerText = file.name;
+		name2.innerText = file.name;
+		publish.disabled = false;
+		ctx.drawImage(img, 0, 0, 600, 400);
+	}
 }
 
-function takepicture() {
-	canvas = document.querySelector('#canvas');
-	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+function prepareImg() {
+	var canvas = document.getElementById('canvas');
+	var blank = document.getElementById('blank');
+
+	if (canvas.toDataURL() !== blank.toDataURL())
+		{
+		document.getElementById('inp_img').value = canvas.toDataURL();
+		}
+	}
+	
+function delete_files(e)
+{
+	var filter = document.getElementById('filter');
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+	// var blank = document.getElementById('blank');
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	name.innerText = "Aucune image importée";
+	name2.innerText = "Aucune image";
+	publish.disabled = true;
+	filter.style.display = 'none';
+}
 }
 
-var cnvs = document.getElementById('canvas'),
-    ctx = cnvs.getContext('2d'),
-    mirror = document.getElementById('mirror');
+function addFilter(event)
+{
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+	var img = new Image;
+	img.src = event.target.src;
+	img.onload = function() {
+		ctx.drawImage(img, 0, 0, 600, 400);
+	}
+}
+*/
+// take picture
+(function() {
+    var streaming = false,
+    //Prepare elements and make settings
+    video        = document.getElementById('video'),
+    //cover        = document.querySelector('#cover'),
+    canvas       = document.getElementById('canvas'),
+    startbutton  = document.getElementById('snap'),
+    width = 200,
+    height = 400;
 
-cnvs.width = mirror.width = window.innerWidth;
-cnvs.height = mirror.height = window.innerHeight;
+    //Elements by taking a picture
+	var name = document.getElementById('file_name');
+	var name2 = document.getElementById('file_name2');
+	var blank = document.getElementById('blank');
+	var	publish = document.getElementById('publish');
+	var context = canvas.getContext('2d');
+	var constraints = { audio: false, video: { width: 1280, height: 720 } }; 
 
-function downloadPicture() {
-    let dataURL = canvas.toDataURL();
+    //Get access to the camera
+	navigator.mediaDevices.getUserMedia(constraints)
+	.then(function(mediaStream) {
+		startbutton.disabled = false;
+	    var video = document.querySelector('video');
+	    video.srcObject = mediaStream;
+	    video.onloadedmetadata = function(e) {
+	    	video.play();
+	    };
+    })
+    .catch(function(err) {
+		startbutton.disabled = true;
+    });
     
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', '?url=Montage&submit=download');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.addEventListener('readystatechange', () => {});
-    xhr.send("img=" + dataURL);
-}
+	video.addEventListener('canplay', function(ev){
+	if (!streaming) {
+		height = video.videoHeight / (video.videoWidth/width);
+		video.setAttribute('width', width);
+		video.setAttribute('height', height);
+		canvas.setAttribute('width', width);
+		canvas.setAttribute('height', height);
+		streaming = true;
+	}
+	}, false);
+
+	function takepicture() {
+		if (canvas.toDataURL() !== blank.toDataURL())
+		{
+		    context.clearRect(0, 0, canvas.width, canvas.height);
+		    name.innerText = "Aucune image importée";
+		    name2.innerText = "Aucune image";
+		}
+		var currentDate = new Date();
+		canvas.width = width;
+		canvas.height = height;
+		name2.innerText =  currentDate.getTime() + ".png";
+		publish.disabled = false;
+		filter.style.display = '';
+		context.drawImage(video, 0, 0, width, height);
+	}
+
+	startbutton.addEventListener('click', function(ev){
+		console.log('ta mere');
+		break;
+		takepicture();
+	ev.preventDefault();
+	}, false);
+
+})();
+
+
+

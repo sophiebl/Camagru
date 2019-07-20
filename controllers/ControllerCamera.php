@@ -3,14 +3,15 @@ require_once('views/View.php');
 
 class ControllerCamera
 {
-    private $_cameraManager;
+    private $_imageManager;
     private $_view;
 
     public function __construct($url)
     {
+        var_dump($url);
         if (isset($url) && count($url) > 1)
-        throw new Exception ("Page introuvable", 1);
-        else if ($_GET['submit'] == 'OK')
+            throw new Exception ("Page introuvable", 1);
+        else if ($_GET['submit'])
             $this->savePicture();
         else
             $this->takePicture();
@@ -18,12 +19,18 @@ class ControllerCamera
     
     private function savePicture()
     {
-        $img = $_POST["img"];
-        print_r($img); 
-        $img = str_replace('data:image/png;base64,', '', $img);
-        $img = str_replace(' ', '+', $img);
-        $dest = base64_decode($img);
-        file_put_contents("public/img/tmp.png", $dest);
+        session_start();
+        if ($_SESSION['id'] == NULL)
+        {
+            $this->_view = new View('Login');
+            $this->_view->generate(array('err' => "Vous devez vous connecter"));
+        }
+        else
+        {
+            $this->_imageManager = new ImageManager();
+            $this->_imageManager->sendImage();
+        }
+        
     }
 
     private function takePicture()
@@ -31,7 +38,7 @@ class ControllerCamera
         session_start();
         if ($_SESSION['id'] == NULL)
         {
-            $this->_view = new View('Accueil');
+            $this->_view = new View('Login');
             $this->_view->generate(array('err' => "Vous devez vous connecter"));
         }
         else 

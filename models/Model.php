@@ -1,7 +1,5 @@
 <?php
 
-
-
 abstract class Model
 {
 
@@ -21,7 +19,6 @@ abstract class Model
         echo "enter BDD";
         if(self::$_bdd == null)
         {
-            echo "connexion BDD FAIL";
             self::setBdd();
         }
         return self::$_bdd;
@@ -29,7 +26,7 @@ abstract class Model
 
     protected function getAll($table, $obj)
     {
-        echo '  table '.$table;
+        echo '  table is : '.$table;
         $var = [];
         $req = $this->getBdd()->prepare('SELECT * FROM '.$table);
 

@@ -1,35 +1,42 @@
-<!-- <script src="<?= URL ?>public/js/video.js"></script> -->
+<?php
+$this->_t = 'CAMERA';
+?>
+
 <link rel="stylesheet" type="text/css" href="../css/my_style.css">
 <div class="headline">
-	TAKE YOUR PIC HERE MAN
+	TAKE YOUR PIC HERE
 </div>
 
-<form id="formPicture" action="<?= URL ?>?url=viewCamera&submit=OK" onSubmit="prepareImg()" enctype="multipart/form-data">
+<form id="formPicture" method="post" action="<?= URL ?>?url=camera&submit=OK" onSubmit="prepareImg()" enctype="multipart/form-data">
 	<video id="video" autoplay="true"></video>
-	<canvas id="video_canvas"></canvas>
+<!-- 	<canvas id="video_canvas"></canvas> -->
 	<canvas id="canvas"></canvas>
 	<canvas id='blank' style='display:none'></canvas>
-	<button id="take_pic" class="button is-primary">Prendre une photo</button>
+	<input type="submit" id="snap" value="OK">
+	<!--<button id="snap">Prendre une photo</button>
 	<div class="file">
 		<input class="file-input" type="file" id="import_file" name="resume" accept="image/png">
 		<span class="file-cta">
 			<span class="file-icon">ICON</span>
 			<span class="file-label">Choisir une image</span>
 		</span>
+		<span class="file-name" id="file_name">
+			Aucune image importée
+		</span>
 	</div>
-	<input id="inp_img" name="image" type="hidden" value="">
+	<input id="inp_img" name="image" type="" value="">
+	<div class="columns">
+		<div class="column">
+			<p class="has-text-weight-semibold" id="file_name2">Aucune image</p>
+		</div>
+		<div class="column is-10">
+			<i class="fas fa-trash" id="trash"></i>
+		</div>
+	</div>
+	<input class="input" type="text-area" placeholder="Description" name="description" value="">
+	<button class="button is-primary" id="publish" disabled>Publier</button>-->
 </form>
-
-<script>
-	function prepareImg() {
-		var canvas = document.getElementById('canvas');
-		var blank = document.getElementById('blank');
-	console.log(canvas.toDataURL());
-	console.log(blank.toDataURL());
-		if (canvas.toDataURL() != blank.toDataURL())
-			document.getElementById('inp_img').value = canvas.toDataURL();
-	}
-</script>
+<script src="<?= URL ?>public/js/video.js"></script>
 <!-- <div class="montage">
 	<video id="video" autoplay="true"></video>
 	<button id="takepicturebttn" onclick="takepicture()">Take picture</button>
