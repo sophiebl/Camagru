@@ -71,7 +71,7 @@ function addFilter(event)
     video        = document.getElementById('video'),
     //cover        = document.querySelector('#cover'),
     canvas       = document.getElementById('canvas'),
-    startbutton  = document.getElementById('snap'),
+    startbutton  = document.getElementById('startbutton'),
     width = 200,
     height = 400;
 
