@@ -1,5 +1,5 @@
 // import file
-/*
+
 window.onload = () => {
 
 	var formRegister = document.getElementById('formRegister');
@@ -63,7 +63,7 @@ function addFilter(event)
 		ctx.drawImage(img, 0, 0, 600, 400);
 	}
 }
-*/
+
 // take picture
 (function() {
     var streaming = false,
@@ -71,7 +71,7 @@ function addFilter(event)
     video        = document.getElementById('video'),
     //cover        = document.querySelector('#cover'),
     canvas       = document.getElementById('canvas'),
-    startbutton  = document.getElementById('startbutton'),
+    startbutton  = document.getElementById('snap'),
     width = 200,
     height = 400;
 
@@ -86,7 +86,7 @@ function addFilter(event)
     //Get access to the camera
 	navigator.mediaDevices.getUserMedia(constraints)
 	.then(function(mediaStream) {
-		startbutton.disabled = false;
+//		startbutton.disabled = false;
 	    var video = document.querySelector('video');
 	    video.srcObject = mediaStream;
 	    video.onloadedmetadata = function(e) {
@@ -94,7 +94,8 @@ function addFilter(event)
 	    };
     })
     .catch(function(err) {
-		startbutton.disabled = true;
+		//startbutton.disabled = true;
+		console.log("Error stream: " + err);
     });
     
 	video.addEventListener('canplay', function(ev){
@@ -120,13 +121,13 @@ function addFilter(event)
 		canvas.height = height;
 		name2.innerText =  currentDate.getTime() + ".png";
 		publish.disabled = false;
-		filter.style.display = '';
+		//filter.style.display = '';
 		context.drawImage(video, 0, 0, width, height);
 	}
 
 	startbutton.addEventListener('click', function(ev){
 		console.log('ta mere');
-		break;
+		//break;
 		takepicture();
 	ev.preventDefault();
 	}, false);
