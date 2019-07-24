@@ -16,7 +16,7 @@ abstract class Model
     //R2cupere la connexion a la bdd
     protected function getBdd()
     {
-        echo "enter BDD";
+        //echo "enter BDD";
         if(self::$_bdd == null)
         {
             self::setBdd();
@@ -26,7 +26,7 @@ abstract class Model
 
     protected function getAll($table, $obj)
     {
-        echo '  table is : '.$table;
+        //echo '  table is : '.$table;
         $var = [];
         $req = $this->getBdd()->prepare('SELECT * FROM '.$table);
 

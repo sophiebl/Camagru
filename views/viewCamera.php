@@ -3,8 +3,10 @@ $this->_t = 'CAMERA';
 ?>
 
 <link rel="stylesheet" type="text/css" href="../css/my_style.css">
-<div class="headline">
+<div class="container-headline">
+	<div class="headline">
 	TAKE YOUR PIC HERE
+	</div>
 </div>
 <!--
 <div class="camera">
@@ -109,6 +111,7 @@ $this->_t = 'CAMERA';
 	<canvas id='blank'></canvas>
 	<input id="inp_img" name="image" type="hidden" value="">
 	<button id="snap">Prendre une photo</button>
+	<img onclick="addFilter(event)" src="<?=IMG?>mortarboard.png">
 	<div class="file">
 		<input class="file-input" type="file" id="import_file" name="resume" accept="image/png">
 		<span class="file-cta">

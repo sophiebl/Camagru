@@ -4,13 +4,13 @@ class UserManager extends Model
 {
     public function getUsers()
     {
-        echo '  User manager  ';
+        //echo '  User manager  ';
         return $this->getAll('users', 'User');
     }
 
     public function getUser($id)
     {
-        echo '  User   ';
+        //echo '  User   ';
         return $this->get('users', 'User', $id);
     }
 

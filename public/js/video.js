@@ -57,10 +57,10 @@ function addFilter(event)
 {
 	var canvas = document.getElementById('canvas');
 	var ctx = canvas.getContext('2d');
-	var img = new Image;
+	var img = new Image(32, 32);
 	img.src = event.target.src;
 	img.onload = function() {
-		ctx.drawImage(img, 0, 0, 600, 400);
+		ctx.drawImage(img, 75, 75, 32, 32);
 	}
 }
 
@@ -73,7 +73,7 @@ function addFilter(event)
     canvas       = document.getElementById('canvas'),
     startbutton  = document.getElementById('snap'),
     width = 200,
-    height = 400;
+    height = 200;
 
     //Elements by taking a picture
 	var name = document.getElementById('file_name');
@@ -81,7 +81,7 @@ function addFilter(event)
 	var blank = document.getElementById('blank');
 	var	publish = document.getElementById('publish');
 	var context = canvas.getContext('2d');
-	var constraints = { audio: false, video: { width: 1280, height: 720 } }; 
+	var constraints = { audio: false, video: { width: 200, height: 200 } }; 
 
     //Get access to the camera
 	navigator.mediaDevices.getUserMedia(constraints)

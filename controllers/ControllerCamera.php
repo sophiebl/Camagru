@@ -27,6 +27,8 @@ class ControllerCamera
         }
         else
         {
+            var_dump('hello');
+            die();
             $this->_imageManager = new ImageManager();
             $this->_imageManager->sendImage();
         }
