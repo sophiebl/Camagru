@@ -6,9 +6,11 @@ class Image
     private $_idImg;
     private $_nbLike;
     private $_img;
+    private $_legend;
 
     public function __construct(array $data, $nbLike)
     {
+        var_dump('Image');
         $this->hydrate($data, $nbLike);
     }
 
@@ -24,27 +26,28 @@ class Image
     }
 
     //GETTER AND SETTER
-    public function setIdUser($idUser)
+    public function setIdUser($_idUser)
     {
-        $this->_idUser = $idUser;
+        var_dump('IdUser');
+        $this->_idUser = $_idUser;
         return $this;
     }
 
-    public function setIdImg($idImg)
+    public function setIdImg($_idImg)
     {
-        $this->_idImg = $idImg;
+        $this->_idImg = $_idImg;
         return $this;
     }
 
-    public function setNbLike($nbLike)
+    public function setNbLike($_nbLike)
     {
-        $this->_nbLike = $nbLike;
+        $this->_nbLike = $_nbLike;
         return $this;
     }
 
-    public function setImg($img)
+    public function setImg($_img)
     {
-        $this->_img = $img;
+        $this->_img = $_img;
         return $this;
     }
     
@@ -62,6 +65,7 @@ class Image
 
     public function getIdUser()
     {
+        var_dump('get IdUser');
         return $this->_idUser;
     }
     
@@ -78,6 +82,18 @@ class Image
     public function getImg()
     {
         return $this->_img;
+    }
+
+    public function getLegend()
+    {
+        return $this->_legend;
+    }
+
+    public function setLegend($_legend)
+    {
+        $this->_legend = $_legend;
+
+        return $this;
     }
 
 }

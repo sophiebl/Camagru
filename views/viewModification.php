@@ -18,8 +18,10 @@ $this->_t = 'MODIFICATION DE COMPTE';
 <form id="formModif" method="post" action="<?=URL?>?url=Modification&submit=OK">
 	<label for="email">Entrer votre nouvelle adresse email</label>
 	<input type="text" name="email" id="email" value="<?= $user->getEmail() ?>">
+	<br>
 	<label for="username">Entrer votre nouveau nom d'utilisateur</label>
 	<input type="text" name="username" id="username" value="<?= $user->getUsername() ?>">
+	<br>
 	<input type="submit" value="modifier votre compte">
 
 </form>
@@ -27,10 +29,13 @@ $this->_t = 'MODIFICATION DE COMPTE';
 	<form id="formPasswd" action="<?= URL ?>?url=Modification&submit=MDP" method="post">
 		<label for="password">Entrer votre mot de passe actuel</label>
 		<input type="password" name="password" id="password" placeholder="Mot de passe actuel">
+		<br>
 		<label for="newpassword">Entrer votre nouveau mot de passe</label>
 		<input type="password" name="newpassword" id="newpassword" placeholder="Nouveau mot de passe">
+		<br>
 		<label for="newpassword2">Retaper votre nouveau mot de passe</label>
 		<input type="password" name="newpassword2" id="newpassword2" placeholder="Nouveau mot de passe">
+		<br>
 		<!--<label for="checkbox">Voulez-vous recevoir les notifications par email</label>
 		<input type="checkbox" name="checkbox" checked>-->
 		<input type="submit" value="Modifier votre mot de passe">

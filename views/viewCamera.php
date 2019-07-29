@@ -106,12 +106,23 @@ $this->_t = 'CAMERA';
 
 <form id="formPicture" method="post" action="<?= URL ?>?url=camera&submit=OK" onSubmit="prepareImg()" enctype="multipart/form-data">
 	<video id="video" autoplay="true"></video>
- 	<canvas id="video_canvas"></canvas> 
-	<canvas id="canvas"></canvas>
+	<div id="canvasContainer">
+		<canvas id="canvas"></canvas>
+		<canvas id="canvasFilter"></canvas>
+	</div>
 	<canvas id='blank'></canvas>
 	<input id="inp_img" name="image" type="hidden" value="">
-	<button id="snap">Prendre une photo</button>
+	<button id="snap" disabled>Prendre une photo</button>
 	<img onclick="addFilter(event)" src="<?=IMG?>mortarboard.png">
+	<img onclick="addFilter(event)" src="<?=IMG?>webcam.png">
+	<!--<input id="inp_img" name="image" type="" value="">
+	<p id="imgPath">Aucune image</p>
+	<i id="trash"></i>
+	<span class="file-name" id="file_name">
+			Aucune image importée
+		</span>
+	<input class="input" type="text-area" placeholder="legend" name="legend" value="">
+	<button class="button is-primary" id="publish" disabled>Publier</button>-->
 	<div class="file">
 		<input class="file-input" type="file" id="import_file" name="resume" accept="image/png">
 		<span class="file-cta">
@@ -125,15 +136,18 @@ $this->_t = 'CAMERA';
 	<input id="inp_img" name="image" type="" value="">
 	<div class="columns">
 		<div class="column">
-			<p class="has-text-weight-semibold" id="file_name2">Aucune image</p>
+			<input type="text" id="image" name="image" value="">
+			<!--<p class="has-text-weight-semibold" id="imgPath">Aucune image</p>-->
 		</div>
 		<div class="column is-10">
 			<i class="fas fa-trash" id="trash"></i>
 		</div>
 	</div>
-	<input class="input" type="text-area" placeholder="Description" name="description" value="">
+	<input class="input" type="text-area" placeholder="legend" name="legend" value="">
 	<button class="button is-primary" id="publish" disabled>Publier</button>
 </form>
+<script src="<?= URL ?>public/js/video.js"></script>
+<!--
 <script>
 
 function prepareImg() {
@@ -144,8 +158,7 @@ function prepareImg() {
 		document.getElementById('inp_img').value = canvas.toDataURL();
 	}
 </script>
-<script src="<?= URL ?>public/js/video.js"></script>
-<!--
+
  <div class="montage">
 	<video id="video" autoplay="true"></video>
 	<button id="takepicturebttn" onclick="takePicture()">Take picture</button>

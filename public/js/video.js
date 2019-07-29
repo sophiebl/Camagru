@@ -6,7 +6,8 @@ window.onload = () => {
 	var input_file = document.querySelector('#import_file');
 	var	publish = document.getElementById('publi');
 	var name = document.querySelector('#file_name');
-	var name2 = document.querySelector('#file_name2');
+	var image = document.getElementById('image');
+	//var name2 = document.querySelector('#file_name2');
 	var trash = document.getElementById('trash');
 	input_file.addEventListener('change', handleFiles);
 	trash.addEventListener('click', delete_files);
@@ -23,7 +24,7 @@ function handleFiles(e) {
     img.onload = function() {
 		filter.style.display = '';
 		name.innerText = file.name;
-		name2.innerText = file.name;
+		image.innerText = file.name;
 		publish.disabled = false;
 		ctx.drawImage(img, 0, 0, 600, 400);
 	}
@@ -35,33 +36,35 @@ function prepareImg() {
 
 	if (canvas.toDataURL() !== blank.toDataURL())
 		{
-		document.getElementById('inp_img').value = canvas.toDataURL();
+			document.getElementById('inp_img').value = canvas.toDataURL();
 		}
 	}
 	
-function delete_files(e)
-{
-	var filter = document.getElementById('filter');
-	var canvas = document.getElementById('canvas');
-	var ctx = canvas.getContext('2d');
-	// var blank = document.getElementById('blank');
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	name.innerText = "Aucune image importée";
-	name2.innerText = "Aucune image";
-	publish.disabled = true;
-	filter.style.display = 'none';
-}
+	function delete_files(e)
+	{
+		var filter = document.getElementById('filter');
+		var canvas = document.getElementById('canvas');
+		var ctx = canvas.getContext('2d');
+		// var blank = document.getElementById('blank');
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		name.innerText = "Aucune image importée";
+		document.getElementById('image').value = "Aucune image";
+		publish.disabled = true;
+		filter.style.display = 'none';
+	}
 }
 
 function addFilter(event)
 {
-	var canvas = document.getElementById('canvas');
+	var canvas = document.getElementById('canvasFilter');
 	var ctx = canvas.getContext('2d');
 	var img = new Image(32, 32);
 	img.src = event.target.src;
 	img.onload = function() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.drawImage(img, 75, 75, 32, 32);
 	}
+	document.getElementById('snap').disabled = false;
 }
 
 // take picture
@@ -77,7 +80,8 @@ function addFilter(event)
 
     //Elements by taking a picture
 	var name = document.getElementById('file_name');
-	var name2 = document.getElementById('file_name2');
+	var image = document.getElementById('image');
+	//var name2 = document.getElementById('file_name2');
 	var blank = document.getElementById('blank');
 	var	publish = document.getElementById('publish');
 	var context = canvas.getContext('2d');
@@ -114,19 +118,19 @@ function addFilter(event)
 		{
 		    context.clearRect(0, 0, canvas.width, canvas.height);
 		    name.innerText = "Aucune image importée";
-		    name2.innerText = "Aucune image";
+		    image.innerText = "Aucune image";
 		}
 		var currentDate = new Date();
 		canvas.width = width;
 		canvas.height = height;
-		name2.innerText =  currentDate.getTime() + ".png";
+		document.getElementById('image').value = currentDate.getTime() + ".png";
 		publish.disabled = false;
 		//filter.style.display = '';
 		context.drawImage(video, 0, 0, width, height);
 	}
-
+	
 	startbutton.addEventListener('click', function(ev){
-		console.log('ta mere');
+		//console.log('hello');
 		//break;
 		takepicture();
 	ev.preventDefault();

@@ -11,7 +11,7 @@ class ControllerCamera
         var_dump($url);
         if (isset($url) && count($url) > 1)
             throw new Exception ("Page introuvable", 1);
-        else if ($_GET['submit'])
+        else if ($_GET['submit'] === 'OK')
             $this->savePicture();
         else
             $this->takePicture();
@@ -27,9 +27,16 @@ class ControllerCamera
         }
         else
         {
-            var_dump('hello');
-            die();
+            //var_dump('hello');
+           // die();
             $this->_imageManager = new ImageManager();
+            var_dump('controller camera');
+            var_dump($this->_imageManager);
+            $user = $_SESSION['id'];
+            
+            var_dump('controller camera');
+
+            var_dump($user);
             $this->_imageManager->sendImage();
         }
         

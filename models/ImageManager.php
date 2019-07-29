@@ -16,8 +16,18 @@ class ImageManager extends Model
             var_dump('before bdd');
             $this->getBdd();
             var_dump('after bdd');
+            //session_start();
+            //$user = $_SESSION['id']->getIdUser();
+            $user = $_SESSION['id'];
+            var_dump($user);
             $img = $_POST['image'];
-            //var_dump($img);
+            var_dump($img);
+            $legend = $_POST['legend'];
+            var_dump($legend);
+            $req = $this->getBdd()->prepare("INSERT INTO image (path, nbLike, idUsers, legend)
+            VALUES (:img, :nbLike, :user, :legend)");
+            $req->execute([':img' => $img, ':nbLike' => 0, ':user' => $user, ':legend' => $legend]);
+            $req->closeCursor();
             //die();
         }
     }

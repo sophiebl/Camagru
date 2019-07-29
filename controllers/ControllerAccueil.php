@@ -3,7 +3,6 @@ require_once('views/View.php');
 
 class ControllerAccueil
 {
-    private $_articleManager;
     private $_userManager;
     private $_view;
 
@@ -12,20 +11,19 @@ class ControllerAccueil
         if (isset($url) && count($url) > 1)
             throw new Exception('Page introuvable');
         else
-            $this->articles();
+            $this->welcoming();
     }
     
-    private function articles()
+    private function welcoming()
     {
-        $this->_articleManager = new ArticleManager;
-        $articles = $this->_articleManager->getArticles();
-
+        session_start();
         $this->_userManager = new UserManager;
         $users = $this->_userManager->getUsers();
-
-        //require_once('views/viewAccueil.php');
         $this->_view = new View('Accueil');
-        $this->_view->generate(array('articles' => $articles, 'users' => $users));
+        if (isset($_SESSION['id']) && ($_SESSION['id'] != NULL))
+			$this->_view->generate(array('user' => $user, 'msg' => "Welcome again " . $user->getUsername()));
+        else    
+            $this->_view->generate(array("msg" => "Welcome to SnapWorld the website where you can take, share and comment some beautiful pictures. If you want to try it's on the right corner, ENJOY!"));
     }
 
 
