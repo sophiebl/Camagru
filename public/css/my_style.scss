@@ -1,0 +1,161 @@
+/*
+@font-face {
+    font-family: 'Font lab';
+    src: url("/font/Fontlab-Font/fontlab-kit/fonts/fontlab-webfont.eot");
+    src: url("/font/Fontlab-Font/fontlab-kit/fonts/fontlab-webfont.woff") format("truetype"), url("../public/font/Fontlab-Font/fontlab-kit/fonts/fontlab-webfont.ttf") format("embedded-opentype"), url("../public/font/Fontlab-Font/fontlab-kit/fonts/fontlab-webfont.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+*/
+@font-face {
+    font-family: 'terminal_grotesque';
+    src: url('../font/Terminal-Font/terminal-grotesque-webfont.eot');
+    src: url('../font/Terminal-Font/terminal-grotesque-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/Terminal-Font/terminal-grotesque-webfont.woff2') format('woff2'),
+         url('../font/Terminal-Font/terminal-grotesque-webfont.woff') format('woff'),
+         url('../font/Terminal-Font/terminal-grotesque-webfont.ttf') format('truetype'),
+         url('../font/Terminal-Font/terminal-grotesque-webfont.svg#terminal_grotesqueregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'terminal_grotesque';
+    background-image: url(feature.png);
+    background-repeat: repeat;
+    font-size: 10px;
+}
+
+nav#menu {
+    height: 5vh;
+    padding: 15px 25px;
+    text-align: center;
+}
+
+nav#menu > a {
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px 10px;
+    margin: 0 5px;
+    font-size: 1.5em;
+    background-color: #fff;
+}
+
+nav#menu > a {
+    text-decoration : none;
+    color: #000;
+}
+
+.container-headline {
+    background-color: #ffff00;
+    padding: 15px 0;
+}
+
+.headline{
+    font-family: 'terminal_grotesque';
+    font-size: 2.5em;
+    width: 380px;
+    /* @keyframes duration | timing-function | delay | 
+   iteration-count | direction | fill-mode | play-state | name */
+    animation: slidein 8s linear 1s infinite running;
+}
+@keyframes slidein {
+    from { margin-left: 0; }
+    to   { margin-left: 100%;}
+  }
+
+form {
+    width: 70%;
+    padding: 25px;
+    margin: 20px auto;
+    background-color: #fff;
+}
+
+form label {
+    margin-right: 20px;
+}
+
+form label#labelmdp{
+    margin-right: 24px;
+}
+
+
+form > input[type="submit"] {
+    float: right;
+    -webkit-appearance: none;
+    border: solid 1px #000;
+    border-radius: 1px;
+}
+
+form > input[type="text"], form #username,
+form > input[type="password"], form #mdp{
+    border: solid 1px #000;
+    border-radius: 1px;
+}
+
+form#formPicture {
+    text-align: center;
+}
+
+#forgot{
+    width: 70%;
+    height: 30px;
+    text-align: right;
+    padding: 0 25px;
+    margin: 20px auto;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+$n: 12;
+$c: #0099ff red;
+$d: 20em;
+$t: 4s; 
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-image: url(../../img/webcamH.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-x: center;
+
+  svg {
+    width: $d; height: $d;
+  }
+}
+
+@for $i from 0 to $n {
+  .circle-#{$i} {
+    stroke: mix( nth($c, 2), nth($c, 1), $i*100%/($n - 1) );
+    stroke-dasharray: 283 - ($i*25),300;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: circleInMotion-#{$i} $t random(10) + s linear infinite alternate;
+  }
+  
+  @keyframes circleInMotion-#{$i} {
+    0%, 40% {
+      stroke-dasharray: 283 - ($i*25), 300;
+      stroke-dashoffset: 0;
+      stroke-linecap: round;
+    }
+    60%, 100% {
+      stroke-dasharray: 0, 300;
+      stroke-dashoffset: -140 + ($i*20);
+      stroke-linecap: butt;
+    }
+  }
+}

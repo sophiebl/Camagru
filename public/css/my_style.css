@@ -8,111 +8,367 @@
 }
 */
 @font-face {
-    font-family: 'terminal_grotesque';
-    src: url('../font/Terminal-Font/terminal-grotesque-webfont.eot');
-    src: url('../font/Terminal-Font/terminal-grotesque-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../font/Terminal-Font/terminal-grotesque-webfont.woff2') format('woff2'),
-         url('../font/Terminal-Font/terminal-grotesque-webfont.woff') format('woff'),
-         url('../font/Terminal-Font/terminal-grotesque-webfont.ttf') format('truetype'),
-         url('../font/Terminal-Font/terminal-grotesque-webfont.svg#terminal_grotesqueregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "terminal_grotesque";
+  src: url("../font/Terminal-Font/terminal-grotesque-webfont.eot");
+  src: url("../font/Terminal-Font/terminal-grotesque-webfont.eot?#iefix") format("embedded-opentype"), url("../font/Terminal-Font/terminal-grotesque-webfont.woff2") format("woff2"), url("../font/Terminal-Font/terminal-grotesque-webfont.woff") format("woff"), url("../font/Terminal-Font/terminal-grotesque-webfont.ttf") format("truetype"), url("../font/Terminal-Font/terminal-grotesque-webfont.svg#terminal_grotesqueregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
 }
-
 body {
-    font-family: 'terminal_grotesque';
-    background-image: url(feature.png);
-    background-repeat: repeat;
-    font-size: 10px;
+  font-family: "terminal_grotesque";
+  background-image: url(feature.png);
+  background-repeat: repeat;
+  font-size: 10px;
 }
 
 nav#menu {
-    height: 5vh;
-    padding: 15px 25px;
-    text-align: center;
+  height: 5vh;
+  padding: 15px 25px;
+  text-align: center;
 }
 
 nav#menu > a {
-    display: inline-block;
-    vertical-align: top;
-    padding: 5px 10px;
-    margin: 0 5px;
-    font-size: 1.5em;
-    background-color: #fff;
+  display: inline-block;
+  vertical-align: top;
+  padding: 5px 10px;
+  margin: 0 5px;
+  font-size: 1.5em;
+  background-color: #fff;
 }
 
 nav#menu > a {
-    text-decoration : none;
-    color: #000;
+  text-decoration: none;
+  color: #000;
 }
 
 .container-headline {
-    background-color: #ffff00;
-    padding: 15px 0;
+  background-color: #ffff00;
+  padding: 15px 0;
 }
 
-.headline{
-    font-family: 'terminal_grotesque';
-    font-size: 2.5em;
-    width: 380px;
-    /* @keyframes duration | timing-function | delay | 
-   iteration-count | direction | fill-mode | play-state | name */
-    animation: slidein 8s linear 1s infinite running;
+.headline {
+  font-family: "terminal_grotesque";
+  font-size: 2.5em;
+  width: 380px;
+  /* @keyframes duration | timing-function | delay | 
+  iteration-count | direction | fill-mode | play-state | name */
+  animation: slidein 8s linear 1s infinite running;
 }
+
 @keyframes slidein {
-    from { margin-left: 0; }
-    to   { margin-left: 100%;}
+  from {
+    margin-left: 0;
   }
-
+  to {
+    margin-left: 100%;
+  }
+}
 form {
-    width: 70%;
-    padding: 25px;
-    margin: 20px auto;
-    background-color: #fff;
+  width: 70%;
+  padding: 25px;
+  margin: 20px auto;
+  background-color: #fff;
 }
 
 form label {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
-form label#labelmdp{
-    margin-right: 24px;
+form label#labelmdp {
+  margin-right: 24px;
 }
 
-
-form > input[type="submit"] {
-    float: right;
-    -webkit-appearance: none;
-    border: solid 1px #000;
-    border-radius: 1px;
+form > input[type=submit] {
+  float: right;
+  -webkit-appearance: none;
+  border: solid 1px #000;
+  border-radius: 1px;
 }
 
-form > input[type="text"], form #username,
-form > input[type="password"], form #mdp{
-    border: solid 1px #000;
-    border-radius: 1px;
+form > input[type=text], form #username,
+form > input[type=password], form #mdp {
+  border: solid 1px #000;
+  border-radius: 1px;
 }
 
 form#formPicture {
-    text-align: center;
+  text-align: center;
 }
 
-#forgot{
-    width: 70%;
-    height: 30px;
-    text-align: right;
-    padding: 0 25px;
-    margin: 20px auto;
+#forgot {
+  width: 70%;
+  height: 30px;
+  text-align: right;
+  padding: 0 25px;
+  margin: 20px auto;
 }
 
-footer{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px 0;
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-    font-size: 1.2em;
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 0;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  font-size: 1.2em;
 }
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-image: url(../../img/webcamH.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-x: center;
+}
+main svg {
+  width: 20em;
+  height: 20em;
+}
+
+.circle-0 {
+  stroke: #0099ff;
+  stroke-dasharray: 283, 300;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: circleInMotion-0 4s 10s linear infinite alternate;
+}
+
+@keyframes circleInMotion-0 {
+  0%, 40% {
+    stroke-dasharray: 283, 300;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+  }
+  60%, 100% {
+    stroke-dasharray: 0, 300;
+    stroke-dashoffset: -140;
+    stroke-linecap: butt;
+  }
+}
+.circle-1 {
+  stroke: #178be8;
+  stroke-dasharray: 258, 300;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: circleInMotion-1 4s 1s linear infinite alternate;
+}
+
+@keyframes circleInMotion-1 {
+  0%, 40% {
+    stroke-dasharray: 258, 300;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+  }
+  60%, 100% {
+    stroke-dasharray: 0, 300;
+    stroke-dashoffset: -120;
+    stroke-linecap: butt;
+  }
+}
+.circle-2 {
+  stroke: #2e7dd1;
+  stroke-dasharray: 233, 300;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: circleInMotion-2 4s 3s linear infinite alternate;
+}
+
+@keyframes circleInMotion-2 {
+  0%, 40% {
+    stroke-dasharray: 233, 300;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+  }
+  60%, 100% {
+    stroke-dasharray: 0, 300;
+    stroke-dashoffset: -100;
+    stroke-linecap: butt;
+  }
+}
+.circle-3 {
+  stroke: #466fb9;
+  stroke-dasharray: 208, 300;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: circleInMotion-3 4s 4s linear infinite alternate;
+}
+
+@keyframes circleInMotion-3 {
+  0%, 40% {
+    stroke-dasharray: 208, 300;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+  }
+  60%, 100% {
+    stroke-dasharray: 0, 300;
+    stroke-dashoffset: -80;
+    stroke-linecap: butt;
+  }
+}
+.circle-4 {
+  stroke: #5d61a2;
+  stroke-dasharray: 183, 300;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: circleInMotion-4 4s 7s linear infinite alternate;
+}
+
+@keyframes circleInMotion-4 {
+  0%, 40% {
+    stroke-dasharray: 183, 300;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+  }
+  60%, 100% {
+    stroke-dasharray: 0, 300;
+    stroke-dashoffset: -60;
+    stroke-linecap: butt;
+  }
+}
+.circle-5 {
+  stroke: #74538b;
+  stroke-dasharray: 158, 300;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: circleInMotion-5 4s 6s linear infinite alternate;
+}
+
+@keyframes circleInMotion-5 {
+  0%, 40% {
+    stroke-dasharray: 158, 300;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+  }
+  60%, 100% {
+    stroke-dasharray: 0, 300;
+    stroke-dashoffset: -40;
+    stroke-linecap: butt;
+  }
+}
+.circle-6 {
+  stroke: #8b4674;
+  stroke-dasharray: 133, 300;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: circleInMotion-6 4s 8s linear infinite alternate;
+}
+
+@keyframes circleInMotion-6 {
+  0%, 40% {
+    stroke-dasharray: 133, 300;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+  }
+  60%, 100% {
+    stroke-dasharray: 0, 300;
+    stroke-dashoffset: -20;
+    stroke-linecap: butt;
+  }
+}
+.circle-7 {
+  stroke: #a2385d;
+  stroke-dasharray: 108, 300;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: circleInMotion-7 4s 10s linear infinite alternate;
+}
+
+@keyframes circleInMotion-7 {
+  0%, 40% {
+    stroke-dasharray: 108, 300;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+  }
+  60%, 100% {
+    stroke-dasharray: 0, 300;
+    stroke-dashoffset: 0;
+    stroke-linecap: butt;
+  }
+}
+.circle-8 {
+  stroke: #b92a46;
+  stroke-dasharray: 83, 300;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: circleInMotion-8 4s 10s linear infinite alternate;
+}
+
+@keyframes circleInMotion-8 {
+  0%, 40% {
+    stroke-dasharray: 83, 300;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+  }
+  60%, 100% {
+    stroke-dasharray: 0, 300;
+    stroke-dashoffset: 20;
+    stroke-linecap: butt;
+  }
+}
+.circle-9 {
+  stroke: #d11c2e;
+  stroke-dasharray: 58, 300;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: circleInMotion-9 4s 4s linear infinite alternate;
+}
+
+@keyframes circleInMotion-9 {
+  0%, 40% {
+    stroke-dasharray: 58, 300;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+  }
+  60%, 100% {
+    stroke-dasharray: 0, 300;
+    stroke-dashoffset: 40;
+    stroke-linecap: butt;
+  }
+}
+.circle-10 {
+  stroke: #e80e17;
+  stroke-dasharray: 33, 300;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: circleInMotion-10 4s 7s linear infinite alternate;
+}
+
+@keyframes circleInMotion-10 {
+  0%, 40% {
+    stroke-dasharray: 33, 300;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+  }
+  60%, 100% {
+    stroke-dasharray: 0, 300;
+    stroke-dashoffset: 60;
+    stroke-linecap: butt;
+  }
+}
+.circle-11 {
+  stroke: red;
+  stroke-dasharray: 8, 300;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: circleInMotion-11 4s 7s linear infinite alternate;
+}
+
+@keyframes circleInMotion-11 {
+  0%, 40% {
+    stroke-dasharray: 8, 300;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+  }
+  60%, 100% {
+    stroke-dasharray: 0, 300;
+    stroke-dashoffset: 80;
+    stroke-linecap: butt;
+  }
+}
+
+/*# sourceMappingURL=my_style.css.map */
