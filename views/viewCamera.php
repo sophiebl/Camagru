@@ -9,110 +9,91 @@ $this->_t = 'CAMERA';
 	</div>
 </div>
 <!--
-<div class="camera">
-	<video id="video"></video>
-	<button id="startbutton">Prendre une photo</button>
+<div class="filters">
+	<img onclick="addFilter(event)" src="<?=IMG?>mortarboard.png">
+	<img onclick="addFilter(event)" src="<?=IMG?>webcam.png">
 </div>
-<canvas id="canvas"></canvas>
-	<canvas id='blank' style='display:none'></canvas>
-<div class="output">
-	<img id="photo" alt="The screen capture will appear here">
+<video id="video" autoplay="true"></video>
+<div id="canvas-container">
+	<canvas id="canvas"></canvas>
+	<canvas id="canvasFilter"></canvas>
 </div>
-
-<script>
-	(function () {
-		var width = 320;
-		var height = 0;
-
-		var streaming = false;
-
-		var video = null;
-		var canvas = null;
-		var photo = null;
-		var startbutton = null;
-
-		//Startup function's job is to request access to the user's webcame
-		function startup() {
-			video = document.getElementById('video');
-			canvas = document.getElementById('canvas');
-			photo = document.getElementById('photo');
-			startbutton = document.getElementById('startbutton');
-
-
-
-			navigator.mediaDevices.getUserMedia({video: true, audio: false})
-			.then(function(stream){
-				video.srcObject = stream;
-				video.play();
-			})
-			.catch(function(err){
-				console.log("Error stream: " + err);
-			});
-
-			video.addEventListener('canplay', function(ev) {
-				if (!streaming) {
-					height = video.videoHeight / (video.videoWidth/width);
-
-					if (isNaN(height)) {
-        				height = width / (4/3);
-        			}
-
-					video.setAttribute('width', width);
-					video.setAttribute('height', height);
-					canvas.setAttribute('width', width);
-					canvas.setAttribute('height', height);
-					streaming = true;
-				}				
-			}, false);
-
-			startbutton.addEventListener('click', function(ev) {
-				takePicture();
-				ev.preventDefault();
-			}, false);
-
-			clearPhoto();
-		}
-
-		function clearPhoto() {
-			var context = canvas.getContext('2d');
-			context.fillStyle = "#AAA";
-			context.fillRect(0, 0, canvas.width, canvas.height);
-
-			var data = canvas.toDataURL('image/png');
-			photo.setAttribute('src', data);
-		}
-
-		function takePicture() {
-			var context = canvas.getContext('2d');			
-			if (width && height) {
-				canvas.width = width;
-				canvas.height = height;
-				context.drawImage(video, 0, 0, width, height);
-
-				var data = canvas.toDataURL('image/png');				
-				photo.setAttribute('src', data);
-			} else {
-				clearPhoto();
-			}
-		}
-
-		window.addEventListener('load', startup, false);
-	})
-
-
-</script>
-
+<div class="btn-container">
+	<div class="btn-child">
+		<button id="snap" onclick="snapPic()">SNAP</button>
+	</div>
+	<div class="btn-child">
+		<button id="clear" onclick="clearFilter()">Clear</button>
+	</div>
+	<div class="btn-child">
+		<p id="upload">Upload</p>
+		<input type="file" id="file-input" style="display: none;" accept=".png">
+	</div>
+	<div class="btn-child">
+		<button id="save" onclick="savePic()">Save</button>
+	</div>
+	<div class="btn-child">
+		<button id="retry" onclick="retrySnap()">Retry</button>
+	</div>
+</div>
+<script src="<?= URL ?>public/js/video.js"></script>
 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <form id="formPicture" method="post" action="<?= URL ?>?url=camera&submit=OK" onSubmit="prepareImg()" enctype="multipart/form-data">
 	<video id="video" autoplay="true"></video>
-	<div id="canvasContainer">
+	<div id="canvas-container">
 		<canvas id="canvas"></canvas>
 		<canvas id="canvasFilter"></canvas>
 	</div>
 	<canvas id='blank'></canvas>
 	<input id="inp_img" name="image" type="hidden" value="">
-	<button id="snap" disabled>Prendre une photo</button>
+	<button id="snap" onclick="takepicture()" disabled>Prendre une photo</button>
 	<img onclick="addFilter(event)" src="<?=IMG?>mortarboard.png">
 	<img onclick="addFilter(event)" src="<?=IMG?>webcam.png">
 	<!--<input id="inp_img" name="image" type="" value="">
@@ -147,7 +128,7 @@ $this->_t = 'CAMERA';
 	<button class="button is-primary" id="publish" disabled>Publier</button>
 </form>
 <script src="<?= URL ?>public/js/video.js"></script>
-<!--
+
 <script>
 
 function prepareImg() {
@@ -158,7 +139,7 @@ function prepareImg() {
 		document.getElementById('inp_img').value = canvas.toDataURL();
 	}
 </script>
-
+<!--
  <div class="montage">
 	<video id="video" autoplay="true"></video>
 	<button id="takepicturebttn" onclick="takePicture()">Take picture</button>

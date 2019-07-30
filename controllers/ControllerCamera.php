@@ -38,6 +38,7 @@ class ControllerCamera
 
             var_dump($user);
             $this->_imageManager->sendImage();
+            $this->_imageManager->saveImage();
         }
         
     }

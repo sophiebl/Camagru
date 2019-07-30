@@ -22,13 +22,13 @@ class ControllerAccueil
             $this->_userManager = new UserManager;
             $user = $this->_userManager->getUser($_SESSION['id']);
             $this->_view = new View('Accueil');
-			$this->_view->generate(array('user' => $user, 'msg' => "Welcome again " . $user->getUsername()));
+			$this->_view->generate(array('user' => $user, 'msg' => "Welcome again <span style='background-color: #2e7dd1;color: #ffff00;padding: 0 5px;'>" . $user->getUsername() ."</span>"));
             //$this->_view->generate(array('user' => $user, 'msg' => "Welcome again " . $user->getUsername()));
         }
         else    
         {
             $this->_view = new View('Accueil');
-            $this->_view->generate(array("msg" => "Welcome to SnapWorld the website where you can take, share and comment some beautiful pictures. If you want to try it's on the right corner, ENJOY!"));
+            $this->_view->generate(array("msg" => "Welcome to <span style='background-color: #2e7dd1;color: #ffff00;padding: 0 5px;'>SnapWorld</span> the website where you can take, share and comment some <span style='background-color: #2e7dd1;color: #ffff00;padding: 0 5px;'>beautiful pictures</span>. If you want to try it's on the right corner, ENJOY!"));
         }
     }
 }

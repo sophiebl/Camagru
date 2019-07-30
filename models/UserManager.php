@@ -102,41 +102,35 @@ class UserManager extends Model
     }
 
     public function login(){
-                var_dump("hello on est dans login()");
+                //var_dump("hello on est dans login()");
         if (isset($_POST) && !empty($_POST)
             && isset($_POST['username']) && !empty($_POST['username'])
             /*&& isset($_POST['password']) && !empty($_POST['password'])*/){
-                var_dump("hello on est dans login()");
+                //var_dump("hello on est dans login()");
             //    die();
             //echo " OKKKKKKKK";
            // $this->getBdd();
             session_start();
-               echo " USER : ";
+              /* echo " USER : ";
         var_dump($_SESSION['id']);
         var_dump($_POST['username']);
             //$this->getBdd;
-            echo " OKKKKKKKK 1";
+            echo " OKKKKKKKK 1";*/
             //$idUsr = $_SESSION['id']->getIdUser();
             $username = $this->secureString($_POST['username']);
-            echo " OKKKKKKKK before req";
+            //echo " OKKKKKKKK before req";
             $password = $_POST['password'];
             $password = hash("SHA512", $password); 
             //$req = $this->getBdd()->prepare("SELECT * FROM users WHERE username = '$username' AND password = '$password' ");
             $req = $this->getBdd()->prepare("SELECT * FROM users WHERE username = '$username'");
-            echo " OKKKKKKKK after requetE";
+            //echo " OKKKKKKKK after requetE";
             $req->execute();
             $data = $req->fetch(PDO::FETCH_ASSOC);
             $_SESSION['id'] = $data['id'];
             if ($data['isVerif'] == '0' && isset($data['username']))
-            {
-                echo "YESSSSSSSSSSSSSSSSS      ";
                 return "USERNAME";
-            }
             if (empty($data['username']))
-            {
-                echo "PAS OKKKKKKKK";
                 return "EMPTY";
-            }
             $newUser = new User($data);    
             return $newUser;
             $req->closeCursor();
@@ -162,7 +156,7 @@ class UserManager extends Model
             $id = $_SESSION['id'];
             //$err = [];
             //$i = 0;
-            echo "email username";
+           // echo "email username";
             /*
             if (empty($_POST['username']))
                 $username = $user->getUsername();
@@ -175,7 +169,7 @@ class UserManager extends Model
                 */
             $username = $this->secureString($_POST['username']);
             $email = $this->secureString($_POST['email']);
-            var_dump($username);
+            //var_dump($username);
             //$username = $this->secureString($_POST['username']);
             var_dump($email);
                 echo "before req";

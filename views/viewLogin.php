@@ -2,7 +2,7 @@
 $this->_t = 'LOGIN';
 ?>
 
-<?= $msg ?>
+<?= $err ?>
 
 <form method="post" action="<?=URL?>?url=login&submit=OK">
 	<div>

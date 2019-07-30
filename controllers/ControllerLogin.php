@@ -8,39 +8,33 @@ class ControllerLogin
 
     public function __construct($url)
     {
-        echo "GET :  ";
+        /*echo "GET :  ";
         var_dump($_GET);
         echo "user dans construct :  ";
-        var_dump($_SESSION['id']);
-        //die();
+        var_dump($_SESSION['id']);*/
         if (isset($url) && count($url) > 1)
             throw new Exception('Page introuvable');
         else if ($_GET['submit'] === 'OK')    
-        {
-            echo "TRY LOGIN";
-            //die();
             $this->userTryLogin();
-        }
         else
             $this->userLogin();
     }
     
     private function userLogin()
     {
-        session_start();
+/*        session_start();
         echo "user :  ";
         var_dump($_SESSION['id']);
-        echo "user log";
-    //die();
+        echo "user log";*/
         if ($_SESSION['id'])
         {
-            echo "LE USER EXISTE";
+           // echo "LE USER EXISTE";
             $this->_view = new View('Accueil');
             $this->_view->generate(array('users' => $user));
         }
         else
         {
-            echo "LE USER N'EXISTE PAS";
+         //   echo "LE USER N'EXISTE PAS";
             $this->_view = new View('Login');
             $this->_view->generate(array('login' => NULL));
         }
@@ -48,17 +42,14 @@ class ControllerLogin
 
     public function userTryLogin()
     {
-        session_start();
-        echo "try log";
+    //    session_start();
+/*        echo "try log";
         var_dump($_SESSION['id']);
         var_dump($_SESSION['id']);
-        var_dump($_POST['username']);
+        var_dump($_POST['username']);*/
         //die();
         $this->_userManager = new UserManager();
-        var_dump($this->_userManager);
         $user = $this->_userManager->login();
-        echo "SUCESS";
-
         if ($user == "USERNAME")
         {
             $this->_view = new View('Accueil');
@@ -76,7 +67,7 @@ class ControllerLogin
             //var_dump('user not log');
             //die();
             $this->_view = new View('Accueil');
-			$this->_view->generate(array('user' => $user, 'msg' => "Welcom again " . $user->getUsername()));
+			$this->_view->generate(array('user' => $user, 'msg' => "Welcome again <span style='background-color: #2e7dd1;color: #ffff00;padding: 0 5px;'>" . $user->getUsername() ."</span>"));
         }
     }
 }

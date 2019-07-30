@@ -34,10 +34,32 @@ class ImageManager extends Model
 
     public function saveImage()
     {
-        if (isset($_GET) && !empty($_GET) && isset($_SESSION['id']) && !empty($_SESSION))
+        //if (isset($_GET) && !empty($_GET) && isset($_SESSION['id']) && !empty($_SESSION))
+        if (isset($_POST))        
         {
             $this->getBdd();
             $img = $_POST['image'];
+            $img_64 = base64_encode($img);
+            $folderPath = "tmp/";
+        
+        //    $image_parts = explode(";base64,", $img);
+           // $image_type_aux = explode("image/", $image_parts[0]);
+            var_dump("image_parts");
+            var_dump($img_64);
+            /*var_dump("image_type_aux");
+            var_dump($image_type_aux);
+            $image_type = $image_type_aux[1];
+        
+            $image_base64 = base64_decode($image_parts[1]);
+            $fileName = uniqid() . '.png';
+        
+            $file = $folderPath . $fileName;
+            file_put_contents($file, $image_base64);*/
+        
+            //print_r($fileName);
+
+
+    
             
         }
 
@@ -45,24 +67,6 @@ class ImageManager extends Model
     }
 
 
-/*
-    
-    $img = $_POST['image'];
-    $folderPath = "upload/";
-  
-    $image_parts = explode(";base64,", $img);
-    $image_type_aux = explode("image/", $image_parts[0]);
-    $image_type = $image_type_aux[1];
-  
-    $image_base64 = base64_decode($image_parts[1]);
-    $fileName = uniqid() . '.png';
-  
-    $file = $folderPath . $fileName;
-    file_put_contents($file, $image_base64);
-  
-    print_r($fileName);
-    ?>
-  */
 
 }
 
