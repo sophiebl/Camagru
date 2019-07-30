@@ -1,11 +1,8 @@
 <?php
-$this->_t = 'Camagru';
-    session_start();
-    var_dump($_SESSION['id']);
-	//die();
-	?>
-<h1>PAGE D'ACCUEIL</h1>
-<?= $msg ?>
+  $this->_t = 'SnapWorld home page: the website where you can take, share and comment some beautiful pictures.';
+?>
+
+<h1><?= $msg ?></h1>
 
 <main rel="main">
   <svg viewBox="0 -2 100 100">
