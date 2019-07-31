@@ -8,19 +8,15 @@ $this->_t = 'CAMERA';
 	TAKE YOUR PIC HERE
 	</div>
 </div>
-<!--
+<form id="formPicture" style="margin-bottom:100px;" method="post" action="<?= URL ?>?url=camera&submit=OK" onSubmit="prepareImg()" enctype="multipart/form-data">
 <div class="filters">
 	<img onclick="addFilter(event)" src="<?=IMG?>mortarboard.png">
 	<img onclick="addFilter(event)" src="<?=IMG?>webcam.png">
 </div>
 <video id="video" autoplay="true"></video>
-<div id="canvas-container">
-	<canvas id="canvas"></canvas>
-	<canvas id="canvasFilter"></canvas>
-</div>
 <div class="btn-container">
 	<div class="btn-child">
-		<button id="snap" onclick="snapPic()">SNAP</button>
+		<button id="snap" onclick="takepicture()" disabled>SNAP</button>
 	</div>
 	<div class="btn-child">
 		<button id="clear" onclick="clearFilter()">Clear</button>
@@ -30,61 +26,24 @@ $this->_t = 'CAMERA';
 		<input type="file" id="file-input" style="display: none;" accept=".png">
 	</div>
 	<div class="btn-child">
-		<button id="save" onclick="savePic()">Save</button>
+		<button >Save</button>
 	</div>
 	<div class="btn-child">
 		<button id="retry" onclick="retrySnap()">Retry</button>
 	</div>
 </div>
+<div id="canvas-container">
+	<canvas id="canvas"></canvas>
+	<canvas id="canvasFilter"></canvas>
+</div>
+<canvas id='blank'></canvas>
+<img src="" id="result">
+<input type="submit" class="button is-primary" value="publier" id="publish"/>
+</form>
 <script src="<?= URL ?>public/js/video.js"></script>
--->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!--
 <form id="formPicture" method="post" action="<?= URL ?>?url=camera&submit=OK" onSubmit="prepareImg()" enctype="multipart/form-data">
 	<video id="video" autoplay="true"></video>
 	<div id="canvas-container">
@@ -93,7 +52,7 @@ $this->_t = 'CAMERA';
 	</div>
 	<canvas id='blank'></canvas>
 	<input id="inp_img" name="image" type="hidden" value="">
-	<button id="snap" onclick="takepicture()" disabled>Prendre une photo</button>
+	<button id="snap" disabled>Prendre une photo</button>
 	<img onclick="addFilter(event)" src="<?=IMG?>mortarboard.png">
 	<img onclick="addFilter(event)" src="<?=IMG?>webcam.png">
 	<!--<input id="inp_img" name="image" type="" value="">
@@ -104,7 +63,7 @@ $this->_t = 'CAMERA';
 		</span>
 	<input class="input" type="text-area" placeholder="legend" name="legend" value="">
 	<button class="button is-primary" id="publish" disabled>Publier</button>-->
-	<div class="file">
+	<!--<div class="file">
 		<input class="file-input" type="file" id="import_file" name="resume" accept="image/png">
 		<span class="file-cta">
 			<span class="file-icon">ICON</span>
@@ -114,12 +73,11 @@ $this->_t = 'CAMERA';
 			Aucune image importée
 		</span>
 	</div>
-	<input id="inp_img" name="image" type="" value="">
 	<div class="columns">
 		<div class="column">
-			<input type="text" id="image" name="image" value="">
-			<!--<p class="has-text-weight-semibold" id="imgPath">Aucune image</p>-->
-		</div>
+			<!--<input type="text" id="image" name="image" value="">
+			<p class="has-text-weight-semibold" id="imgPath">Aucune image</p>-->
+<!--		</div>
 		<div class="column is-10">
 			<i class="fas fa-trash" id="trash"></i>
 		</div>
@@ -129,6 +87,7 @@ $this->_t = 'CAMERA';
 </form>
 <script src="<?= URL ?>public/js/video.js"></script>
 
+<!--
 <script>
 
 function prepareImg() {
@@ -139,7 +98,6 @@ function prepareImg() {
 		document.getElementById('inp_img').value = canvas.toDataURL();
 	}
 </script>
-<!--
  <div class="montage">
 	<video id="video" autoplay="true"></video>
 	<button id="takepicturebttn" onclick="takePicture()">Take picture</button>

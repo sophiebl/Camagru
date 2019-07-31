@@ -29,7 +29,7 @@ class ControllerCamera
         {
             //var_dump('hello');
            // die();
-            $this->_imageManager = new ImageManager();
+/*            $this->_imageManager = new ImageManager();
             var_dump('controller camera');
             var_dump($this->_imageManager);
             $user = $_SESSION['id'];
@@ -38,7 +38,12 @@ class ControllerCamera
 
             var_dump($user);
             $this->_imageManager->sendImage();
-            $this->_imageManager->saveImage();
+            $this->_imageManager->saveImage();*/
+
+            $this->_imageManager = new ImageManager();
+            $this->_imageManager->sendImage();
+            //$this->_imageManager->saveImage($data, $filter, $x, $y);
+            //$this->_imageManager->saveImage($data, $filter);
         }
         
     }

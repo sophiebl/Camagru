@@ -113,7 +113,7 @@ function snapPic() {
 
 
 // import file
-
+/*
 window.onload = () => {
 
 	var formRegister = document.getElementById('formRegister');
@@ -156,18 +156,19 @@ function prepareImg() {
 	
 	function delete_files(e)
 	{
-		var filter = document.getElementById('filter');
+		var filter = document.getElementById('canvasFilter');
+		//var filter = document.getElementById('filter');
 		var canvas = document.getElementById('canvas');
 		var ctx = canvas.getContext('2d');
 		// var blank = document.getElementById('blank');
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		name.innerText = "Aucune image importée";
-		document.getElementById('image').value = "Aucune image";
+		//name.innerText = "Aucune image importée";
+		//document.getElementById('image').value = "Aucune image";
 		publish.disabled = true;
 		filter.style.display = 'none';
 	}
 }
-
+*/
 function addFilter(event)
 {
 	var canvas = document.getElementById('canvasFilter');
@@ -189,6 +190,8 @@ function addFilter(event)
     //cover        = document.querySelector('#cover'),
     canvas       = document.getElementById('canvas'),
     startbutton  = document.getElementById('snap'),
+	savebutton  = document.getElementById('save'),
+	data = null,
     width = 200,
     height = 200;
 
@@ -197,6 +200,7 @@ function addFilter(event)
 	var image = document.getElementById('image');
 	//var name2 = document.getElementById('file_name2');
 	var blank = document.getElementById('blank');
+	var result = document.getElementById('result');
 	var	publish = document.getElementById('publish');
 	var context = canvas.getContext('2d');
 	var constraints = { audio: false, video: { width: 200, height: 200 } }; 
@@ -232,26 +236,54 @@ function addFilter(event)
 		console.log(base64);
 		if (canvas.toDataURL() !== blank.toDataURL())
 		{
+			result.src = canvas.toDataURL();
 		    context.clearRect(0, 0, canvas.width, canvas.height);
-		    name.innerText = "Aucune image importée";
-		    image.innerText = "Aucune image";
+		   // name.innerText = "Aucune image importée";
+		    //image.innerText = "Aucune image";
 		}
-		var currentDate = new Date();
+		//var currentDate = new Date();
 		canvas.width = width;
 		canvas.height = height;
-		document.getElementById('image').value = currentDate.getTime() + ".png";
+		//document.getElementById('image').value = currentDate.getTime() + ".png";
 		publish.disabled = false;
 		//filter.style.display = '';
 		context.drawImage(video, 0, 0, width, height);
 	}
-	
+
+//	function prependNewImg()
+
+
+
+/*
+	function savepicture() {
+		if (data)
+		{
+			var xhttp = new XMLHttpRequest();
+			xhttp.open("POST", "?url=camera&submit=OK", true);
+			xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					console.log(this.responseText);
+						prependNewImg(this.responseText);
+						if (uploadPic)
+							clearCanvasTop();
+						clearCanvas();
+				}
+			}; 
+			xhttp.send("picture=" + data + "&filter=" + filter + "&x=");
+		}
+	}
+	*/
 	startbutton.addEventListener('click', function(ev){
-		//console.log('hello');
-		//break;
 		takepicture();
 		ev.preventDefault();
 	}, false);
-
+/*
+	savebutton.addEventListener('click', function(ev){
+		data = result.src;
+		savepicture();
+		ev.preventDefault();
+	}, false);*/
 })();
 
 

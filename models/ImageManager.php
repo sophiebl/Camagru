@@ -13,6 +13,23 @@ class ImageManager extends Model
     {
         if (isset($_POST))        
         {
+            $img = $_POST["result"];
+            $filter = $_POST["canvasFilter"];
+            //$x = $_POST["x"];
+            //$y = $_POST["y"];
+            $img = str_replace(' ', '+', $img);
+            $img_parts = explode(";base64,", $img);
+            $img_type_data = explode("image/", $img);
+            $img_type = $img_type_data[1];
+            $img_b64_decode = base64_decode($img_parts[1]);
+            var_dump($img_type);
+            var_dump($img_parts[1]);
+            var_dump($img_b64_decode);
+            $id_img = uniqid().'.png';
+
+            $file = UPLOAD_DIR.$id_img;
+            file_put_contents($file, $img_b64_decode);
+/*
             var_dump('before bdd');
             $this->getBdd();
             var_dump('after bdd');
@@ -27,7 +44,7 @@ class ImageManager extends Model
             $req = $this->getBdd()->prepare("INSERT INTO image (path, nbLike, idUsers, legend)
             VALUES (:img, :nbLike, :user, :legend)");
             $req->execute([':img' => $img, ':nbLike' => 0, ':user' => $user, ':legend' => $legend]);
-            $req->closeCursor();
+            $req->closeCursor();*/
             //die();
         }
     }
