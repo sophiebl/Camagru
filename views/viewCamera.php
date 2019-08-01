@@ -8,7 +8,7 @@ $this->_t = 'CAMERA';
 	TAKE YOUR PIC HERE
 	</div>
 </div>
-<form id="formPicture" style="margin-bottom:100px;" method="post" action="<?= URL ?>?url=camera&submit=OK" onSubmit="prepareImg()" enctype="multipart/form-data">
+<form enctype="multipart/form-data" id="formPicture" style="margin-bottom:100px;" method="post" action="<?= URL ?>?url=camera&submit=OK" onSubmit="prepareImg()" enctype="multipart/form-data">
 <div class="filters">
 	<img onclick="addFilter(event)" src="<?=IMG?>mortarboard.png">
 	<img onclick="addFilter(event)" src="<?=IMG?>webcam.png">
@@ -22,11 +22,15 @@ $this->_t = 'CAMERA';
 		<button id="clear" onclick="clearFilter()">Clear</button>
 	</div>
 	<div class="btn-child">
+		<label for="file-input">
+			<i id="uploadButton">UPLOAD BUTTON</i>
+		</label>
 		<p id="upload">Upload</p>
-		<input type="file" id="file-input" style="display: none;" accept=".png">
+		<input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+		<input type="file" id="file-input" name="file-input" accept=".png">
 	</div>
 	<div class="btn-child">
-		<button >Save</button>
+		<button id="save" onclick="savePicture()">Save</button>
 	</div>
 	<div class="btn-child">
 		<button id="retry" onclick="retrySnap()">Retry</button>
@@ -37,7 +41,11 @@ $this->_t = 'CAMERA';
 	<canvas id="canvasFilter"></canvas>
 </div>
 <canvas id='blank'></canvas>
-<img src="" id="result">
+<img src="" id="result2">
+<input type="text" id="result" name="result" value="">
+<input type="text" id="resultFilter" name="resultFilter" value="">
+
+<input class="input" type="text-area" placeholder="legend" name="legend" value="">
 <input type="submit" class="button is-primary" value="publier" id="publish"/>
 </form>
 <script src="<?= URL ?>public/js/video.js"></script>
