@@ -19,13 +19,34 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Tiny';
+    //src: url('../font/Tiny-Font/TINY5x-80.woff2');
+    src: url('../font/Tiny-Font/TINY5x3-80.woff2');
+    src: url('../font/Tiny-Font/TINY5x3-80.woff2') format('woff2'),
+         url('../font/Tiny-Font/TINY5x3-80.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     font-family: 'terminal_grotesque';
     background-image: url(feature.png);
     background-repeat: repeat;
     font-size: 10px;
+    box-sizing: border-box;
 }
-
+/*
+body:has(> div.bodyCam) {
+    /*position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -100;
+    right: 0;
+    bottom: 0;
+    background-color: #ffff00;
+}
+*/
 h1 { 
     text-align: center;
     margin: 40px 0 40px;
@@ -52,17 +73,18 @@ nav#menu > a {
 }
 
 .container-headline {
-    background-color: #ffff00;
     padding: 15px 0;
 }
 
 .headline{
-    font-family: 'terminal_grotesque';
-    font-size: 2.5em;
-    width: 380px;
+    font-family: 'Tiny';
+    font-size: 9em;
+    width: 700px;
     /* @keyframes duration | timing-function | delay | 
    iteration-count | direction | fill-mode | play-state | name */
     animation: slidein 8s linear 1s infinite running;
+    position: absolute;
+    z-index: -50;
 }
 @keyframes slidein {
     from { margin-left: 0; }
@@ -99,7 +121,52 @@ form > input[type="password"], form #mdp{
 }
 
 form#formPicture {
+    display: flex;
     text-align: center;
+    background-color: transparent;
+}
+
+.filters, .more{
+    background-color: #ffff008c;
+    box-sizing: border-box;
+    padding: 10px 15px;
+}
+
+.more {
+    //float: right;
+    width: 20%;
+    align-self: flex-end;
+    border-left: black 2px solid;
+}
+.filters {
+    width: 10%;
+    border-right: black 2px solid;
+}
+
+
+.webcam {
+    display: flex;
+    width: 70%;
+    //flex-direction: row;
+    //flex-wrap: wrap;
+   // justify-content: flex-end;
+}
+
+.webcam > div {
+    padding: 10px 15px;
+    flex: 1 100%;
+}
+
+.webcam > .preview {
+    //background-color : #00fdff6b;
+    border-right: black 2px solid;
+    //border-left: black 2px solid;
+}
+
+.webcam > .results {
+    //background-color : #ff00ff85;
+    //border: black 1px solid;
+//    border-right: black 2px solid;
 }
 
 #forgot{
@@ -127,10 +194,10 @@ form#formPicture {
     z-index: 100;
 }
 
-$n: 12;
+$n: 4;
 $c: #0099ff red;
 $d: 20em;
-$t: 4s; 
+$t: 3s; 
 
 main {
   display: flex;

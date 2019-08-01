@@ -14,13 +14,32 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "Tiny";
+  src: url("../font/Tiny-Font/TINY5x3-80.woff2");
+  src: url("../font/Tiny-Font/TINY5x3-80.woff2") format("woff2"), url("../font/Tiny-Font/TINY5x3-80.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   font-family: "terminal_grotesque";
   background-image: url(feature.png);
   background-repeat: repeat;
   font-size: 10px;
+  box-sizing: border-box;
 }
 
+/*
+body:has(> div.bodyCam) {
+    /*position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -100;
+    right: 0;
+    bottom: 0;
+    background-color: #ffff00;
+}
+*/
 h1 {
   text-align: center;
   margin: 40px 0 40px;
@@ -47,17 +66,18 @@ nav#menu > a {
 }
 
 .container-headline {
-  background-color: #ffff00;
   padding: 15px 0;
 }
 
 .headline {
-  font-family: "terminal_grotesque";
-  font-size: 2.5em;
-  width: 380px;
+  font-family: "Tiny";
+  font-size: 9em;
+  width: 700px;
   /* @keyframes duration | timing-function | delay | 
   iteration-count | direction | fill-mode | play-state | name */
   animation: slidein 8s linear 1s infinite running;
+  position: absolute;
+  z-index: -50;
 }
 
 @keyframes slidein {
@@ -97,7 +117,40 @@ form > input[type=password], form #mdp {
 }
 
 form#formPicture {
+  display: flex;
   text-align: center;
+  background-color: transparent;
+}
+
+.filters, .more {
+  background-color: #ffff008c;
+  box-sizing: border-box;
+  padding: 10px 15px;
+}
+
+.more {
+  width: 20%;
+  align-self: flex-end;
+  border-left: black 2px solid;
+}
+
+.filters {
+  width: 10%;
+  border-right: black 2px solid;
+}
+
+.webcam {
+  display: flex;
+  width: 70%;
+}
+
+.webcam > div {
+  padding: 10px 15px;
+  flex: 1 100%;
+}
+
+.webcam > .preview {
+  border-right: black 2px solid;
 }
 
 #forgot {
@@ -147,7 +200,7 @@ main svg {
   stroke-dasharray: 283, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-0 4s 8s linear infinite alternate;
+  animation: circleInMotion-0 3s 3s linear infinite alternate;
 }
 
 @keyframes circleInMotion-0 {
@@ -163,11 +216,11 @@ main svg {
   }
 }
 .circle-1 {
-  stroke: #178be8;
+  stroke: #5566aa;
   stroke-dasharray: 258, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-1 4s 3s linear infinite alternate;
+  animation: circleInMotion-1 3s 8s linear infinite alternate;
 }
 
 @keyframes circleInMotion-1 {
@@ -183,11 +236,11 @@ main svg {
   }
 }
 .circle-2 {
-  stroke: #2e7dd1;
+  stroke: #aa3355;
   stroke-dasharray: 233, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-2 4s 5s linear infinite alternate;
+  animation: circleInMotion-2 3s 7s linear infinite alternate;
 }
 
 @keyframes circleInMotion-2 {
@@ -203,11 +256,11 @@ main svg {
   }
 }
 .circle-3 {
-  stroke: #466fb9;
+  stroke: red;
   stroke-dasharray: 208, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-3 4s 9s linear infinite alternate;
+  animation: circleInMotion-3 3s 9s linear infinite alternate;
 }
 
 @keyframes circleInMotion-3 {
@@ -219,166 +272,6 @@ main svg {
   60%, 100% {
     stroke-dasharray: 0, 300;
     stroke-dashoffset: -80;
-    stroke-linecap: butt;
-  }
-}
-.circle-4 {
-  stroke: #5d61a2;
-  stroke-dasharray: 183, 300;
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  animation: circleInMotion-4 4s 3s linear infinite alternate;
-}
-
-@keyframes circleInMotion-4 {
-  0%, 40% {
-    stroke-dasharray: 183, 300;
-    stroke-dashoffset: 0;
-    stroke-linecap: round;
-  }
-  60%, 100% {
-    stroke-dasharray: 0, 300;
-    stroke-dashoffset: -60;
-    stroke-linecap: butt;
-  }
-}
-.circle-5 {
-  stroke: #74538b;
-  stroke-dasharray: 158, 300;
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  animation: circleInMotion-5 4s 10s linear infinite alternate;
-}
-
-@keyframes circleInMotion-5 {
-  0%, 40% {
-    stroke-dasharray: 158, 300;
-    stroke-dashoffset: 0;
-    stroke-linecap: round;
-  }
-  60%, 100% {
-    stroke-dasharray: 0, 300;
-    stroke-dashoffset: -40;
-    stroke-linecap: butt;
-  }
-}
-.circle-6 {
-  stroke: #8b4674;
-  stroke-dasharray: 133, 300;
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  animation: circleInMotion-6 4s 1s linear infinite alternate;
-}
-
-@keyframes circleInMotion-6 {
-  0%, 40% {
-    stroke-dasharray: 133, 300;
-    stroke-dashoffset: 0;
-    stroke-linecap: round;
-  }
-  60%, 100% {
-    stroke-dasharray: 0, 300;
-    stroke-dashoffset: -20;
-    stroke-linecap: butt;
-  }
-}
-.circle-7 {
-  stroke: #a2385d;
-  stroke-dasharray: 108, 300;
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  animation: circleInMotion-7 4s 5s linear infinite alternate;
-}
-
-@keyframes circleInMotion-7 {
-  0%, 40% {
-    stroke-dasharray: 108, 300;
-    stroke-dashoffset: 0;
-    stroke-linecap: round;
-  }
-  60%, 100% {
-    stroke-dasharray: 0, 300;
-    stroke-dashoffset: 0;
-    stroke-linecap: butt;
-  }
-}
-.circle-8 {
-  stroke: #b92a46;
-  stroke-dasharray: 83, 300;
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  animation: circleInMotion-8 4s 8s linear infinite alternate;
-}
-
-@keyframes circleInMotion-8 {
-  0%, 40% {
-    stroke-dasharray: 83, 300;
-    stroke-dashoffset: 0;
-    stroke-linecap: round;
-  }
-  60%, 100% {
-    stroke-dasharray: 0, 300;
-    stroke-dashoffset: 20;
-    stroke-linecap: butt;
-  }
-}
-.circle-9 {
-  stroke: #d11c2e;
-  stroke-dasharray: 58, 300;
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  animation: circleInMotion-9 4s 5s linear infinite alternate;
-}
-
-@keyframes circleInMotion-9 {
-  0%, 40% {
-    stroke-dasharray: 58, 300;
-    stroke-dashoffset: 0;
-    stroke-linecap: round;
-  }
-  60%, 100% {
-    stroke-dasharray: 0, 300;
-    stroke-dashoffset: 40;
-    stroke-linecap: butt;
-  }
-}
-.circle-10 {
-  stroke: #e80e17;
-  stroke-dasharray: 33, 300;
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  animation: circleInMotion-10 4s 7s linear infinite alternate;
-}
-
-@keyframes circleInMotion-10 {
-  0%, 40% {
-    stroke-dasharray: 33, 300;
-    stroke-dashoffset: 0;
-    stroke-linecap: round;
-  }
-  60%, 100% {
-    stroke-dasharray: 0, 300;
-    stroke-dashoffset: 60;
-    stroke-linecap: butt;
-  }
-}
-.circle-11 {
-  stroke: red;
-  stroke-dasharray: 8, 300;
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  animation: circleInMotion-11 4s 3s linear infinite alternate;
-}
-
-@keyframes circleInMotion-11 {
-  0%, 40% {
-    stroke-dasharray: 8, 300;
-    stroke-dashoffset: 0;
-    stroke-linecap: round;
-  }
-  60%, 100% {
-    stroke-dasharray: 0, 300;
-    stroke-dashoffset: 80;
     stroke-linecap: butt;
   }
 }

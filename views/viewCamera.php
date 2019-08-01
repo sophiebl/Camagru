@@ -2,53 +2,61 @@
 $this->_t = 'CAMERA';
 ?>
 
-<link rel="stylesheet" type="text/css" href="../css/my_style.css">
+<div>
 <div class="container-headline">
 	<div class="headline">
 	TAKE YOUR PIC HERE
 	</div>
-</div>
+<div id="bodyCam">
 <form enctype="multipart/form-data" id="formPicture" style="margin-bottom:100px;" method="post" action="<?= URL ?>?url=camera&submit=OK" onSubmit="prepareImg()" enctype="multipart/form-data">
 <div class="filters">
 	<img onclick="addFilter(event)" src="<?=IMG?>mortarboard.png">
 	<img onclick="addFilter(event)" src="<?=IMG?>webcam.png">
 </div>
-<video id="video" autoplay="true"></video>
-<div class="btn-container">
-	<div class="btn-child">
-		<button id="snap" onclick="takepicture()" disabled>SNAP</button>
+<div class="webcam">
+	<div class="preview">
+		<video id="video" autoplay="true"></video>
+		<div class="btn-container">
+			<div class="btn-child">
+				<button id="snap" onclick="takepicture()" disabled>SNAP</button>
+			</div>
+			<div class="btn-child">
+				<button id="clear" onclick="clearFilter()">Clear</button>
+			</div>
+			<div class="btn-child">
+				<label for="file-input">
+					<i id="uploadButton">UPLOAD BUTTON</i>
+				</label>
+				<p id="upload">Upload</p>
+				<input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+				<input type="file" id="file-input" name="file-input" accept=".png">
+			</div>
+			<div class="btn-child">
+				<button id="save" onclick="savePicture()">Save</button>
+			</div>
+			<div class="btn-child">
+				<button id="retry" onclick="retrySnap()">Retry</button>
+			</div>
+		</div>
 	</div>
-	<div class="btn-child">
-		<button id="clear" onclick="clearFilter()">Clear</button>
-	</div>
-	<div class="btn-child">
-		<label for="file-input">
-			<i id="uploadButton">UPLOAD BUTTON</i>
-		</label>
-		<p id="upload">Upload</p>
-		<input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-		<input type="file" id="file-input" name="file-input" accept=".png">
-	</div>
-	<div class="btn-child">
-		<button id="save" onclick="savePicture()">Save</button>
-	</div>
-	<div class="btn-child">
-		<button id="retry" onclick="retrySnap()">Retry</button>
+	<div class="results">
+		<div id="canvas-container">
+			<canvas id="canvas"></canvas>
+			<canvas id="canvasFilter"></canvas>
+		</div>
+		<canvas id='blank' style='display: none;'></canvas>
+		<img src="" id="result2">
+		<input type="hidden" id="result" name="result" value="">
+		<input type="text" id="resultFilter" name="resultFilter" value="">
 	</div>
 </div>
-<div id="canvas-container">
-	<canvas id="canvas"></canvas>
-	<canvas id="canvasFilter"></canvas>
+<div class="more">
+	<input class="input" type="text-area" placeholder="legend" name="legend" value="">
+	<input type="submit" class="button is-primary" value="publier" id="publish"/>
 </div>
-<canvas id='blank'></canvas>
-<img src="" id="result2">
-<input type="text" id="result" name="result" value="">
-<input type="text" id="resultFilter" name="resultFilter" value="">
-
-<input class="input" type="text-area" placeholder="legend" name="legend" value="">
-<input type="submit" class="button is-primary" value="publier" id="publish"/>
 </form>
 <script src="<?= URL ?>public/js/video.js"></script>
+</div>
 
 
 <!--

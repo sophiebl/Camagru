@@ -115,8 +115,37 @@ function snapPic() {
 // import file
 /*
 window.onload = () => {
+	/*
+	var uploadButton = document.getElementById('uploadButton');
+	//var upload = document.getElementById('upload');
+	var upld = document.querySelector('input[type="file"]');
+	var img = null;
+	var video = document.getElementById('video');
+	var uploadPic = false;
 
-	var formRegister = document.getElementById('formRegister');
+
+	uploadButton.addEventListener('click', function () {
+		upld.addEventListener('change', function () {
+			var reader = new FileReader();
+			reader.onload = function () {
+				img = new Image();
+				img.onload = function () {
+					uploadPic = true;
+					video.pause();
+					contextTop.drawImage(img, 0, 0, canvas.width, canvas.height);
+					if (filter) {
+						moveListener();
+					}
+				}
+				img.src = reader.result;
+				data = img.src;
+			}
+			reader.readAsDataURL(upld.files[0]);
+		})
+	})
+*/
+/*
+	//var formRegister = document.getElementById('formRegister');
 	var input_file = document.querySelector('#import_file');
 	var	publish = document.getElementById('publi');
 	var name = document.querySelector('#file_name');
@@ -132,7 +161,7 @@ function handleFiles(e) {
 	var ctx = canvas.getContext('2d');
 	var blank = document.getElementById('blank');
 	if (canvas.toDataURL() !== blank.toDataURL())
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
     var img = new Image;
     img.src = URL.createObjectURL(file);
     img.onload = function() {
@@ -167,8 +196,10 @@ function prepareImg() {
 		publish.disabled = true;
 		filter.style.display = 'none';
 	}
+	
 }
 */
+
 function addFilter(event)
 {
 	var canvas = document.getElementById('canvasFilter');
@@ -182,6 +213,7 @@ function addFilter(event)
 	document.getElementById('snap').disabled = false;
 }
 
+
 // take picture
 (function() {
     var streaming = false,
@@ -189,6 +221,7 @@ function addFilter(event)
     video        = document.getElementById('video'),
     //cover        = document.querySelector('#cover'),
     canvas       = document.getElementById('canvas'),
+    canvasFilter  = document.getElementById('canvasFilter'),
     startbutton  = document.getElementById('snap'),
 	savebutton  = document.getElementById('save'),
 	data = null,
@@ -201,8 +234,11 @@ function addFilter(event)
 	//var name2 = document.getElementById('file_name2');
 	var blank = document.getElementById('blank');
 	var result = document.getElementById('result');
+	var result2 = document.getElementById('result2');
+	var resultFilter = document.getElementById('resultFilter');
 	var	publish = document.getElementById('publish');
 	var context = canvas.getContext('2d');
+	var contextFilter = canvasFilter.getContext('2d');
 	var constraints = { audio: false, video: { width: 200, height: 200 } }; 
 
     //Get access to the camera
@@ -236,7 +272,10 @@ function addFilter(event)
 		console.log(base64);
 		if (canvas.toDataURL() !== blank.toDataURL())
 		{
-			result.src = canvas.toDataURL();
+		//	document.getElementById('result').value = canvas.toDataURL("image/png");
+			//document.getElementById('resultFilter').value = canvasFilter.toDataURL("image/png");
+			//result2.src = canvas.toDataURL("image/png");
+			//result2.src = canvasFilter.toDataURL("image/png");
 		    context.clearRect(0, 0, canvas.width, canvas.height);
 		   // name.innerText = "Aucune image importée";
 		    //image.innerText = "Aucune image";
@@ -248,6 +287,20 @@ function addFilter(event)
 		publish.disabled = false;
 		//filter.style.display = '';
 		context.drawImage(video, 0, 0, width, height);
+	}
+
+	function savePicture() {
+	//	data = canvas.toDataURL();
+		//output = data.replace(/^data:image\/(png|jpg);base64,/, "");
+	//	document.getElementById('result').value = output;
+		document.querySelector('#result').setAttribute('value', canvas.toDataURL("image/png"));
+		document.querySelector('#result2').setAttribute('src', canvas.toDataURL("image/png"));
+		//document.getElementById('resultFilter').value = canvasFilter.toDataURL("image/png");
+		//document.getElementById('result').value = canvas.toDataURL("image/png");
+		//document.getElementById('resultFilter').value = canvasFilter.toDataURL("image/png");
+		//result2.src = canvas.toDataURL("image/png");
+		//result2.src = canvas.toDataURL("image/png");
+
 	}
 
 //	function prependNewImg()
@@ -274,16 +327,46 @@ function addFilter(event)
 		}
 	}
 	*/
+/*
+
+	var uploadButton = document.getElementById('uploadButton');
+	//var upload = document.getElementById('upload');
+	var upld = document.querySelector('input[type="file"]');
+	var img = null;
+	var uploadPic = false;
+
+
+	uploadButton.addEventListener('click', function () {
+		upld.addEventListener('change', function () {
+			var reader = new FileReader();
+			reader.onload = function () {
+				img = new Image();
+				img.onload = function () {
+					uploadPic = true;
+					video.pause();
+					context.drawImage(img, 0, 0, canvas.width, canvas.height);
+					if (filter) {
+						moveListener();
+					}
+				}
+				img.src = reader.result;
+				data = img.src;
+			}
+			reader.readAsDataURL(upld.files[0]);
+		})
+	})
+
+*/
 	startbutton.addEventListener('click', function(ev){
 		takepicture();
 		ev.preventDefault();
 	}, false);
-/*
+
 	savebutton.addEventListener('click', function(ev){
-		data = result.src;
-		savepicture();
+		//data = result.src;
+		savePicture();
 		ev.preventDefault();
-	}, false);*/
+	}, false);
 })();
 
 

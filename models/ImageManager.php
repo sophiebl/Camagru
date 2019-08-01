@@ -14,21 +14,30 @@ class ImageManager extends Model
         if (isset($_POST))        
         {
             $img = $_POST["result"];
-            $filter = $_POST["canvasFilter"];
+            var_dump($_POST["result"]);
+            //$file = $_FILES["file-input"];
+            //var_dump($file);
+            $filter = $_POST["resultFilter"];
             //$x = $_POST["x"];
             //$y = $_POST["y"];
-            $img = str_replace(' ', '+', $img);
-            $img_parts = explode(";base64,", $img);
-            $img_type_data = explode("image/", $img);
-            $img_type = $img_type_data[1];
-            $img_b64_decode = base64_decode($img_parts[1]);
-            var_dump($img_type);
-            var_dump($img_parts[1]);
-            var_dump($img_b64_decode);
+           // $img = str_replace(' ', '+', $img);
+            //$img_parts = explode(";base64,", $img);
+            //$img_type_data = explode("image/", $img);
+            //$img_type = $img_type_data[1];
+            //urlencode($img_parts[1]);
+            //$encodedData = str_replace(' ','+',$img_parts[1]);
+            //$decodedData = base64_decode($encodedData);
+
+            $decodedData = base64_decode($img);
+
+            //var_dump($img_parts[1]);
+            var_dump("helooooooo  blaa deco          :");
+            var_dump($decodedData);
             $id_img = uniqid().'.png';
 
-            $file = UPLOAD_DIR.$id_img;
-            file_put_contents($file, $img_b64_decode);
+            $fileimg = UPLOAD_DIR.$id_img;
+            //file_put_contents($file, $img_b64_decode);
+            //file_put_contents($file, "gubjbj");
 /*
             var_dump('before bdd');
             $this->getBdd();
