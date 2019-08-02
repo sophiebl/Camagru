@@ -7,6 +7,7 @@ $this->_t = 'CAMERA';
 	<div class="headline">
 	TAKE YOUR PIC HERE
 	</div>
+</div>
 <div id="bodyCam">
 <form enctype="multipart/form-data" id="formPicture" style="margin-bottom:100px;" method="post" action="<?= URL ?>?url=camera&submit=OK" onSubmit="prepareImg()" enctype="multipart/form-data">
 <div class="filters">

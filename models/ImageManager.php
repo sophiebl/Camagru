@@ -9,51 +9,81 @@ class ImageManager extends Model
         return $this->getAllPictures($offset, $limit);
     }
 
+    public function getPost($fileimg)
+    {
+        var_dump($fileimg);
+        var_dump('GET POST');
+        $req = $this->getBdd()->prepare("SELECT * FROM `image` WHERE path = '$fileimg'");
+        $req->execute();
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        var_dump($data);
+        return($data);
+        $req->closeCursor();
+    }
+
+    public function deleteImage($idImg)
+    {
+        $req = $this->getBdd()->prepare("DELETE * FROM `image` WHERE id = '$idImg'");
+        $req->execute();
+        $req->closeCursor();
+    }
+
     public function sendImage()
     {
         if (isset($_POST))        
         {
             $img = $_POST["result"];
-            var_dump($_POST["result"]);
+//            var_dump($_POST["result"]);
             //$file = $_FILES["file-input"];
             //var_dump($file);
             $filter = $_POST["resultFilter"];
             //$x = $_POST["x"];
             //$y = $_POST["y"];
            // $img = str_replace(' ', '+', $img);
-            //$img_parts = explode(";base64,", $img);
+            $img_parts = explode(",", $img);
             //$img_type_data = explode("image/", $img);
-            //$img_type = $img_type_data[1];
+            $img = $img_parts[1];
             //urlencode($img_parts[1]);
             //$encodedData = str_replace(' ','+',$img_parts[1]);
             //$decodedData = base64_decode($encodedData);
 
+//            var_dump($img);
             $decodedData = base64_decode($img);
 
             //var_dump($img_parts[1]);
-            var_dump("helooooooo  blaa deco          :");
-            var_dump($decodedData);
+           // var_dump("helooooooo img      :");
             $id_img = uniqid().'.png';
-
             $fileimg = UPLOAD_DIR.$id_img;
-            //file_put_contents($file, $img_b64_decode);
-            //file_put_contents($file, "gubjbj");
-/*
-            var_dump('before bdd');
+
+            $im = imagecreatefromstring($decodedData);
+            var_dump($im);
+            if ($im !== false) {
+                // header('Content-Type: image/png');
+                imagepng($im, $fileimg);
+                imagedestroy($im);
+            }
+            else {
+                echo 'An error occurred.';
+            }
+            //file_put_contents($fileimg, $decodeData);
+            //file_put_contents($fileimg, "gubjbj");
+
+//            var_dump('before bdd');
             $this->getBdd();
-            var_dump('after bdd');
+  //          var_dump('after bdd');
             //session_start();
             //$user = $_SESSION['id']->getIdUser();
             $user = $_SESSION['id'];
-            var_dump($user);
-            $img = $_POST['image'];
-            var_dump($img);
+    //        var_dump($user);
+            //$img = $_POST['image'];
+            var_dump($fileimg);
             $legend = $_POST['legend'];
-            var_dump($legend);
+       //     var_dump($legend);
             $req = $this->getBdd()->prepare("INSERT INTO image (path, nbLike, idUsers, legend)
-            VALUES (:img, :nbLike, :user, :legend)");
-            $req->execute([':img' => $img, ':nbLike' => 0, ':user' => $user, ':legend' => $legend]);
-            $req->closeCursor();*/
+            VALUES (:fileimg, :nbLike, :user, :legend)");
+            $req->execute([':fileimg' => $fileimg, ':nbLike' => 0, ':user' => $user, ':legend' => $legend]);
+            $req->closeCursor();
+            return ($fileimg);
             //die();
         }
     }

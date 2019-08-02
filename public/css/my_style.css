@@ -153,6 +153,13 @@ form#formPicture {
   border-right: black 2px solid;
 }
 
+/*
+.webcam > .results {
+    //background-color : #ff00ff85;
+    //border: black 1px solid;
+//    border-right: black 2px solid;
+}
+*/
 #forgot {
   width: 70%;
   height: 30px;
@@ -200,7 +207,7 @@ main svg {
   stroke-dasharray: 283, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-0 3s 3s linear infinite alternate;
+  animation: circleInMotion-0 3s 5s linear infinite alternate;
 }
 
 @keyframes circleInMotion-0 {
@@ -220,7 +227,7 @@ main svg {
   stroke-dasharray: 258, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-1 3s 8s linear infinite alternate;
+  animation: circleInMotion-1 3s 6s linear infinite alternate;
 }
 
 @keyframes circleInMotion-1 {
@@ -260,7 +267,7 @@ main svg {
   stroke-dasharray: 208, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-3 3s 9s linear infinite alternate;
+  animation: circleInMotion-3 3s 3s linear infinite alternate;
 }
 
 @keyframes circleInMotion-3 {
@@ -275,6 +282,16 @@ main svg {
     stroke-linecap: butt;
   }
 }
+/*
+POST
+********/
+.icon {
+  display: inline-block;
+  vertical-align: top;
+  width: 24px;
+  height: 24px;
+}
+
 footer {
   position: fixed;
   bottom: 0;
