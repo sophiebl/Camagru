@@ -33,7 +33,7 @@ abstract class Model
         $req->execute();
       
         //echo '  req1 : '.$req;
-        while($data = $req->fetch(PDO::FETCH_ASSOC))
+        while ($data = $req->fetch(PDO::FETCH_ASSOC))
         {
             //   var_dump($data);
             $var[] = new $obj($data);
@@ -48,13 +48,18 @@ abstract class Model
 
     protected function get($table, $obj, $id)
     {
+        var_dump($table);                                                            
+        var_dump($obj);                                                            
+        var_dump($id);                                                            
         $var = [];
         //Ajouter if req echoue
         $req = $this->getBdd()->prepare("SELECT * FROM $table WHERE id = '$id'");
 
         $req->execute();
       
-        $var = new $obj($req->fetch(PDO::FETCH_ASSOC));
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        var_dump($data);                                                            
+        $var = new $obj($data);
 
         //var_dump($var);
         return $var;

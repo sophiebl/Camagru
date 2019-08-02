@@ -1,7 +1,7 @@
 <?php
 require_once('views/View.php');
 
-class ControllerCamera
+class ControllerPost
 {
     private $_imageManager;
     private $_userManager;
@@ -29,10 +29,14 @@ class ControllerCamera
         {
             var_dump("hello");
             $this->_userManager = new UserManager();
+            $this->_imageManager = new ImageManager();
             //var_dump($fileimg);
+            $fileimg = $this->_imageManager->sendImage();
+            $img = $this->_imageManager->getPost($fileimg);
             $user = $this->_userManager->getUser($img['idUsers']);
             //var_dump("hello");
             var_dump($user);
+            var_dump($img);
     //        $this->_view = new View('Post');
   //          $this->_view->generate(array('user' => $user));
             //$this->_imageManager->saveImage($data, $filter, $x, $y);

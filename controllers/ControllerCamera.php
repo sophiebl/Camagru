@@ -45,6 +45,7 @@ class ControllerCamera
             $fileimg = $this->_imageManager->sendImage();
             $img = $this->_imageManager->getPost($fileimg);
             var_dump("hello change de page");
+            var_dump($img);
             $user = $this->_userManager->getUser($img['idUsers']);
             $this->_view = new View('Post');
             var_dump($user);
