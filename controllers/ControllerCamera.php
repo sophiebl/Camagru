@@ -45,12 +45,14 @@ class ControllerCamera
             $fileimg = $this->_imageManager->sendImage();
             $img = $this->_imageManager->getPost($fileimg);
             var_dump("hello change de page");
-            var_dump($img);
-            $user = $this->_userManager->getUser($img['idUsers']);
-            $this->_view = new View('Post');
-            var_dump($user);
-           // var_dump($idImg);
-            $this->_view->generate(array('img' => $img, 'user' => $user));
+            var_dump($img['id']);
+            //$user = $this->_userManager->getUser($img['idUsers']);
+            header('Location: '. URL .'?url=post&imgId='. $img['id'] .'');
+            //$this->_view = new View('Post');
+            //$this->_view->generate(array('img' => $img, 'user' => $user));
+            //header('Location: '. URL .'?url=post');
+
+
             //$this->_imageManager->saveImage($data, $filter, $x, $y);
             //$this->_imageManager->saveImage($data, $filter);
         }
@@ -71,5 +73,15 @@ class ControllerCamera
             $this->_view->generate(array('Camera' => NULL));
         }
     }
-
+/*
+    private function delPost()
+    {
+        $this->_imageManager = new ImageManager();
+        var_dump($img['id']);
+        $this->deleteImage($img['id']);
+        die();
+        $this->_view = new View('Accueil');
+        $this->_view->generate(array("msg" => "Votre image a bien été supprimée"));
+    }
+*/
 }
