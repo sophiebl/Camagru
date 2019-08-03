@@ -91,22 +91,19 @@ class ImageManager extends Model
         $req->closeCursor();
     }
 
-    public function likePost($id, $login)
+    public function likePost($idImg, $idUser)
     {
-        $this->_query = 'SELECT COUNT(*) FROM `like` WHERE `photo_id` = :id AND `login` = :login';
-        $req = $this->getDb()->prepare($this->_query);
-        $req->bindParam(':id', $id, PDO::PARAM_INT);
-        $req->bindParam(':login', $login, PDO::PARAM_STR);
+        $req = $this->getBdd()->prepare("SELECT * FROM `like` WHERE idImg = $idImg AND idUser = '$idUser'");
         $req->execute();
-        $res = $req->fetchColumn();
-        if ($res)
-            $this->_query = 'DELETE FROM `like` WHERE `login` = :login AND `photo_id` = :id';
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        var_dump($data);
+        if ($data)
+            $req = $this->getBdd()->prepare("DELETE FROM `like` WHERE `idUser` = '$idUser' AND `idImg` = '$idImg'");
         else
-            $this->_query = 'INSERT INTO `like` (`photo_id`, `login`) VALUES (:id, :login)';
-        $req = $this->getDb()->prepare($this->_query);
-        $req->bindParam(':id', $id, PDO::PARAM_INT);
-        $req->bindParam(':login', $login, PDO::PARAM_STR);
-        $req->execute();
+            $req = $this->getBdd()->prepare('INSERT INTO `like` (`idImg`, `idUser`) VALUES (:idImg, :idUser)');
+        $req->execute([':idImg' => $idImg, ':idUser' => $idUser]);
+        //$data = $req->fetch(PDO::FETCH_ASSOC);
+        //var_dump($data);
         $req->closeCursor();
     }
     
