@@ -209,6 +209,8 @@ function addFilter(event)
 	img.onload = function() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.drawImage(img, 75, 75, 32, 32);
+		document.querySelector('#imgFilter').setAttribute('src', canvas.toDataURL("image/png"));
+		document.querySelector('#resultFilter').setAttribute('value', canvas.toDataURL("image/png"));
 	}
 	document.getElementById('snap').disabled = false;
 }
@@ -294,7 +296,7 @@ function addFilter(event)
 		//output = data.replace(/^data:image\/(png|jpg);base64,/, "");
 	//	document.getElementById('result').value = output;
 		document.querySelector('#result').setAttribute('value', canvas.toDataURL("image/png"));
-		document.querySelector('#result2').setAttribute('src', canvas.toDataURL("image/png"));
+		//document.querySelector('#result2').setAttribute('src', canvas.toDataURL("image/png"));
 		//document.getElementById('resultFilter').value = canvasFilter.toDataURL("image/png");
 		//document.getElementById('result').value = canvas.toDataURL("image/png");
 		//document.getElementById('resultFilter').value = canvasFilter.toDataURL("image/png");

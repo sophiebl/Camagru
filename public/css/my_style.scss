@@ -72,6 +72,10 @@ nav#menu > a {
     color: #fff;
 }
 
+/*
+CAMERA
+********/
+
 .container-headline {
     padding: 15px 0;
 }
@@ -106,7 +110,6 @@ form label#labelmdp{
     margin-right: 24px;
 }
 
-
 form > input[type="submit"] {
     float: right;
     -webkit-appearance: none;
@@ -131,18 +134,17 @@ form#formPicture {
     box-sizing: border-box;
     padding: 10px 15px;
 }
-
+/*
 .more {
     //float: right;
-    width: 20%;
-    align-self: flex-end;
-    border-left: black 2px solid;
-}
+    //width: 20%;
+    //align-self: flex-end;
+   // border-left: black 2px solid;
+}*/
 .filters {
     width: 10%;
     border-right: black 2px solid;
 }
-
 
 .webcam {
     display: flex;
@@ -162,13 +164,24 @@ form#formPicture {
     border-right: black 2px solid;
     //border-left: black 2px solid;
 }
-/*
-.webcam > .results {
-    //background-color : #ff00ff85;
-    //border: black 1px solid;
-//    border-right: black 2px solid;
+
+.live{
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-bottom: 300px;
 }
-*/
+
+.live > #imgFilter, .live > #video{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.live > #imgFilter{
+    z-index: 50;
+}
+
 #forgot{
     width: 70%;
     height: 30px;

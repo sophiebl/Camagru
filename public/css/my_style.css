@@ -65,6 +65,9 @@ nav#menu > a {
   color: #fff;
 }
 
+/*
+CAMERA
+********/
 .container-headline {
   padding: 15px 0;
 }
@@ -128,12 +131,13 @@ form#formPicture {
   padding: 10px 15px;
 }
 
+/*
 .more {
-  width: 20%;
-  align-self: flex-end;
-  border-left: black 2px solid;
-}
-
+    //float: right;
+    //width: 20%;
+    //align-self: flex-end;
+   // border-left: black 2px solid;
+}*/
 .filters {
   width: 10%;
   border-right: black 2px solid;
@@ -153,13 +157,23 @@ form#formPicture {
   border-right: black 2px solid;
 }
 
-/*
-.webcam > .results {
-    //background-color : #ff00ff85;
-    //border: black 1px solid;
-//    border-right: black 2px solid;
+.live {
+  position: relative;
+  top: 0;
+  left: 0;
+  margin-bottom: 300px;
 }
-*/
+
+.live > #imgFilter, .live > #video {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.live > #imgFilter {
+  z-index: 50;
+}
+
 #forgot {
   width: 70%;
   height: 30px;
@@ -207,7 +221,7 @@ main svg {
   stroke-dasharray: 283, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-0 3s 5s linear infinite alternate;
+  animation: circleInMotion-0 3s 10s linear infinite alternate;
 }
 
 @keyframes circleInMotion-0 {
@@ -227,7 +241,7 @@ main svg {
   stroke-dasharray: 258, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-1 3s 6s linear infinite alternate;
+  animation: circleInMotion-1 3s 3s linear infinite alternate;
 }
 
 @keyframes circleInMotion-1 {
@@ -247,7 +261,7 @@ main svg {
   stroke-dasharray: 233, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-2 3s 7s linear infinite alternate;
+  animation: circleInMotion-2 3s 6s linear infinite alternate;
 }
 
 @keyframes circleInMotion-2 {
@@ -267,7 +281,7 @@ main svg {
   stroke-dasharray: 208, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-3 3s 3s linear infinite alternate;
+  animation: circleInMotion-3 3s 6s linear infinite alternate;
 }
 
 @keyframes circleInMotion-3 {
