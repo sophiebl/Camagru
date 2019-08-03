@@ -16,7 +16,10 @@ $this->_t = 'CAMERA';
 </div>
 <div class="webcam">
 	<div class="preview">
-		<video id="video" autoplay="true"></video>
+		<div class="live">
+			<img id="imgFilter" src="" alt="">
+			<video id="video" autoplay="true"></video>
+		</div>
 		<div class="btn-container">
 			<div class="btn-child">
 				<button id="snap" onclick="takepicture()" disabled>SNAP</button>
@@ -39,6 +42,10 @@ $this->_t = 'CAMERA';
 				<button id="retry" onclick="retrySnap()">Retry</button>
 			</div>
 		</div>
+		<div class="more">
+			<input class="input" type="text-area" placeholder="legend" name="legend" value="">
+			<input type="submit" class="button is-primary" value="publier" id="publish"/>
+		</div>
 	</div>
 	<div class="results">
 		<div id="canvas-container">
@@ -48,12 +55,8 @@ $this->_t = 'CAMERA';
 		<canvas id='blank' style='display: none;'></canvas>
 		<img src="" id="result2">
 		<input type="hidden" id="result" name="result" value="">
-		<input type="text" id="resultFilter" name="resultFilter" value="">
+		<input type="hidden" id="resultFilter" name="resultFilter" value="">
 	</div>
-</div>
-<div class="more">
-	<input class="input" type="text-area" placeholder="legend" name="legend" value="">
-	<input type="submit" class="button is-primary" value="publier" id="publish"/>
 </div>
 </form>
 <script src="<?= URL ?>public/js/video.js"></script>

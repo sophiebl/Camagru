@@ -1,5 +1,7 @@
 <?php
 $this->_t = 'POST';
+var_dump($img);
+var_dump($user);
 ?>
 
 <div>
@@ -14,31 +16,32 @@ $this->_t = 'POST';
 
 
 <div class="post-container">
-	<h1><?= $user->getUsername(); ?></h1>
+	<h1></h1>
 	<img src="<?= $img["path"] ?>">
 	<p id="legend"><?= $img["legend"]?></p>
 
 
 	<div class="actions">
-		<span class="icon" style="background-image: url('../img/heart_small.png');"></span>
+		
+		<?php if (isset($_SESSION['id']) && $_SESSION['id'] == $img['idUsers']): ?>
+			<a href="<?= URL ?>?url=post&imgId=<?= $img['id'] ?>&delete=OK">
+				<span class="icon" style="background-image: url('../img/trash_small.png');"></span>
+			</a>
+		<?php endif; ?>
+		<?php //if (isset($_SESSION['id'])): ?>
+			<?php// if ($isLiked): ?>
+				<span id="heart" class="icon heart" style="background-image: url('../img/heart_pink.png');" onclick="unlikePost()"></span>
+			<?php //else: ?>
+				<span id="heart" class="icon heart" style="background-image: url('../img/heart_small.png');" onclick="likePost()"></span>
+			<?php //endif; ?>
+		<?php //endif; ?>
+		<p><span id="bottom">Number of likes : <span id="likes_nb"><?= $img['nbLike'] ?></span></span></p>
 		<!--<span class="icon"  style=" background-image: url('../img/heart_pink.png');"></span>
 		<span class="icon"  style=" background-image: url('../img/chat_small.png');"></span>
 		<span class="icon" style=" background-image: url('../img/chat_blue.png');"></span>-->
 	</div>
-	<?php if (isset($_SESSION['id']) && $_SESSION['id'] == $img['idUsers']): ?>
-		<a href="<?= URL ?>?url=post&idImg=<?= $img['id'] ?>&delete=OK">
-			<span class="icon" style="background-image: url('../img/trash_small.png');"></span>
-		</a>
-	<?php endif; ?>
-	<?php if (isset($_SESSION['user'])): ?>
-		<?php if ($liked_or_not): ?>
-		<i id="heart" class="fas fa-heart fa-3x" onclick="unlikePost()"></i>
-		<?php else: ?>
-		<i id="heart" class="far fa-heart fa-3x" onclick="likePost()"></i>
-		<?php endif; ?>
-	<?php endif; ?>
-	<p><span id="bottom">Number of likes : <span id="likes_number"><?= strval($nb_likes) ?></span></span></p>
-	<p><span id="bottom">Number of comments : <span id="comments_number"><?= count($comments) ?></span></span></p>
 </div>
 
 </div>
+
+<script src="<?= URL ?>public/js/post.js"></script>
