@@ -2,32 +2,6 @@
 
 class ImageManager extends Model
 {
-
-    public function getImages($offset, $limit)
-    {
-        $this->getBdd();
-        return $this->getAllPictures($offset, $limit);
-    }
-
-    public function getPost($fileimg)
-    {
-        var_dump($fileimg);
-        var_dump('GET POST');
-        $req = $this->getBdd()->prepare("SELECT * FROM `image` WHERE path = '$fileimg'");
-        $req->execute();
-        $data = $req->fetch(PDO::FETCH_ASSOC);
-        var_dump($data);
-        return($data);
-        $req->closeCursor();
-    }
-
-    public function deleteImage($idImg)
-    {
-        $req = $this->getBdd()->prepare("DELETE * FROM `image` WHERE id = '$idImg'");
-        $req->execute();
-        $req->closeCursor();
-    }
-
     public function sendImage()
     {
         if (isset($_POST))        
@@ -40,27 +14,30 @@ class ImageManager extends Model
             //$x = $_POST["x"];
             //$y = $_POST["y"];
            // $img = str_replace(' ', '+', $img);
+            var_dump("                filter                 ");
+            var_dump($filter);
             $img_parts = explode(",", $img);
-            //$img_type_data = explode("image/", $img);
             $img = $img_parts[1];
-            //urlencode($img_parts[1]);
-            //$encodedData = str_replace(' ','+',$img_parts[1]);
-            //$decodedData = base64_decode($encodedData);
-
-//            var_dump($img);
             $decodedData = base64_decode($img);
-
-            //var_dump($img_parts[1]);
-           // var_dump("helooooooo img      :");
             $id_img = uniqid().'.png';
             $fileimg = UPLOAD_DIR.$id_img;
 
-            $im = imagecreatefromstring($decodedData);
-            var_dump($im);
-            if ($im !== false) {
+            $filter_parts = explode(",", $filter);
+            $filter = $filter_parts[1];
+            $decodedDataFilter = base64_decode($filter);
+            $id_filter = uniqid().'.png';
+            $filefilter = UPLOAD_DIR.$id_filter;
+
+            $imagepng = imagecreatefromstring($decodedData);
+            $imagefilter = imagecreatefromstring($decodedDataFilter);
+            var_dump($imagepng);
+            if ($imagepng !== false && $imagefilter !== false) {
                 // header('Content-Type: image/png');
-                imagepng($im, $fileimg);
-                imagedestroy($im);
+               // var_dump("helloe");
+                imagecopy($imagepng, $imagefilter, 0, 0, 0, 0, 200, 200);
+                imagepng($imagepng, $fileimg);
+                imagedestroy($imagepng);
+                imagedestroy($imagefilter);
             }
             else {
                 echo 'An error occurred.';
@@ -88,41 +65,75 @@ class ImageManager extends Model
         }
     }
 
-    public function saveImage()
+    public function getImage($idImg)
     {
-        //if (isset($_GET) && !empty($_GET) && isset($_SESSION['id']) && !empty($_SESSION))
-        if (isset($_POST))        
-        {
-            $this->getBdd();
-            $img = $_POST['image'];
-            $img_64 = base64_encode($img);
-            $folderPath = "tmp/";
-        
-        //    $image_parts = explode(";base64,", $img);
-           // $image_type_aux = explode("image/", $image_parts[0]);
-            var_dump("image_parts");
-            var_dump($img_64);
-            /*var_dump("image_type_aux");
-            var_dump($image_type_aux);
-            $image_type = $image_type_aux[1];
-        
-            $image_base64 = base64_decode($image_parts[1]);
-            $fileName = uniqid() . '.png';
-        
-            $file = $folderPath . $fileName;
-            file_put_contents($file, $image_base64);*/
-        
-            //print_r($fileName);
-
-
-    
-            
-        }
-
-
+        $req = $this->getBdd()->prepare("SELECT * FROM `image` WHERE id = '$idImg'");
+        $req->execute();
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        var_dump($data);
+        return($data);
+        $req->closeCursor();
     }
 
+    public function getPost($fileimg)
+    {
+        $req = $this->getBdd()->prepare("SELECT * FROM `image` WHERE path = '$fileimg'");
+        $req->execute();
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        return($data);
+        $req->closeCursor();
+    }
 
+    public function deletePost($idImg, $idUser)
+    {
+        $req = $this->getBdd()->prepare("DELETE FROM `image` WHERE id = '$idImg' AND idUser = '$idUser'");
+        $req->execute();
+        $req->closeCursor();
+    }
+
+    public function likePost($id, $login)
+    {
+        $this->_query = 'SELECT COUNT(*) FROM `like` WHERE `photo_id` = :id AND `login` = :login';
+        $req = $this->getDb()->prepare($this->_query);
+        $req->bindParam(':id', $id, PDO::PARAM_INT);
+        $req->bindParam(':login', $login, PDO::PARAM_STR);
+        $req->execute();
+        $res = $req->fetchColumn();
+        if ($res)
+            $this->_query = 'DELETE FROM `like` WHERE `login` = :login AND `photo_id` = :id';
+        else
+            $this->_query = 'INSERT INTO `like` (`photo_id`, `login`) VALUES (:id, :login)';
+        $req = $this->getDb()->prepare($this->_query);
+        $req->bindParam(':id', $id, PDO::PARAM_INT);
+        $req->bindParam(':login', $login, PDO::PARAM_STR);
+        $req->execute();
+        $req->closeCursor();
+    }
+    
+    // retrieve the total number of likes for a picture
+
+    public function getLikes($idImg)
+    {
+        $req = $this->getBdd()->prepare("SELECT COUNT(*) FROM `like` WHERE idImg = $idImg");
+        $req->execute();
+        $nbLike = $req->fetch(PDO::FETCH_ASSOC);
+        return($nbLike);
+        $req->closeCursor();
+    }
+    
+    // return a boolean depending if the photo is liked or not by the user logged
+
+    public function isLiked($idImg, $user)
+    {
+        $req = $this->getBdd()->prepare("SELECT COUNT(*) FROM `like` WHERE idImg = $idImg AND idUser = $user");
+        $req->execute();
+        $isLiked = $req->fetch(PDO::FETCH_ASSOC);
+        if ($isLiked)
+            return true;
+        else
+            return false;
+        $req->closeCursor();
+    }
 
 }
 
