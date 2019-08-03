@@ -4,11 +4,11 @@ var_dump($img);
 var_dump($user);
 ?>
 
-<div>
 <div class="container-headline">
-	<div class="headline">
+<!--	<div class="headline">
 	YOU POST
-	</div>
+	</div>-->
+</div>
 <?php if (!isset($_SESSION['id'])): ?> 
     <h4>Log in or register to like and comment this picture</h4>
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
@@ -30,9 +30,9 @@ var_dump($user);
 		<?php endif; ?>
 		<?php //if (isset($_SESSION['id'])): ?>
 			<?php// if ($isLiked): ?>
-				<span id="heart" class="icon heart" style="background-image: url('../img/heart_pink.png');" onclick="unlikePost()"></span>
+				<span id="heartunlike" class="icon heart" style="background-image: url('../img/heart_pink.png');" onclick="likePost(<?= $img['id'] ?>)"></span>
 			<?php //else: ?>
-				<span id="heart" class="icon heart" style="background-image: url('../img/heart_small.png');" onclick="likePost()"></span>
+				<span id="heart" class="icon heart" style="background-image: url('../img/heart_small.png');" onclick="likePost(<?= $img['id'] ?>)"></span>
 			<?php //endif; ?>
 		<?php //endif; ?>
 		<p><span id="bottom">Number of likes : <span id="likes_nb"><?= $img['nbLike'] ?></span></span></p>
@@ -42,6 +42,5 @@ var_dump($user);
 	</div>
 </div>
 
-</div>
 
 <script src="<?= URL ?>public/js/post.js"></script>
