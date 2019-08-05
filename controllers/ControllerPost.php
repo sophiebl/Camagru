@@ -18,8 +18,6 @@ class ControllerPost
         //    $this->_photoManager->addComment($picture_id, htmlentities($_POST['content']), $user_logged);
         else if (isset($_GET['like']) && $_GET['like'] === 'ok')
         {
-            var_dump("hello");
-            //die();
             session_start();
             $this->_imageManager = new ImageManager();
             $this->_imageManager->likePost($_GET['imgId'], $_SESSION['id']);
@@ -38,20 +36,21 @@ class ControllerPost
         }
         else
         {
-            var_dump("|||||||||||||||||||||||||||||||||||||IS LIKE OR NOT |||||||||||||||||||||||||||||||||||||||||||||||");
             $idImg = $_GET['imgId'];
             $user = $_SESSION['id'];
             $this->_userManager = new UserManager();
             $this->_imageManager = new ImageManager();
             $img = $this->_imageManager->getImage($idImg);
-            $nbLike = $this->_imageManager->getLikes($idImg);
+            $nbLike = $this->_imageManager->getNbLikes($idImg);
             $isLiked = $this->_imageManager->isLiked($idImg, $user);
-            var_dump($isLiked);
+            $comments = $this->_imageManager->getComments($idImg);
+            $nbLike = $nbLike["COUNT(*)"];
             $this->_view = new View('Post');
             $this->_view->generate(array(
                 'img' => $img, 
                 'nbLike' => $nbLike, 
                 'isLiked' => $isLiked, 
+                'comments' => $comments, 
                 'user' => $user));
         }
     }
