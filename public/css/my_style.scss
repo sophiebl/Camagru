@@ -182,6 +182,20 @@ form#formPicture {
     z-index: 50;
 }
 
+.liked {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background-image: url('../../img/heart_pink.png');
+}
+
+.not-liked {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background-image: url('../../img/heart_small.png');
+}
+
 #forgot{
     width: 70%;
     height: 30px;
