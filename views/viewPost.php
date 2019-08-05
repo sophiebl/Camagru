@@ -28,14 +28,48 @@ var_dump($user);
 				<span class="icon" style="background-image: url('../img/trash_small.png');"></span>
 			</a>
 		<?php endif; ?>
-		<?php //if (isset($_SESSION['id'])): ?>
-			<?php// if ($isLiked): ?>
-				<span id="heartunlike" class="icon heart" style="background-image: url('../img/heart_pink.png');" onclick="likePost(<?= $img['id'] ?>)"></span>
-			<?php //else: ?>
-				<span id="heart" class="icon heart" style="background-image: url('../img/heart_small.png');" onclick="likePost(<?= $img['id'] ?>)"></span>
-			<?php //endif; ?>
-		<?php //endif; ?>
-		<p><span id="bottom">Number of likes : <span id="likes_nb"><?= $img['nbLike'] ?></span></span></p>
+		<?php if (isset($_SESSION['id'])):
+			var_dump($isLiked);
+			?>
+			<?php if ($isLiked): ?>
+				<img id="heart" class="icon" liked src="../img/heart_pink.png" onclick="unlikePost()">
+			<?php else: ?>
+				<img id="heart" class="icon" unliked src="../img/heart_small.png" onclick="likePost()">
+			<?php endif; ?>
+		<?php endif; ?>
+		<p><span id="bottom">Number of likes : <span id="likes_nb"><?= $nbLike ?></span></span></p>
+		<div class="comment-container">
+		<?php foreach($comments as $comment) 
+			{?>
+			<p class="comment-item"><?= $comment['content'] ?></p>
+		<?php } ?>		
+		</div>
+		<div class="comments">
+        <?php if (isset($_SESSION['user'])): ?>
+        <form>
+        <textarea id="commentContent" name="content" placeholder="Write something..."></textarea>
+        <br>
+        <button type="button" onclick="leaveComment('<?= $_SESSION['user'] ?>')">Leave a comment <i class="far fa-comments fa-2x" ></i></button>
+        </form>
+        <?php endif; ?>
+        <?php if ($comments): ?>
+        <p id="title">Previous comments</p>
+        <div class="previous">
+            <?php foreach($comments as $comment): ?>
+            <div>
+                <p id="content"><?= $comment['content'] ?></p>
+                <div id="author">
+                    <p>by <span id="bottom"><?= $comment['author'] ?></strong></span>
+                    <?php if ($_SESSION['user'] == $comment['author']): ?>
+                    <a href="<?= URL ?>?url=post&id=<?= $id ?>&commid=<?= strval($comment['id']) ?>"><i class="fas fa-trash-alt"></i></a>
+                    </p>
+                    <?php endif; ?>
+                </div>
+            </div>      
+            <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
+    </div>
 		<!--<span class="icon"  style=" background-image: url('../img/heart_pink.png');"></span>
 		<span class="icon"  style=" background-image: url('../img/chat_small.png');"></span>
 		<span class="icon" style=" background-image: url('../img/chat_blue.png');"></span>-->
