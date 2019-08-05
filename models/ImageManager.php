@@ -109,7 +109,7 @@ class ImageManager extends Model
     
     // retrieve the total number of likes for a picture
 
-    public function getLikes($idImg)
+    public function getNbLikes($idImg)
     {
         $req = $this->getBdd()->prepare("SELECT COUNT(*) FROM `like` WHERE idImg = $idImg");
         $req->execute();
@@ -122,13 +122,27 @@ class ImageManager extends Model
 
     public function isLiked($idImg, $user)
     {
-        $req = $this->getBdd()->prepare("SELECT COUNT(*) FROM `like` WHERE idImg = $idImg AND idUser = $user");
+        $req = $this->getBdd()->prepare("SELECT * FROM `like` WHERE idImg = $idImg AND idUser = $user");
         $req->execute();
         $isLiked = $req->fetch(PDO::FETCH_ASSOC);
+            var_dump("|||||||||||||||||||||||||||||||||||||IS LIKE OR NOT |||||||||||||||||||||||||||||||||||||||||||||||");
+        var_dump($isLiked);
         if ($isLiked)
             return true;
         else
             return false;
+        $req->closeCursor();
+    }
+
+    public function getComments($idImg) 
+    {
+      // INSERT INTO `comments` (`id`, `content`, `idUser`, `Idimg`) VALUES (NULL, 'Hello je suis un premier commentaire', '13', '428'), (NULL, 'Hello je suis un deuxième commentaire', '13', '428');
+        $req = $this->getBdd()->prepare("SELECT * FROM `comments` WHERE idImg = $idImg");
+        $req->execute();
+        $comments = $req->fetchAll(PDO::FETCH_ASSOC);
+        var_dump("comments  |||||||||||||||||||||||||||");
+        var_dump($comments);
+        return($comments);
         $req->closeCursor();
     }
 
