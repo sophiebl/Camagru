@@ -270,14 +270,16 @@ main {
 POST
 ********/
 
+.post-container {
+    margin-bottom: 100px;
+}
+
 .icon {
     display: inline-block;
     vertical-align: top;
     width: 24px; 
     height: 24px
 }
-
-
 
 footer{
     position: fixed;

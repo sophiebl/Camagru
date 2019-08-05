@@ -10,7 +10,7 @@
         <header>
             <nav id="menu">
                 <a href="<?= URL ?>?url=accueil" class="navbar-item">Home</a>
-                <a href="" class="navbar-item">Gallery</a>
+                <a href="<?= URL ?>?url=gallery" class="navbar-item">Gallery</a>
                 <?php require_once('modules/header.php'); ?>
             </nav>
         </header>

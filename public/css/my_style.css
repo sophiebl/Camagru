@@ -235,7 +235,7 @@ main svg {
   stroke-dasharray: 283, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-0 3s 2s linear infinite alternate;
+  animation: circleInMotion-0 3s 9s linear infinite alternate;
 }
 
 @keyframes circleInMotion-0 {
@@ -255,7 +255,7 @@ main svg {
   stroke-dasharray: 258, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-1 3s 3s linear infinite alternate;
+  animation: circleInMotion-1 3s 4s linear infinite alternate;
 }
 
 @keyframes circleInMotion-1 {
@@ -275,7 +275,7 @@ main svg {
   stroke-dasharray: 233, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-2 3s 4s linear infinite alternate;
+  animation: circleInMotion-2 3s 10s linear infinite alternate;
 }
 
 @keyframes circleInMotion-2 {
@@ -295,7 +295,7 @@ main svg {
   stroke-dasharray: 208, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-3 3s 2s linear infinite alternate;
+  animation: circleInMotion-3 3s 5s linear infinite alternate;
 }
 
 @keyframes circleInMotion-3 {
@@ -313,6 +313,10 @@ main svg {
 /*
 POST
 ********/
+.post-container {
+  margin-bottom: 100px;
+}
+
 .icon {
   display: inline-block;
   vertical-align: top;

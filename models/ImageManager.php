@@ -2,6 +2,17 @@
 
 class ImageManager extends Model
 {
+    public function getImages()
+    {
+        $req = $this->getBdd()->prepare("SELECT * FROM `image`");
+        $req->execute();
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+        var_dump("GET IMG");
+        var_dump($data);
+        return($data);
+        $req->closeCursor();
+    }
+
     public function sendImage()
     {
         if (isset($_POST))        
@@ -107,7 +118,6 @@ class ImageManager extends Model
         $req->closeCursor();
     }
     
-    // retrieve the total number of likes for a picture
 
     public function getNbLikes($idImg)
     {
@@ -118,7 +128,6 @@ class ImageManager extends Model
         $req->closeCursor();
     }
     
-    // return a boolean depending if the photo is liked or not by the user logged
 
     public function isLiked($idImg, $user)
     {
@@ -144,6 +153,23 @@ class ImageManager extends Model
         var_dump($comments);
         return($comments);
         $req->closeCursor();
+    }
+
+    public function addComment($idImg, $idUser, $content)
+    {
+        $req = $this->getBdd()->prepare('INSERT INTO `comments` (`idImg`, `idUser`, `content`) VALUES (:idImg, :idUser, :content)');
+        $req->execute([':idImg' => $idImg, ':idUser' => $idUser, ':content' => $content]);
+        $req->closeCursor();
+        var_dump("ADDcomments  |||||||||||||||||||||||||||");
+        /*$this->_query = 'INSERT INTO `comments` (`idImg`, `idUser`, `content`) VALUES (:idImg, :idUser, :content)';
+        $req = $this->getBdd()->prepare($this->_query);
+        $req->bindParam(':idImg', $idImg, PDO::PARAM_INT); 
+        $req->bindParam(':content', $content, PDO::PARAM_STR); 
+        $req->bindParam(':idUser', $user, PDO::PARAM_STR); 
+        $req->execute();
+        $comments = [];
+        while ($data = $req->fetch(PDO::FETCH_ASSOC))
+            $comments[] = $data;*/
     }
 
 }

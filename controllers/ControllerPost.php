@@ -9,13 +9,18 @@ class ControllerPost
 
     public function __construct($url)
     {
-        //exit(42);
         if (isset($url) && count($url) > 1)
             throw new Exception ("Page introuvable", 1);
         else if (isset($_GET['delete']) && $_GET['delete'] == 'OK' && isset($_GET['imgId']))
             $this->delPost();
-        //else if (isset($_GET['comment']) && $_GET['comment'] === 'ok')
-        //    $this->_photoManager->addComment($picture_id, htmlentities($_POST['content']), $user_logged);
+        else if (isset($_GET['comment']) && $_GET['comment'] === 'ok' && isset($_GET['content']) && $_GET['content'] !== '')
+        {
+            session_start();
+            var_dump($_GET['content']);
+            var_dump($_GET['content']);
+            $this->_imageManager = new ImageManager();
+            $this->_imageManager->addComment($_GET['imgId'], $_SESSION['id'], htmlentities($_GET['content']));
+        }
         else if (isset($_GET['like']) && $_GET['like'] === 'ok')
         {
             session_start();
@@ -25,11 +30,11 @@ class ControllerPost
         else
             $this->displayPost();
     }
-    
+
     private function displayPost()
     {
         session_start();
-        if ($_SESSION['id'] == NULL)
+        if (isset($_SESSION['id']) && $_SESSION['id'] == NULL)
         {
             $this->_view = new View('Post');
             $this->_view->generate(array('err' => "Vous devez vous connecter"));

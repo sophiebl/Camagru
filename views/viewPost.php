@@ -29,7 +29,6 @@ var_dump($user);
 			</a>
 		<?php endif; ?>
 		<?php if (isset($_SESSION['id'])):
-			var_dump($isLiked);
 			?>
 			<?php if ($isLiked): ?>
 				<img id="heart" class="icon" liked src="../img/heart_pink.png" onclick="unlikePost()">
@@ -39,37 +38,30 @@ var_dump($user);
 		<?php endif; ?>
 		<p><span id="bottom">Number of likes : <span id="likes_nb"><?= $nbLike ?></span></span></p>
 		<div class="comment-container">
-		<?php foreach($comments as $comment) 
-			{?>
-			<p class="comment-item"><?= $comment['content'] ?></p>
-		<?php } ?>		
-		</div>
-		<div class="comments">
-        <?php if (isset($_SESSION['user'])): ?>
-        <form>
-        <textarea id="commentContent" name="content" placeholder="Write something..."></textarea>
-        <br>
-        <button type="button" onclick="leaveComment('<?= $_SESSION['user'] ?>')">Leave a comment <i class="far fa-comments fa-2x" ></i></button>
-        </form>
-        <?php endif; ?>
-        <?php if ($comments): ?>
-        <p id="title">Previous comments</p>
-        <div class="previous">
-            <?php foreach($comments as $comment): ?>
-            <div>
-                <p id="content"><?= $comment['content'] ?></p>
-                <div id="author">
-                    <p>by <span id="bottom"><?= $comment['author'] ?></strong></span>
-                    <?php if ($_SESSION['user'] == $comment['author']): ?>
-                    <a href="<?= URL ?>?url=post&id=<?= $id ?>&commid=<?= strval($comment['id']) ?>"><i class="fas fa-trash-alt"></i></a>
-                    </p>
-                    <?php endif; ?>
-                </div>
-            </div>      
-            <?php endforeach; ?>
-        </div>
-        <?php endif; ?>
-    </div>
+		<?php if (isset($_SESSION['id'])): ?>
+			<form>
+				<textarea id="commentContent" name="content" placeholder="Write something..."></textarea>
+				<br>
+				<button type="button" onclick="leaveComment('<?= $_SESSION['id'] ?>')">Send a comment</button>
+			</form>
+		<?php endif; ?>
+		<?php if ($comments): ?>
+			<p id="title">All comments about this picture</p>
+			<div class="comment-item">
+				<?php foreach($comments as $comment): ?>
+				<div>
+					<p id="content"><?= $comment['content'] ?></p>
+					<div id="author">
+						<p>from <span id="bottom"><?= $comment['idUser'] ?></strong></span>
+					</div>
+					<div class="date">
+						<?= $comment['date'] ?>
+					</div>
+				</div>      
+				<?php endforeach; ?>
+			</div>
+		<?php endif; ?>
+    	</div>
 		<!--<span class="icon"  style=" background-image: url('../img/heart_pink.png');"></span>
 		<span class="icon"  style=" background-image: url('../img/chat_small.png');"></span>
 		<span class="icon" style=" background-image: url('../img/chat_blue.png');"></span>-->

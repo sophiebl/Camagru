@@ -31,15 +31,15 @@ function unlikePost() {
 
 function prependNewComment(author, content, id) {
     var status;
-    var  post = document.getElementsByClassName('comments')[0]
-    if(document.getElementsByClassName('previous')[0] == null) {
-        var previous = document.createElement('div');
-        previous.className = 'previous';
-        post.appendChild(previous);
+    var  post = document.getElementsByClassName('comment-container')[0]
+    if(document.getElementsByClassName('comment-item')[0] == null) {
+        var commentItem = document.createElement('div');
+        commentItem.className = 'comment-item';
+        post.appendChild(commentItem);
         status = 1;
     }
     else {
-        var previous = document.getElementsByClassName('previous')[0];
+        var commentItem = document.getElementsByClassName('comment-item')[0];
         status = 0;
     }
     var mainDiv = document.createElement('div');
@@ -55,25 +55,24 @@ function prependNewComment(author, content, id) {
     var url = new URL(location.href);
     url.searchParams.set('commid', id);
     from.innerHTML += 'by <span id="bottom">' + author + '</span>';
-    from.innerHTML += '<a href="' + url + '"><i class="fas fa-trash-alt"></i></a>';
+    from.innerHTML += '<a href="' + url + '"></a>';
     if (status) {
-        previous.appendChild(mainDiv);
+        commentItem.appendChild(mainDiv);
     }
     else {
-        previous.insertBefore(mainDiv, previous.firstChild);
+        commentItem.insertBefore(mainDiv, commentItem.firstChild);
     }
 }
 
 function leaveComment(author) {
     var content = document.getElementById("commentContent").value;
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", location.search + "&comment=ok", true);
+    xhttp.open("GET", location.search + "&comment=ok&content=" + content, true);
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            comments.innerText = parseInt(comments.innerText) + 1;
             prependNewComment(author, content, this.responseText);
         }
     };
-    xhttp.send("content=" + content);
+    xhttp.send();
 }

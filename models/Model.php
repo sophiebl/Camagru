@@ -26,7 +26,6 @@ abstract class Model
 
     protected function getAll($table, $obj)
     {
-        //echo '  table is : '.$table;
         $var = [];
         $req = $this->getBdd()->prepare('SELECT * FROM '.$table);
 
