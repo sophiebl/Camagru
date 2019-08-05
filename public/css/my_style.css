@@ -143,6 +143,11 @@ form#formPicture {
   border-right: black 2px solid;
 }
 
+.filter {
+  width: 25px;
+  width: 25px;
+}
+
 .webcam {
   display: flex;
   width: 70%;
@@ -161,7 +166,7 @@ form#formPicture {
   position: relative;
   top: 0;
   left: 0;
-  margin-bottom: 300px;
+  margin-bottom: 450px;
 }
 
 .live > #imgFilter, .live > #video {
@@ -235,7 +240,7 @@ main svg {
   stroke-dasharray: 283, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-0 3s 9s linear infinite alternate;
+  animation: circleInMotion-0 3s 3s linear infinite alternate;
 }
 
 @keyframes circleInMotion-0 {
@@ -255,7 +260,7 @@ main svg {
   stroke-dasharray: 258, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-1 3s 4s linear infinite alternate;
+  animation: circleInMotion-1 3s 9s linear infinite alternate;
 }
 
 @keyframes circleInMotion-1 {
@@ -275,7 +280,7 @@ main svg {
   stroke-dasharray: 233, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-2 3s 10s linear infinite alternate;
+  animation: circleInMotion-2 3s 7s linear infinite alternate;
 }
 
 @keyframes circleInMotion-2 {
@@ -295,7 +300,7 @@ main svg {
   stroke-dasharray: 208, 300;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  animation: circleInMotion-3 3s 5s linear infinite alternate;
+  animation: circleInMotion-3 3s 9s linear infinite alternate;
 }
 
 @keyframes circleInMotion-3 {

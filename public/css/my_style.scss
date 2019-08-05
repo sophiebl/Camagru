@@ -146,6 +146,11 @@ form#formPicture {
     border-right: black 2px solid;
 }
 
+.filter {
+    width: 25px;
+    width: 25px;
+}
+
 .webcam {
     display: flex;
     width: 70%;
@@ -169,7 +174,7 @@ form#formPicture {
     position: relative;
     top: 0;
     left: 0;
-    margin-bottom: 300px;
+    margin-bottom: 450px;
 }
 
 .live > #imgFilter, .live > #video{

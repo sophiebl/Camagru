@@ -17,7 +17,7 @@ var_dump($user);
 
 <div class="post-container">
 	<h1></h1>
-	<img src="<?= $img["path"] ?>">
+	<img src="<?= URL.$img["path"] ?>">
 	<p id="legend"><?= $img["legend"]?></p>
 
 

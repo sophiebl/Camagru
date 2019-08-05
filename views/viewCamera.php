@@ -11,8 +11,11 @@ $this->_t = 'CAMERA';
 <div id="bodyCam">
 <form enctype="multipart/form-data" id="formPicture" style="margin-bottom:100px;" method="post" action="<?= URL ?>?url=camera&submit=OK" onSubmit="prepareImg()" enctype="multipart/form-data">
 <div class="filters">
-	<img onclick="addFilter(event)" src="<?=IMG?>mortarboard.png">
-	<img onclick="addFilter(event)" src="<?=IMG?>webcam.png">
+	<img class="filter" onclick="addFilter(event)" src="<?=IMG?>air.png">
+	<img class="filter" onclick="addFilter(event)" src="<?=IMG?>smokecolor.png">
+	<img class="filter" onclick="addFilter(event)" src="<?=IMG?>smoken&b.png">
+	<img class="filter" onclick="addFilter(event)" src="<?=IMG?>splashwater.png">
+	<img class="filter" onclick="addFilter(event)" src="<?=IMG?>water.png">
 </div>
 <div class="webcam">
 	<div class="preview">
@@ -49,8 +52,8 @@ $this->_t = 'CAMERA';
 	</div>
 	<div class="results">
 		<div id="canvas-container">
-			<canvas id="canvas"></canvas>
 			<canvas id="canvasFilter"></canvas>
+			<canvas id="canvas"></canvas>
 		</div>
 		<canvas id='blank' style='display: none;'></canvas>
 		<img src="" id="result2">

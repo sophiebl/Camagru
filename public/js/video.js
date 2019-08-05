@@ -204,11 +204,11 @@ function addFilter(event)
 {
 	var canvas = document.getElementById('canvasFilter');
 	var ctx = canvas.getContext('2d');
-	var img = new Image(32, 32);
+	var img = new Image(400, 400);
 	img.src = event.target.src;
 	img.onload = function() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		ctx.drawImage(img, 75, 75, 32, 32);
+		ctx.drawImage(img, 0, 0, 400, 400, 0, 0, 400, 400);
 		document.querySelector('#imgFilter').setAttribute('src', canvas.toDataURL("image/png"));
 		document.querySelector('#resultFilter').setAttribute('value', canvas.toDataURL("image/png"));
 	}
@@ -225,10 +225,10 @@ function addFilter(event)
     canvas       = document.getElementById('canvas'),
     canvasFilter  = document.getElementById('canvasFilter'),
     startbutton  = document.getElementById('snap'),
-	savebutton  = document.getElementById('save'),
-	data = null,
-    width = 200,
-    height = 200;
+		savebutton  = document.getElementById('save'),
+		data = null,
+    width = 400,
+    height = 400;
 
     //Elements by taking a picture
 	var name = document.getElementById('file_name');
@@ -241,7 +241,7 @@ function addFilter(event)
 	var	publish = document.getElementById('publish');
 	var context = canvas.getContext('2d');
 	var contextFilter = canvasFilter.getContext('2d');
-	var constraints = { audio: false, video: { width: 200, height: 200 } }; 
+	var constraints = { audio: false, video: { width: 400, height: 400 } }; 
 
     //Get access to the camera
 	navigator.mediaDevices.getUserMedia(constraints)
