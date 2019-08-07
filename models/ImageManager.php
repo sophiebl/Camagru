@@ -99,7 +99,6 @@ class ImageManager extends Model
         $req->closeCursor();
     }
 
-    // retrieve the login of the picture's owner
 
     public function getPictureAuthor($id)
     {
@@ -107,15 +106,10 @@ class ImageManager extends Model
         $req = $this->getBdd()->prepare("SELECT `username` FROM `users` INNER JOIN `image` ON `users`.`id` = `image`.`idUsers` WHERE `image`.`id`");
         $req->execute();
         $author = $req->fetch(PDO::FETCH_ASSOC);
-        //$author = $req->fetchColumn();
         $req->closeCursor();
-//        var_dump("|||||||||||||||||||||||||||||||||||||| AUTHOR ||||||||||||||||||||||||");
-
-//        var_dump($author);
         return $author;
     }
 
-    // retrieve the picture upload date
 
     public function getPictureDate($id)
     {
@@ -151,12 +145,11 @@ class ImageManager extends Model
             $req = $this->getBdd()->prepare('INSERT INTO `like` (`idImg`, `idUser`, `isLiked`) VALUES (:idImg, :idUser, :isLiked)');
             $req->execute([':idImg' => $idImg, ':idUser' => $idUser, ':isLiked' => true]);
             $userLiked = $this->getUsrPhoto($idImg);
-            var_dump("|||||||||||||||||||||||||||||||||||||IS LIKE OR NOT |||||||||||||||||||||||||||||||||||||||||||||||");
             if ((bool)$userLiked['notifLike'])
             {
                 var_dump($_SESSION['id']);
                 var_dump("OK");
-                $this->sendMailLikeCom($userLiked['email'], $userLiked['username'], $_SESSION['id'], "liké");
+                $this->sendMailLikeCom($userLiked['email'], $userLiked['username'], $_SESSION['id'], "Quelqu'un a liké votre photo");
                 var_dump('emailsend');
                 //die();
                 $req->closeCursor();
@@ -166,7 +159,6 @@ class ImageManager extends Model
         //$data = $req->fetch(PDO::FETCH_ASSOC);
         //var_dump($data);
     }
-    
 
     public function getNbLikes($idImg)
     {
@@ -207,7 +199,17 @@ class ImageManager extends Model
     {
         $req = $this->getBdd()->prepare('INSERT INTO `comments` (`idImg`, `idUser`, `content`) VALUES (:idImg, :idUser, :content)');
         $req->execute([':idImg' => $idImg, ':idUser' => $idUser, ':content' => $content]);
-        $req->closeCursor();
+        $userCommented = $this->getUsrPhoto($idImg);
+        var_dump("|||||||||||||||||||||||||||||||||||||IS comment |||||||||||||||||||||||||||||||||||||||||||||||");
+        if ((bool)$userCommented['notifCom'])
+        {
+            var_dump($_SESSION['id']);
+            var_dump("OK");
+            $this->sendMailLikeCom($userCommented['email'], $userCommented['username'], $_SESSION['id'], "Quelqu'un a commenté votre photo");
+            var_dump('emailsend');
+            //die();
+            $req->closeCursor();
+        }
         var_dump("ADDcomments  |||||||||||||||||||||||||||");
         /*$this->_query = 'INSERT INTO `comments` (`idImg`, `idUser`, `content`) VALUES (:idImg, :idUser, :content)';
         $req = $this->getBdd()->prepare($this->_query);
