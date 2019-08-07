@@ -2,6 +2,23 @@
 
 abstract class Model
 {
+    /*
+    private static $_bdd;
+
+    private static function setBdd()
+    {
+		require('config/database.php');
+        self::$_bdd = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+        self::$_bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        self::$_bdd->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    }
+
+    protected function getBdd()
+    {
+        if (self::$_bdd == NULL)
+            self::setBdd();
+        return self::$_bdd;
+    }*/
 
     private static $_bdd;
 
