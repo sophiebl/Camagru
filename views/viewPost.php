@@ -1,7 +1,7 @@
 <?php
 $this->_t = 'POST';
 var_dump($img);
-var_dump($user);
+var_dump($comments);
 ?>
 
 <div class="container-headline">
@@ -52,7 +52,7 @@ var_dump($user);
 				<div>
 					<p id="content"><?= $comment['content'] ?></p>
 					<div id="author">
-						<p>from <span id="bottom"><?= $comment['idUser'] ?></strong></span>
+						<p>from <span id="bottom"><?= $comment['idUsers'] ?></strong></span>
 					</div>
 					<div class="date">
 						<?= $comment['date'] ?>

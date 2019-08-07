@@ -31,6 +31,7 @@ class UserManager extends Model
                     $err[$i++] = "Les mots de passe ne sont pas identique";
                 $username = $this->secureString($_POST['username']);
                 $email = $this->secureString($_POST['email']);
+                get_gravatar($email);
                 if (filter_var($email, FILTER_VALIDATE_EMAIL) == 1) 
                     $err[$i++] = "L'adresse mail n'est pas correcte";
                 $password = $_POST['password'];
@@ -69,6 +70,19 @@ class UserManager extends Model
                     
                 }
             }
+    }
+
+    public function get_gravatar( $email, $s = 80, $d = 'mp', $r = 'g', $img = false, $atts = array() ) {
+        $url = 'https://www.gravatar.com/avatar/';
+        $url .= md5( strtolower( trim( $email ) ) );
+        $url .= "?s=$s&d=$d&r=$r";
+        if ( $img ) {
+            $url = '<img src="' . $url . '"';
+            foreach ( $atts as $key => $val )
+                $url .= ' ' . $key . '="' . $val . '"';
+            $url .= ' />';
+        }
+        return $url;
     }
 
     public function verifUser()

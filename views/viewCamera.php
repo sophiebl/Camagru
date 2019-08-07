@@ -32,11 +32,12 @@ $this->_t = 'CAMERA';
 			</div>
 			<div class="btn-child">
 				<label for="file-input">
-					<i id="uploadButton">UPLOAD BUTTON</i>
+					<span id="uploadButton">UPLOAD BUTTON</span>
 				</label>
 				<p id="upload">Upload</p>
 				<input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-				<input type="file" id="file-input" name="file-input" accept=".png">
+				<p class="has-text-weight-semibold" id="file_name2">Aucune image</p>
+				<input class="file-input" type="file" id="import_file" name="resume" accept="image/png">
 			</div>
 			<div class="btn-child">
 				<button id="save" onclick="savePicture()">Save</button>
@@ -52,8 +53,8 @@ $this->_t = 'CAMERA';
 	</div>
 	<div class="results">
 		<div id="canvas-container">
-			<canvas id="canvasFilter"></canvas>
 			<canvas id="canvas"></canvas>
+			<canvas id="canvasFilter"></canvas>
 		</div>
 		<canvas id='blank' style='display: none;'></canvas>
 		<img src="" id="result2">

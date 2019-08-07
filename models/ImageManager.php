@@ -2,13 +2,17 @@
 
 class ImageManager extends Model
 {
+
     public function getImages()
     {
         $req = $this->getBdd()->prepare("SELECT * FROM `image`");
         $req->execute();
+        $data2 = $req->fetchColumn(PDO::FETCH_ASSOC);
         $data = $req->fetchAll(PDO::FETCH_ASSOC);
         var_dump("GET IMG");
         var_dump($data);
+        var_dump("IiIiiiiiiiiiiiiiiiiiii DIFFERENCE BETWEEN DATA ET DATA2 iiiiiiiiiiiiiii");
+        var_dump($data2);
         return($data);
         $req->closeCursor();
     }
@@ -25,8 +29,8 @@ class ImageManager extends Model
             //$x = $_POST["x"];
             //$y = $_POST["y"];
            // $img = str_replace(' ', '+', $img);
-            var_dump("                filter                 ");
-            var_dump($filter);
+            //var_dump("                filter                 ");
+            //var_dump($filter);
             $img_parts = explode(",", $img);
             $img = $img_parts[1];
             $decodedData = base64_decode($img);
@@ -41,11 +45,11 @@ class ImageManager extends Model
 
             $imagepng = imagecreatefromstring($decodedData);
             $imagefilter = imagecreatefromstring($decodedDataFilter);
-            var_dump($imagepng);
+            //var_dump($imagepng);
             if ($imagepng !== false && $imagefilter !== false) {
                 // header('Content-Type: image/png');
                // var_dump("helloe");
-                imagecopy($imagepng, $imagefilter, 0, 0, 0, 0, 200, 200);
+                imagecopy($imagepng, $imagefilter, 0, 0, 0, 0, 300, 300);
                 imagepng($imagepng, $fileimg);
                 imagedestroy($imagepng);
                 imagedestroy($imagefilter);
@@ -64,7 +68,7 @@ class ImageManager extends Model
             $user = $_SESSION['id'];
     //        var_dump($user);
             //$img = $_POST['image'];
-            var_dump($fileimg);
+            //var_dump($fileimg);
             $legend = $_POST['legend'];
        //     var_dump($legend);
             $req = $this->getBdd()->prepare("INSERT INTO image (path, nbLike, idUsers, legend)
@@ -95,6 +99,34 @@ class ImageManager extends Model
         $req->closeCursor();
     }
 
+    // retrieve the login of the picture's owner
+
+    public function getPictureAuthor($id)
+    {
+        var_dump("author");
+        $req = $this->getBdd()->prepare("SELECT `username` FROM `users` INNER JOIN `image` ON `users`.`id` = `image`.`idUsers` WHERE `image`.`id`");
+        $req->execute();
+        $author = $req->fetch(PDO::FETCH_ASSOC);
+        //$author = $req->fetchColumn();
+        $req->closeCursor();
+//        var_dump("|||||||||||||||||||||||||||||||||||||| AUTHOR ||||||||||||||||||||||||");
+
+//        var_dump($author);
+        return $author;
+    }
+
+    // retrieve the picture upload date
+
+    public function getPictureDate($id)
+    {
+        $req = $this->getBdd()->prepare("SELECT `date` FROM `image` WHERE `id` = :id");
+        $req->execute();
+        $date = strtotime($req->fetchColumn());
+        $req->closeCursor();
+        $req->closeCursor();
+        return $date;
+    }    
+
     public function deletePost($idImg, $idUser)
     {
         $req = $this->getBdd()->prepare("DELETE FROM `image` WHERE id = '$idImg' AND idUser = '$idUser'");
@@ -109,13 +141,30 @@ class ImageManager extends Model
         $data = $req->fetch(PDO::FETCH_ASSOC);
         var_dump($data);
         if ($data)
+        {
             $req = $this->getBdd()->prepare("DELETE FROM `like` WHERE `idUser` = '$idUser' AND `idImg` = '$idImg'");
+            $req->execute();
+            $req->closeCursor();
+        }
         else
-            $req = $this->getBdd()->prepare('INSERT INTO `like` (`idImg`, `idUser`) VALUES (:idImg, :idUser)');
-        $req->execute([':idImg' => $idImg, ':idUser' => $idUser]);
+        {
+            $req = $this->getBdd()->prepare('INSERT INTO `like` (`idImg`, `idUser`, `isLiked`) VALUES (:idImg, :idUser, :isLiked)');
+            $req->execute([':idImg' => $idImg, ':idUser' => $idUser, ':isLiked' => true]);
+            $userLiked = $this->getUsrPhoto($idImg);
+            var_dump("|||||||||||||||||||||||||||||||||||||IS LIKE OR NOT |||||||||||||||||||||||||||||||||||||||||||||||");
+            if ((bool)$userLiked['notifLike'])
+            {
+                var_dump($_SESSION['id']);
+                var_dump("OK");
+                $this->sendMailLikeCom($userLiked['email'], $userLiked['username'], $_SESSION['id'], "liké");
+                var_dump('emailsend');
+                //die();
+                $req->closeCursor();
+            }
+        }
+        var_dump("putain");
         //$data = $req->fetch(PDO::FETCH_ASSOC);
         //var_dump($data);
-        $req->closeCursor();
     }
     
 
@@ -134,7 +183,6 @@ class ImageManager extends Model
         $req = $this->getBdd()->prepare("SELECT * FROM `like` WHERE idImg = $idImg AND idUser = $user");
         $req->execute();
         $isLiked = $req->fetch(PDO::FETCH_ASSOC);
-            var_dump("|||||||||||||||||||||||||||||||||||||IS LIKE OR NOT |||||||||||||||||||||||||||||||||||||||||||||||");
         var_dump($isLiked);
         if ($isLiked)
             return true;

@@ -65,6 +65,20 @@ abstract class Model
         $req->closeCursor();
     }
 
+    protected function getUsrPhoto($idImg)
+    {
+        $req = self::$_bdd->prepare("SELECT users.email, users.username, users.notifCom, users.notifLike
+                                        FROM users, image
+                                        WHERE users.id = image.idUsers
+                                        AND image.id = '$idImg'");
+        $req->execute();
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        var_dump($data);
+        return ($data);
+        //die();
+        $req->closeCursor();
+    }
+
     protected function ifUsernameExist($username)
     {
         $req = $this->getBdd()->prepare("SELECT * FROM users WHERE username = '$username'");
@@ -121,6 +135,33 @@ abstract class Model
         $header = 'From:noreply@camagru.com' . "\r\n";    
         $send = mail($dest, $subject, $message, $header); 
         return ($send);
+    }
+
+    protected function sendMailLikeCom($email, $loginUsrLiked, $loginUsrLike, $likeCom)
+    {
+        $to      = $email; // Send email to our user
+        $subject =  $likeCom . ' | Camagru'; // Give the email a subject 
+        $message = '
+        
+         _____                                              
+        /  __ \                                             
+        | /  \/  __ _  _ __ ___    __ _   __ _  _ __  _   _ 
+        | |     / _  ||  _   _ \  / _  | / _  | __ | | | |
+        | \__/\| (_| || | | | | || (_| || (_| || |   | |_| |
+         \____/ \__,_||_| |_| |_| \__,_| \__, ||_|    \__,_|
+                                          __/ |             
+                                         |___/              
+        
+        
+        ------------------------
+
+        Coucou ' . $loginUsrLiked . "\n" .
+        
+        $loginUsrLike . ' à ' . $likeCom . ' votre photo
+        ------------------------';
+                            
+        $headers = 'From:noreply@camagru.com' . "\r\n";
+        return (mail($to, $subject, $message, $headers));
     }
 
     protected function secureString($string)

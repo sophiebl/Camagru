@@ -1,7 +1,7 @@
 <?php
 $this->_t = 'GALLERY';
-var_dump($images);
-var_dump($user);
+//	var_dump($images);
+//var_dump($allUsers);
 ?>
 
 <div class="container-headline">
@@ -13,36 +13,17 @@ var_dump($user);
     <h4>Log in or register to like and comment this picture</h4>
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
 <?php endif; ?>
-
-
-<div class="gallery-container">
+<div class="gallery-container" style="margin-bottom: 200px;">
 	<?php if ($images): ?>
-		<?php foreach($images as $img): ?>
-			<?php var_dump($images); ?>
-			<?php var_dump("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"); ?>
-			<?php var_dump($img); ?>
+		<?php foreach($images as $img){
+			?>
 			<div class="gallery-item">
 				<img src="<?= URL.$img["path"] ?>">
-				<p id="legend"><?= URL.$img["legend"]?></p>
-				<div class="likes">
-					<?php if (isset($_SESSION['id'])):?>
-						<?php if ($isLiked): ?>
-							<img id="heart" class="icon" liked src="../img/heart_pink.png" onclick="unlikePost()">
-						<?php else: ?>
-							<img id="heart" class="icon" unliked src="../img/heart_small.png" onclick="likePost()">
-						<?php endif; ?>
-					<?php else: ?>
-						<a href="<?= URL ?>?url=login">
-							<img id="heart" class="icon" unliked src="../img/heart_small.png" onclick="likePost()">
-						</a>
-					<?php endif; ?>
-					<p><span id="bottom">Number of likes : <span id="likes_nb"></span></span></p>
-				</div>
-				<div class="user-content">
-
-				</div>
+				<a href="<?= URL ?>?url=post&imgId=<?= $img["id"] ?>">Check the post</a>
+				<p id="legend"><?= $img["legend"]?></p>
+				<p id="author"><?= $img["idUsers"]?></p>
 			</div>
-		<?php endforeach; ?>
+		<?php } ?>
 	<?php endif; ?>
 </div>
 
