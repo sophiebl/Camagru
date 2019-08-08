@@ -9,16 +9,20 @@
     <body>
         <header>
             <nav id="menu">
-                <a href="<?= URL ?>?url=accueil" class="navbar-item">Home</a>
-                <a href="<?= URL ?>?url=gallery" class="navbar-item">Gallery</a>
+                <a href="<?= URL ?>?url=accueil" class="navbar-item" id="home"></a>
+                <a href="<?= URL ?>?url=gallery" class="navbar-item" id="gallery"></a>
                 <?php require_once('modules/header.php'); ?>
             </nav>
         </header>
-        <?= $content ?>
-        <footer>
-            <?php
-                require_once('modules/footer.php');
-            ?>
-        </footer>
+        <div class="main-content">
+            <div class="content">
+                <?= $content ?>
+            </div>
+            <footer>
+                <?php
+                    require_once('modules/footer.php');
+                ?>
+            </footer>
+        </div>
     <body>
 </html>

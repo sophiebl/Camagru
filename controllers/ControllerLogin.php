@@ -18,7 +18,7 @@ class ControllerLogin
     
     private function userLogin()
     {
-        if ($_SESSION['id'])
+        if (isset($_SESSION['id']) && $_SESSION['id'])
         {
             $this->_view = new View('Accueil');
             $this->_view->generate(array('users' => $user));
@@ -26,7 +26,7 @@ class ControllerLogin
         else
         {
             $this->_view = new View('Login');
-            $this->_view->generate(array('login' => NULL));
+            $this->_view->generate(array('err' => 'You have to log in to acces of SnapWorld'));
         }
     }
 

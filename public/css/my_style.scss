@@ -1,4 +1,8 @@
 /*
+GENERAL
+********/
+
+/*
 @font-face {
     font-family: 'Font lab';
     src: url("/font/Fontlab-Font/fontlab-kit/fonts/fontlab-webfont.eot");
@@ -36,22 +40,33 @@ body {
     font-size: 10px;
     box-sizing: border-box;
 }
-/*
-body:has(> div.bodyCam) {
-    /*position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -100;
-    right: 0;
-    bottom: 0;
-    background-color: #ffff00;
+
+.main-content {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
 }
-*/
+
+div.content {
+    flex: auto;
+}
+
+footer{
+    flex-shrink: 0;
+    padding: 15px 0;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    font-size: 1.2em;
+}
+
 h1 { 
     text-align: center;
     margin: 40px 0 40px;
 }
-
+a {
+    text-decoration: none;
+}
 nav#menu {
     height: 5vh;
     padding: 15px 10px;
@@ -67,9 +82,58 @@ nav#menu > a {
     background-color: #000;
 }
 
+nav#menu > a:after {
+    content: "after";
+}
+
 nav#menu > a {
-    text-decoration : none;
     color: #fff;
+}
+
+nav#menu > a#home:after {
+    content: 'Home';
+}
+nav#menu > a#gallery:after {
+    content: 'Gallery';
+}
+nav#menu > a#login:after {
+    content: 'Login';
+}
+nav#menu > a#signin:after {
+    content: 'Sign in';
+}
+nav#menu > a#pic:after {
+    content: 'Take a pic!';
+}
+nav#menu > a#settings:after {
+    content: 'Settings';
+}
+nav#menu > a#logout:after {
+    content: 'Logout';
+}
+
+@media (max-width: 414px) {
+    nav#menu > a#home:after {
+        content: url('../../img/home.png');
+    }
+    nav#menu > a#gallery:after {
+        content: url('../../img/gallery.png');
+    }
+    nav#menu > a#login:after {
+        content: url('../../img/login.png');
+    }
+    nav#menu > a#signin:after {
+        content: url('../../img/signin.svg');
+    }
+    nav#menu > a#pic:after {
+        content: url('../../img/photo.png');
+    }
+    nav#menu > a#settings:after {
+        content: url('../../img/settings.png');
+    }
+    nav#menu > a#logout:after {
+        content: url('../../img/close.png');
+    }
 }
 
 /*
@@ -112,15 +176,20 @@ form label#labelmdp{
 
 form > input[type="submit"] {
     float: right;
-    -webkit-appearance: none;
-    border: solid 1px #000;
-    border-radius: 1px;
 }
 
 form > input[type="text"], form #username,
 form > input[type="password"], form #mdp{
     border: solid 1px #000;
     border-radius: 1px;
+}
+
+input[type="submit"], input[type="file"], button {
+    -webkit-appearance: none;
+    border: solid 1px #000;
+    border-radius: 1px;
+    background-color: #000;
+    color: white;
 }
 
 form#formPicture {
@@ -231,7 +300,7 @@ $c: #0099ff red;
 $d: 20em;
 $t: 3s; 
 
-main {
+.main-accueil {
   display: flex;
   height: 100%;
   width: 200px;
@@ -286,15 +355,39 @@ POST
     height: 24px
 }
 
-footer{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 15px 0;
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-    font-size: 1.2em;
+.gallery-container{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    justify-content: center;
+    margin: 0 auto;
 }
+
+.gallery-item{
+    width: 300px;
+    padding: 5px 25px;
+}
+
+.gallery-item > *{
+    display: block;
+}
+
+.link-post{
+   font-family: 'Tiny';
+   font-size: 33px;
+   text-align: right;
+}
+
+a.link-post:focus, a.link-post:focus-within,
+a.link-post:active, a.link-post:visited{
+    color: #0000ff;
+}
+
+a.link-post:hover{
+    color: #10ff00;
+}
+#legend{
+    min-height: 15px;
+}
+
 

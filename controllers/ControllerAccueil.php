@@ -23,7 +23,6 @@ class ControllerAccueil
             $user = $this->_userManager->getUser($_SESSION['id']);
             $this->_view = new View('Accueil');
 			$this->_view->generate(array('user' => $user, 'msg' => "Welcome again <span style='background-color: #2e7dd1;color: #ffff00;padding: 0 5px;'>" . $user->getUsername() ."</span>"));
-            //$this->_view->generate(array('user' => $user, 'msg' => "Welcome again " . $user->getUsername()));
         }
         else    
         {

@@ -20,6 +20,6 @@ class ControllerLogout
         $this->_userManager = new UserManager();
         $this->_userManager->logout();
         $this->_view = new View('Login');
-        $this->_view->generate(array('msg' => 'Hâte de vous revoir bientôt !'));
+        $this->_view->generate(array('err' => 'See you soon!'));
     }
 }

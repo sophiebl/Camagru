@@ -4,7 +4,7 @@
 
 <h1><?= $msg ?></h1>
 
-<main rel="main">
+<main rel="main" class="main-accueil">
   <svg viewBox="0 -2 100 100">
     <!--<circle class="circle-0" cx="50" cy="50" r="45" fill="none" stroke-width="3" />
     <circle class="circle-1" cx="50" cy="50" r="41" fill="none" stroke-width="3" />

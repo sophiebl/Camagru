@@ -9,10 +9,10 @@ class ImageManager extends Model
         $req->execute();
         $data2 = $req->fetchColumn(PDO::FETCH_ASSOC);
         $data = $req->fetchAll(PDO::FETCH_ASSOC);
-        var_dump("GET IMG");
-        var_dump($data);
-        var_dump("IiIiiiiiiiiiiiiiiiiiii DIFFERENCE BETWEEN DATA ET DATA2 iiiiiiiiiiiiiii");
-        var_dump($data2);
+        //var_dump("GET IMG");
+        //var_dump($data);
+        //var_dump("IiIiiiiiiiiiiiiiiiiiii DIFFERENCE BETWEEN DATA ET DATA2 iiiiiiiiiiiiiii");
+        //var_dump($data2);
         return($data);
         $req->closeCursor();
     }
@@ -85,7 +85,7 @@ class ImageManager extends Model
         $req = $this->getBdd()->prepare("SELECT * FROM `image` WHERE id = '$idImg'");
         $req->execute();
         $data = $req->fetch(PDO::FETCH_ASSOC);
-        var_dump($data);
+        //var_dump($data);
         return($data);
         $req->closeCursor();
     }
@@ -100,17 +100,71 @@ class ImageManager extends Model
     }
 
 
-    public function getPictureAuthor($id)
+    public function getPictureAuthors()
     {
-        var_dump("author");
-        $req = $this->getBdd()->prepare("SELECT `username` FROM `users` INNER JOIN `image` ON `users`.`id` = `image`.`idUsers` WHERE `image`.`id`");
+        //var_dump("author");
+        $req = $this->getBdd()->prepare('SELECT `idUsers`, `id` FROM `image`');
+        //$req = $this->getBdd()->prepare("SELECT `username` FROM `users` FROM `image` ON `users`.`id` = `image`.`idUsers` WHERE `image`.`id`");
         $req->execute();
-        $author = $req->fetch(PDO::FETCH_ASSOC);
+        $img_author = [];
+        $datas = $req->fetchAll(PDO::FETCH_ASSOC);
+        $i = 0;
+        foreach ($datas as $data)
+        {
+            $req = $this->getBdd()->prepare('SELECT `username` FROM `users` WHERE `id` = :id');
+            $req->execute([':id' => $data['idUsers']]);
+            $authors = $req->fetchColumn();
+            $data['author'] = $authors;
+            $img_author[$i++] = $data;
+        }
+           var_dump($img_author);
+           var_dump("POU LOU LOUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+           //var_dump($datas);
         $req->closeCursor();
-        return $author;
+        return $img_author;
     }
 
+    public function getNbImg()
+    {
+        $req = $this->getBdd()->prepare("SELECT COUNT(*) FROM `image`");
+        $req->execute();
+        $res = (int)$req->fetchColumn();
+        $req->closeCursor();
+        return $res;
+    }
 
+    public function getImagesPerPage($page)
+    {
+        $i = 0;
+        $results_start = ($page - 1) * 9;
+        //$results_start = ($page - 1) * 12;
+        $req = $this->getBdd()->prepare('SELECT `id`, `path`, `idUsers`, `legend` FROM `image`  ORDER BY `id` DESC LIMIT '. $results_start . ', ' . 9 . '');
+        //$this->_query = 'SELECT `id`, `source` FROM `photo`  ORDER BY `id` DESC LIMIT '. $results_start . ', ' . 12 . '';
+        $req->execute();
+        $images = [];
+        $datas = $req->fetchAll(PDO::FETCH_ASSOC);
+        //var_dump($datas);
+        foreach ($datas as $data)
+        {
+            $req = $this->getBdd()->prepare('SELECT COUNT(*) FROM `like` WHERE `idImg` = :id');
+            $req->execute([':id' => $data['id']]);
+            $nb_likes = $req->fetchColumn();
+            $data['likes'] = $nb_likes;
+        //    var_dump($data['likes']);
+            $req = $this->getBdd()->prepare('SELECT COUNT(*) FROM `comments` WHERE `idImg` = :id');
+            $req->execute([':id' => $data['id']]);
+            $nb_comments = $req->fetchColumn();
+            $data['comments'] = $nb_comments;
+        //    var_dump($data['comments']);
+            $images[$i++] = $data;
+            //var_dump($images[$i]);
+        }
+        var_dump($images);
+        $req->closeCursor();
+        return $images;
+    }
+
+/*
     public function getPictureDate($id)
     {
         $req = $this->getBdd()->prepare("SELECT `date` FROM `image` WHERE `id` = :id");
@@ -120,7 +174,7 @@ class ImageManager extends Model
         $req->closeCursor();
         return $date;
     }    
-
+*/
     public function deletePost($idImg, $idUser)
     {
         $req = $this->getBdd()->prepare("DELETE FROM `image` WHERE id = '$idImg' AND idUser = '$idUser'");

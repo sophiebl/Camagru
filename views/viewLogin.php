@@ -2,8 +2,7 @@
 $this->_t = 'LOGIN';
 ?>
 
-<?= $err ?>
-
+<h1><?= $err ?></h1>
 <form method="post" action="<?=URL?>?url=login&submit=OK">
 	<div>
 		<label for="username">Enter your user name</label>
