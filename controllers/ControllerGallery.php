@@ -50,7 +50,6 @@ class ControllerGallery
                 $img_author = $img_author["0"];
 
                 $images = $this->_imageManager->getImagesPerPage($p);
-                var_dump("llllllllllllllllll images");
                 //var_dump($authors);
            var_dump($img_author["0"]);
            var_dump($img_author['author']);
@@ -60,7 +59,7 @@ class ControllerGallery
                     'images' => $images, 
                     'img_author' => $img_author, 
                    // 'nbLike' => $nbLike, 
-                  // 'isLiked' => $isLiked, 
+                 // 'isLiked' => $isLiked, 
                     'user' => $user, 
                     'nbPage' => $nbPage, 
                     'allUsers' => $allUsers 
