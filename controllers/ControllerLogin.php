@@ -10,7 +10,7 @@ class ControllerLogin
     {
         if (isset($url) && count($url) > 1)
             throw new Exception('Page introuvable');
-        else if ($_GET['submit'] === 'OK')    
+        else if (isset($_GET['submit']) && $_GET['submit'] === 'OK')    
             $this->userTryLogin();
         else
             $this->userLogin();

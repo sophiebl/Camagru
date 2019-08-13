@@ -2,7 +2,7 @@
 
 abstract class Model
 {
-    /*
+    
     private static $_bdd;
 
     private static function setBdd()
@@ -17,27 +17,6 @@ abstract class Model
     {
         if (self::$_bdd == NULL)
             self::setBdd();
-        return self::$_bdd;
-    }*/
-
-    private static $_bdd;
-
-    // Instancie la connexion a la bdd
-    private static function setBdd()
-    {
-        //self::$_bdd = new PDO('mysql:host=127.0.0.1;dbname=camagru;charset=utf8', 'root', 'sboulaao');
-        self::$_bdd = new PDO('mysql:host=localhost;dbname=camagru;charset=utf8', 'root', 'sboulaao');
-        self::$_bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-    }
-
-    //R2cupere la connexion a la bdd
-    protected function getBdd()
-    {
-        //echo "enter BDD";
-        if(self::$_bdd == null)
-        {
-            self::setBdd();
-        }
         return self::$_bdd;
     }
 

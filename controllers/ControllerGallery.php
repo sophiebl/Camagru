@@ -21,57 +21,35 @@ class ControllerGallery
     {
         session_start();
 
-            $user = $_SESSION['id'];
+            if (isset($_SESSION['id']) && $_SESSION['id'] !== NULL)
+                $user = $_SESSION['id'];
+            else
+                $user = 'visitor';
             $this->_userManager = new UserManager();
             $this->_imageManager = new ImageManager();
             $allUsers = $this->_userManager->getUsers();
             $images = $this->_imageManager->getImages();
             $total_img = $this->_imageManager->getNbImg();
-            //var_dump($images);
-            /*foreach($images as $image) {
-                $author = $this->_imageManager->etPictureAuthor($img['id']);
-                //$isLiked = $this->_imageManager->isLiked($image['id'], $user);
-            }*/
-           // $isLiked = $this->_imageManager->isLiked($idImg, $user);
-           // $comments = $this->_imageManager->getComments($idImg);
-            //$nbLike = $nbLike["COUNT(*)"];
             if(!$images)
             {
-            //    header('Location: '. URL .'?url=);
                 $this->_view = new View('Login');
                 $this->_view->generate(array('users' => NULL)); 
             }
             else {
                 $nb_results = 9;
-                var_dump($total_img);
                 $nbPage = ceil(($total_img / $nb_results));
 
-                $img_author = $this->_imageManager->getPictureAuthors();
-                $img_author = $img_author["0"];
-
+                $authors = $this->_imageManager->getPictureAuthors();
                 $images = $this->_imageManager->getImagesPerPage($p);
-                //var_dump($authors);
-           var_dump($img_author["0"]);
-           var_dump($img_author['author']);
         
                 $this->_view = new View('Gallery');
                 $this->_view->generate(array(
                     'images' => $images, 
-                    'img_author' => $img_author, 
-                   // 'nbLike' => $nbLike, 
-                 // 'isLiked' => $isLiked, 
+                    'authors' => $authors, 
                     'user' => $user, 
                     'nbPage' => $nbPage, 
                     'allUsers' => $allUsers 
                     ));
             }
-
- 
-
-           /* foreach($images as $image) {
-                $this->_view->generate(array(
-                    'image' => $image, 
-                    'user' => $user = $this->_imageManager->getPictureAuthor($image['id'])));
-            }*/
-        }
+       }
 }

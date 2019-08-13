@@ -25,6 +25,7 @@ class ImageManager extends Model
 //            var_dump($_POST["result"]);
             //$file = $_FILES["file-input"];
             //var_dump($file);
+            //var_dump($img);
             $filter = $_POST["resultFilter"];
             //$x = $_POST["x"];
             //$y = $_POST["y"];
@@ -102,26 +103,22 @@ class ImageManager extends Model
 
     public function getPictureAuthors()
     {
-        //var_dump("author");
-        $req = $this->getBdd()->prepare('SELECT `idUsers`, `id` FROM `image`');
-        //$req = $this->getBdd()->prepare("SELECT `username` FROM `users` FROM `image` ON `users`.`id` = `image`.`idUsers` WHERE `image`.`id`");
+        $req = $this->getBdd()->prepare('SELECT `image`.`id`, `image`.`idUsers`, `users`.`username` FROM `image` INNER JOIN `users` ON `image`.`idUsers` = `users`.`id`');
         $req->execute();
-        $img_author = [];
-        $datas = $req->fetchAll(PDO::FETCH_ASSOC);
-        $i = 0;
-        foreach ($datas as $data)
-        {
-            $req = $this->getBdd()->prepare('SELECT `username` FROM `users` WHERE `id` = :id');
-            $req->execute([':id' => $data['idUsers']]);
-            $authors = $req->fetchColumn();
-            $data['author'] = $authors;
-            $img_author[$i++] = $data;
-        }
-           var_dump($img_author);
-           var_dump("POU LOU LOUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
-           //var_dump($datas);
+        $datas = $req->fetchAll(PDO::FETCH_ASSOC | PDO::FETCH_GROUP);
+        return $datas;
+    }
+
+    public function getImgAuthor($id)
+    {
+        $req = $this->getBdd()->prepare("SELECT `idUsers` FROM `image` WHERE id = '$id'");
+        $req->execute();
+        $img_author = $req->fetch(PDO::FETCH_ASSOC);
+        $req = $this->getBdd()->prepare('SELECT `username` FROM `users` WHERE `id` = :id');
+        $req->execute([':id' => $img_author['idUsers']]);
+        $author = $req->fetchColumn();
         $req->closeCursor();
-        return $img_author;
+        return $author;
     }
 
     public function getNbImg()
@@ -159,7 +156,7 @@ class ImageManager extends Model
             $images[$i++] = $data;
             //var_dump($images[$i]);
         }
-        var_dump($images);
+        //var_dump($images);
         $req->closeCursor();
         return $images;
     }
@@ -177,7 +174,9 @@ class ImageManager extends Model
 */
     public function deletePost($idImg, $idUser)
     {
-        $req = $this->getBdd()->prepare("DELETE FROM `image` WHERE id = '$idImg' AND idUser = '$idUser'");
+        var_dump("delete");
+        $req = $this->getBdd()->prepare("DELETE FROM `image` WHERE id = '$idImg' AND idUsers = '$idUser'");
+        var_dump("exe");
         $req->execute();
         $req->closeCursor();
     }
@@ -187,7 +186,6 @@ class ImageManager extends Model
         $req = $this->getBdd()->prepare("SELECT * FROM `like` WHERE idImg = $idImg AND idUser = '$idUser'");
         $req->execute();
         $data = $req->fetch(PDO::FETCH_ASSOC);
-        var_dump($data);
         if ($data)
         {
             $req = $this->getBdd()->prepare("DELETE FROM `like` WHERE `idUser` = '$idUser' AND `idImg` = '$idImg'");
@@ -201,17 +199,10 @@ class ImageManager extends Model
             $userLiked = $this->getUsrPhoto($idImg);
             if ((bool)$userLiked['notifLike'])
             {
-                var_dump($_SESSION['id']);
-                var_dump("OK");
                 $this->sendMailLikeCom($userLiked['email'], $userLiked['username'], $_SESSION['id'], "Quelqu'un a liké votre photo");
-                var_dump('emailsend');
-                //die();
                 $req->closeCursor();
             }
         }
-        var_dump("putain");
-        //$data = $req->fetch(PDO::FETCH_ASSOC);
-        //var_dump($data);
     }
 
     public function getNbLikes($idImg)
@@ -239,12 +230,9 @@ class ImageManager extends Model
 
     public function getComments($idImg) 
     {
-      // INSERT INTO `comments` (`id`, `content`, `idUser`, `Idimg`) VALUES (NULL, 'Hello je suis un premier commentaire', '13', '428'), (NULL, 'Hello je suis un deuxième commentaire', '13', '428');
         $req = $this->getBdd()->prepare("SELECT * FROM `comments` WHERE idImg = $idImg");
         $req->execute();
         $comments = $req->fetchAll(PDO::FETCH_ASSOC);
-        var_dump("comments  |||||||||||||||||||||||||||");
-        var_dump($comments);
         return($comments);
         $req->closeCursor();
     }
@@ -254,26 +242,11 @@ class ImageManager extends Model
         $req = $this->getBdd()->prepare('INSERT INTO `comments` (`idImg`, `idUser`, `content`) VALUES (:idImg, :idUser, :content)');
         $req->execute([':idImg' => $idImg, ':idUser' => $idUser, ':content' => $content]);
         $userCommented = $this->getUsrPhoto($idImg);
-        var_dump("|||||||||||||||||||||||||||||||||||||IS comment |||||||||||||||||||||||||||||||||||||||||||||||");
         if ((bool)$userCommented['notifCom'])
         {
-            var_dump($_SESSION['id']);
-            var_dump("OK");
             $this->sendMailLikeCom($userCommented['email'], $userCommented['username'], $_SESSION['id'], "Quelqu'un a commenté votre photo");
-            var_dump('emailsend');
-            //die();
             $req->closeCursor();
         }
-        var_dump("ADDcomments  |||||||||||||||||||||||||||");
-        /*$this->_query = 'INSERT INTO `comments` (`idImg`, `idUser`, `content`) VALUES (:idImg, :idUser, :content)';
-        $req = $this->getBdd()->prepare($this->_query);
-        $req->bindParam(':idImg', $idImg, PDO::PARAM_INT); 
-        $req->bindParam(':content', $content, PDO::PARAM_STR); 
-        $req->bindParam(':idUser', $user, PDO::PARAM_STR); 
-        $req->execute();
-        $comments = [];
-        while ($data = $req->fetch(PDO::FETCH_ASSOC))
-            $comments[] = $data;*/
     }
 
 }

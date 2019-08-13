@@ -42,7 +42,6 @@ class Router
         catch(Exception $e)
         {
             $errorMsg = $e->getMessage();
-            //require_once('views/viewError.php');
             $this->view = new View('Error');
             $this->_view->generate(array('errorMsg' => $errorMsg));
         }

@@ -3,7 +3,7 @@ $this->_t = 'LOGIN';
 ?>
 
 <h1><?= $err ?></h1>
-<form method="post" action="<?=URL?>?url=login&submit=OK">
+<form method="post" id="formLogin" action="<?=URL?>?url=login&submit=OK">
 	<div>
 		<label for="username">Enter your user name</label>
 		<input type="text" name="username" id="username" required>

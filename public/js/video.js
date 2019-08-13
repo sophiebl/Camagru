@@ -112,7 +112,7 @@ function addFilter(event)
 		var ctxFilter = canvasFilter.getContext('2d');
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctxFilter.clearRect(0, 0, canvasFilter.width, canvasFilter.height);
-		publish.disabled = true;
+		document.getElementById('snap').disabled = true;
 		name2.innerText = "Aucune image";
 	}
 

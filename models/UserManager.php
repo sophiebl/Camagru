@@ -133,8 +133,11 @@ class UserManager extends Model
             //$idUsr = $_SESSION['id']->getIdUser();
             $username = $this->secureString($_POST['username']);
             //echo " OKKKKKKKK before req";
-            $password = $_POST['password'];
-            $password = hash("SHA512", $password); 
+            if (isset($_POST['password']) && !empty($_POST['password']))
+            {
+                $password = $_POST['password'];
+                $password = hash("SHA512", $password); 
+            }
             //$req = $this->getBdd()->prepare("SELECT * FROM users WHERE username = '$username' AND password = '$password' ");
             $req = $this->getBdd()->prepare("SELECT * FROM users WHERE username = '$username'");
             //echo " OKKKKKKKK after requetE";
@@ -336,5 +339,12 @@ class UserManager extends Model
                 }
             }
     }
-
+/*
+    public function removeNotifComment()
+    {
+        $req = $this->getBdd()->prepare('INSERT INTO `users` (`notifCom`) VALUES (0)');
+        $req->execute();
+        $req->closeCursor();
+    }
+*/
 }

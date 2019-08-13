@@ -47,8 +47,10 @@ class ControllerCamera
         }
         else 
         {
+            $this->_imageManager = new ImageManager();
+            $images = $this->_imageManager->getImages();
             $this->_view = new View('Camera');
-            $this->_view->generate(array('Camera' => NULL));
+            $this->_view->generate(array('images' => $images));
         }
     }
 /*

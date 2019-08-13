@@ -1,28 +1,15 @@
 <?php
 $this->_t = 'POST';
-var_dump($img);
-var_dump($comments);
 ?>
 
-<div class="container-headline">
-<!--	<div class="headline">
-	YOU POST
-	</div>-->
-</div>
 <?php if (!isset($_SESSION['id'])): ?> 
-    <h4>Log in or register to like and comment this picture</h4>
-    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <h1>You need to log in or register to like and comment thoses pictures</h1>
 <?php endif; ?>
-
-
 <div class="post-container">
-	<h1></h1>
 	<img src="<?= URL.$img["path"] ?>">
 	<p id="legend"><?= $img["legend"]?></p>
-
-
+	<p>Picture take by <?= $authorImg?></p>
 	<div class="actions">
-		
 		<?php if (isset($_SESSION['id']) && $_SESSION['id'] == $img['idUsers']): ?>
 			<a href="<?= URL ?>?url=post&imgId=<?= $img['id'] ?>&delete=OK">
 				<span class="icon" style="background-image: url('../img/trash_small.png');"></span>
@@ -40,7 +27,7 @@ var_dump($comments);
 		<div class="comment-container">
 		<?php if (isset($_SESSION['id'])): ?>
 			<form>
-				<textarea id="commentContent" name="content" placeholder="Write something..."></textarea>
+				<textarea id="commentContent" name="content" placeholder="Write your comment here..."></textarea>
 				<br>
 				<button type="button" onclick="leaveComment('<?= $_SESSION['id'] ?>')">Send a comment</button>
 			</form>
@@ -51,22 +38,14 @@ var_dump($comments);
 				<?php foreach($comments as $comment): ?>
 				<div>
 					<p id="content"><?= $comment['content'] ?></p>
-					<div id="author">
-						<p>from <span id="bottom"><?= $comment['idUsers'] ?></strong></span>
-					</div>
-					<div class="date">
-						<?= $comment['date'] ?>
+					<div id="author" class="date">
+						from <span id="bottom"><?= $comment['IdUser'] ?></span> the <span><?= $comment['date'] ?></span> 
 					</div>
 				</div>      
 				<?php endforeach; ?>
 			</div>
 		<?php endif; ?>
     	</div>
-		<!--<span class="icon"  style=" background-image: url('../img/heart_pink.png');"></span>
-		<span class="icon"  style=" background-image: url('../img/chat_small.png');"></span>
-		<span class="icon" style=" background-image: url('../img/chat_blue.png');"></span>-->
 	</div>
 </div>
-
-
 <script src="<?= URL ?>public/js/post.js"></script>

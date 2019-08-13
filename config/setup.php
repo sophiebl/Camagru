@@ -11,12 +11,12 @@
     }
 	try {
 		$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-		$create = file_get_contents('insert.sql');
+		$create = file_get_contents('camagru.sql');
         $db->exec($create);
-        echo "Table crée avec succées \n";
+        echo "Table crée avec succès \n";
     } catch (PDOException $e) {
         echo "DB ERROR:\n";
-        echo $e->getMessage();
+        echo $e->getMessage();  
         $db->closeCursor();
         die();
     }

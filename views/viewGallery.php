@@ -1,17 +1,9 @@
 <?php
 $this->_t = 'GALLERY';
-//	var_dump($images);
-//var_dump($allUsers);
 ?>
 
-<div class="container-headline">
-<!--	<div class="headline">
-	YOU POST
-	</div>-->
-</div>
 <?php if (!isset($_SESSION['id'])): ?> 
-    <h4>Log in or register to like and comment this picture</h4>
-    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <h1>You need to log in or register to like and comment thoses pictures</h1>
 <?php endif; ?>
 <div class="gallery-container">
 	<?php if ($images): ?>
@@ -20,7 +12,7 @@ $this->_t = 'GALLERY';
 			<div class="gallery-item">
 				<img src="<?= URL.$img["path"] ?>">
 				<p id="legend"><?= $img["legend"]?></p>
-				<p id="author">By <?= $img_author["author"]?></p>
+				<p id="author">By <?= $authors[$img['id']][0]['username']?></p>
 				<a class="link-post" href="<?= URL ?>?url=post&imgId=<?= $img["id"] ?>">Check the post</a>
 			</div>
 		<?php } ?>
