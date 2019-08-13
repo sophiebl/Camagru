@@ -15,6 +15,7 @@ $this->_t = 'MODIFICATION DE COMPTE';
 
 <?= $res ?>
 <?= $user->getId(); ?>
+<?php var_dump($user->getNotifCom()); ?>
 <form id="formModif" method="post" action="<?=URL?>?url=Modification&submit=OK">
 	<div>
 		<label for="email">Entrer votre nouvelle adresse email</label>
@@ -26,8 +27,23 @@ $this->_t = 'MODIFICATION DE COMPTE';
 		<input type="text" name="username" id="username" value="<?= $user->getUsername() ?>">
 	</div>
 	<br>
+	<div>
+		<label for="checkbox">Voulez-vous recevoir les notifications par email</label>
+		<?php if ((bool)$user->getNotifCom()) {?>
+			<input type="checkbox" name="checkbox1" checked>
+		<?php } else { ?>
+			<input type="checkbox" name="checkbox1">
+		<?php } ?>
+	</div>
+	<div>
+		<label for="checkbox">Vous ne souhaitez plus recevoir les notifications par email</label>
+		<?php if ((bool)$user->getNotifCom()) {?>
+			<input type="checkbox" name="checkbox0">
+		<?php } else { ?>
+			<input type="checkbox" name="checkbox0" checked>
+		<?php } ?>
+	</div>
 	<input type="submit" value="modifier votre compte">
-
 </form>
 <form id="formPasswd" action="<?= URL ?>?url=Modification&submit=MDP" method="post">
 	<div>
@@ -48,33 +64,10 @@ $this->_t = 'MODIFICATION DE COMPTE';
 	<input type="submit" value="Modifier votre mot de passe">
 </form>
 <!--
-<form id="formNotif" action="<?= URL ?>?url=Modification&submit=Notif" method="POST">
+<form id="formNotif" action="<?=URL?>?url=Modification&notif=yes" method="POST">
 	<div>
 		<label for="checkbox">Voulez-vous recevoir les notifications par email</label>
 		<input type="checkbox" name="checkbox" checked>
 	</div>
-	<input type="submit" value="Notif">
-</form>
-
-
-
-<form action="<?=URL?>?url=ModifUser&notif=yes" method="POST">
-									<div>
-										<label>
-											Notification commentaire:
-											<input id="inputCom" type="checkbox" name="com" value="<?=(bool)$_SESSION['user']->getNotifCom()?>">
-										</label>
-									</div>
-									<div>
-											<label>
-												Notification like:
-												<input id="inputLike" type="checkbox" name="like" value="<?=(bool)$_SESSION['user']->getNotifLike()?>">
-											</label>
-										</p>
-									</div>
-									<div class="field is-grouped">
-										<div class="control">
-											<button class="button is-primary" type="submit">Modif</button>
-										</div>
-									</div>
-							</form>-->
+	<input type="submit" value="Modifier votre mot de passe">
+</form>-->

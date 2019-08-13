@@ -14,10 +14,11 @@ class ControllerModification
             $this->userModif();
         else if (isset($_GET['submit']) && $_GET['submit'] === 'MDP')    
             $this->userModifPassword();
+        else if ($_GET['notif'] == "yes")
+            $this->removeNotifComs();
         else
             $this->userIsLogged();
-        /*else if (isset($_GET['submit']) && $_GET['submit'] === 'Notif')    
-            $this->removeNotifComs();*/
+
     }
 
     public function userIsLogged()
@@ -58,17 +59,9 @@ class ControllerModification
     private function removeNotifComs()
     {
         $this->_userManager = new UserManager();
-        $this->_userManager->removeNotifComment();
+        $user = $this->_userManager->getUser($_SESSION['id']);
+        $this->_userManager->removeNotifComment($user);
         $this->_view = new View('Modification');
-        $this->_view->generate(array('Modification' => NULL, 'user' => $user, 'res' => $res));
-    }
-/*
-    private function modifNotif()
-    {
-        $this->_userManager = new UserManager();
-        $this->_userManager->modifUserNotif();
-        $this->_view = new View('User');
         $this->_view->generate(array('User' => NULL));
-    }*/
-
+    }
 }

@@ -165,56 +165,11 @@ class UserManager extends Model
         if (isset($_POST) && !empty($_POST)
             && ((isset($_POST['email']) && !empty($_POST['email'])) || (isset($_POST['username']) && !empty($_POST['username']))) )
         {
-
-//            $this->getBdd();
-
-            //$username = $this->secureString($_POST['username']);
+            var_dump("hello");
             $user = $this->getUser($_SESSION['id']);
             $id = $_SESSION['id'];
-            //$err = [];
-            //$i = 0;
-           // echo "email username";
-            /*
-            if (empty($_POST['username']))
-                $username = $user->getUsername();
-            else
-                $username = $this->secureString($_POST['username']);
-            if (empty($_POST['email']))
-                $email = $user->getEmail();
-            else
-                $email = $this->secureString($_POST['email']);
-                */
             $username = $this->secureString($_POST['username']);
             $email = $this->secureString($_POST['email']);
-            //var_dump($username);
-            //$username = $this->secureString($_POST['username']);
-            var_dump($email);
-                echo "before req";
-/*            if (filter_var($email, FILTER_VALIDATE_EMAIL) == 1) 
-                $err[$i++] = "L'adresse mail n'est pas correcte";
-            if ($this->ifUsernameExist($username) != NULL)
-                $err[$i++] = "Le nom d'utilisateur est déjà utilisé";
-            if ($this->ifEmailExist($email))   
-                $err[$i++] = "L'adresse email est déjà utilisée";
-            if (isset($err) && !empty($err))
-                return $err;
-            else
-            {
-            $req = $this->getBdd()->prepare("SELECT * FROM users WHERE id = '$id'");
-            $req->execute();
-                $data = $req->fetch(PDO::FETCH_ASSOC); 
-                var_dump($data);
-                if (empty($data))
-                    return ("Nous n'arrivons pas a récupérer vos informations dans la base de données");
-                else
-                {
-                    $req = $this->getBdd()->prepare("UPDATE users SET username = :username, email = :email WHERE id = :id");
-                    echo "after req";
-                    $req->execute([':username' => $username, ':email' => $email, ':id' => $id]);
-                    return ("Vos infos ont bien été modifiés");
-                }
-                $req->closeCursor();
-            }*/
             if (filter_var($email, FILTER_VALIDATE_EMAIL) == 1) 
                 return("L'adresse mail n'est pas correcte");
             if ($this->ifUsernameExist($username) != NULL && ($username != $user->getUsername()) )
@@ -222,13 +177,17 @@ class UserManager extends Model
             echo "BEFORE EMAIL EXIST";
             if ($this->ifEmailExist($email) && ($email != $user->getEmail()))   
                 return("L'adresse email est déjà utilisée");
-            
-            echo "BEFORE REQ YES";
-            echo "BEFORE REQ YES";
+            if (isset($_POST['checkbox1']) || isset($_POST['checkbox0'])){
+                if (isset($_POST['checkbox1']))
+                    $req = $this->getBdd()->prepare("UPDATE users SET notifCom = 1 WHERE id = :id");
+                else if (isset($_POST['checkbox0']))
+                    $req = $this->getBdd()->prepare("UPDATE users SET notifCom = 0 WHERE id = :id");
+                $req->execute([':id' => $id]);
+                $req->closeCursor();
+            }
             $req = $this->getBdd()->prepare("SELECT * FROM users WHERE id = '$id'");
             $req->execute();
             $data = $req->fetch(PDO::FETCH_ASSOC); 
-//            var_dump($data);
             if (empty($data))
                 return ("Nous n'arrivons pas a récupérer vos informations dans la base de données");
             else if ($data['isVerif'] == '0')
@@ -236,12 +195,10 @@ class UserManager extends Model
             else
             {
                 $req = $this->getBdd()->prepare("UPDATE users SET username = :username, email = :email WHERE id = :id");
- //               echo "after req";
                 $req->execute([':username' => $username, ':email' => $email, ':id' => $id]);
                 return ("Vos infos ont bien été modifiés");
             }
             $req->closeCursor();
-        
         }
     }
 
@@ -339,12 +296,5 @@ class UserManager extends Model
                 }
             }
     }
-/*
-    public function removeNotifComment()
-    {
-        $req = $this->getBdd()->prepare('INSERT INTO `users` (`notifCom`) VALUES (0)');
-        $req->execute();
-        $req->closeCursor();
-    }
-*/
+
 }

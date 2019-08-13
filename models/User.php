@@ -5,6 +5,8 @@
         private $_email;
         private $_username;
         private $_password;
+        private $_notifCom;
+        private $_notifLike;
 
         public function __construct(array $data)
         {
@@ -66,33 +68,29 @@
         {
             return $this->_password;
         }                
-    }
 
-
-/*
-class User extends Database {
-
-    public function getAllUsers() {
-        $stmt = $this->connect()->query("SELECT * FROM users");
-        while ($row = $stmt->fetch()) {
-            $uid = $row['id'];
-            $name = $row['username'];
-            return $name;
+        public function getNotifCom()
+        {
+            return $this->_notifCom;
         }
-    }
-
-    public function getUsersWithCountCheck() {
-        $id = 2;
-        $username = "Test";
-
-        $stmt = $this->connect()->prepare("SELECT * FROM users WHERE id=? AND username=?");    
-        $stmt->execute([$id, $username]);
-
-        if ($stmt->rowCount()) {
-            while ($row = $stmt->fetch()) {
-                return $row['username'];
-            }
-        }
-    }
     
-} */
+        public function setNotifCom($_notifCom)
+        {
+            $this->_notifCom = $_notifCom;
+    
+            return $this;
+        }
+
+        public function getNotifLike()
+        {
+            return $this->_notifLike;
+        }
+
+        public function setNotifLike($_notifLike)
+        {
+            $this->_notifLike = $_notifLike;
+    
+            return $this;
+        }
+    }
+
