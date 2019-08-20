@@ -34,10 +34,10 @@ class ControllerLogin
     {
         $this->_userManager = new UserManager();
         $user = $this->_userManager->login();
-        if ($user == "USERNAME")
+        if ($user == "NOTVERIF")
         {
             $this->_view = new View('Accueil');
-            $this->_view->generate(array('users' => $user));
+            $this->_view->generate(array('users' => $user, 'msg' => "Vous n'avez pas vérifié votre adresse mail"));
         }
         else if ($user == "EMPTY")
         {
@@ -47,7 +47,8 @@ class ControllerLogin
         else
         {
             $this->_view = new View('Accueil');
-			$this->_view->generate(array('user' => $user, 'msg' => "Welcome again <span style='background-color: #2e7dd1;color: #ffff00;padding: 0 5px;'>" . $user->getUsername() ."</span>"));
+            //header('Location: '. URL .'?url=accueil');
+			$this->_view->generate(array('user' => $user, 'msg' => "Welcome again <span style='background-color: #2e7dd1;color: #ffff00;padding: 0 5px;'>" . $user ."</span>"));
         }
     }
 }

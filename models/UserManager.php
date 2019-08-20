@@ -31,7 +31,7 @@ class UserManager extends Model
                     $err[$i++] = "Les mots de passe ne sont pas identique";
                 $username = $this->secureString($_POST['username']);
                 $email = $this->secureString($_POST['email']);
-                get_gravatar($email);
+                // get_gravatar($email);
                 if (filter_var($email, FILTER_VALIDATE_EMAIL) == 1) 
                     $err[$i++] = "L'adresse mail n'est pas correcte";
                 $password = $_POST['password'];
@@ -72,19 +72,6 @@ class UserManager extends Model
             }
     }
 
-    public function get_gravatar( $email, $s = 80, $d = 'mp', $r = 'g', $img = false, $atts = array() ) {
-        $url = 'https://www.gravatar.com/avatar/';
-        $url .= md5( strtolower( trim( $email ) ) );
-        $url .= "?s=$s&d=$d&r=$r";
-        if ( $img ) {
-            $url = '<img src="' . $url . '"';
-            foreach ( $atts as $key => $val )
-                $url .= ' ' . $key . '="' . $val . '"';
-            $url .= ' />';
-        }
-        return $url;
-    }
-
     public function verifUser()
     {
         if (isset($_GET) && !empty($_GET)
@@ -119,18 +106,8 @@ class UserManager extends Model
                 //var_dump("hello on est dans login()");
         if (isset($_POST) && !empty($_POST)
             && isset($_POST['username']) && !empty($_POST['username'])
-            /*&& isset($_POST['password']) && !empty($_POST['password'])*/){
-                //var_dump("hello on est dans login()");
-            //    die();
-            //echo " OKKKKKKKK";
-           // $this->getBdd();
+            && isset($_POST['password']) && !empty($_POST['password'])){
             session_start();
-              /* echo " USER : ";
-        var_dump($_SESSION['id']);
-        var_dump($_POST['username']);
-            //$this->getBdd;
-            echo " OKKKKKKKK 1";*/
-            //$idUsr = $_SESSION['id']->getIdUser();
             $username = $this->secureString($_POST['username']);
             //echo " OKKKKKKKK before req";
             if (isset($_POST['password']) && !empty($_POST['password']))
@@ -138,18 +115,18 @@ class UserManager extends Model
                 $password = $_POST['password'];
                 $password = hash("SHA512", $password); 
             }
-            //$req = $this->getBdd()->prepare("SELECT * FROM users WHERE username = '$username' AND password = '$password' ");
-            $req = $this->getBdd()->prepare("SELECT * FROM users WHERE username = '$username'");
+            $req = $this->getBdd()->prepare("SELECT * FROM users WHERE username = '$username' AND password = '$password' ");
+            //$req = $this->getBdd()->prepare("SELECT * FROM users WHERE username = '$username'");
             //echo " OKKKKKKKK after requetE";
             $req->execute();
             $data = $req->fetch(PDO::FETCH_ASSOC);
             $_SESSION['id'] = $data['id'];
             if ($data['isVerif'] == '0' && isset($data['username']))
-                return "USERNAME";
+                return "NOTVERIF";
             if (empty($data['username']))
                 return "EMPTY";
-            $newUser = new User($data);    
-            return $newUser;
+           // $newUser = new User($data);   
+            return $data['username'];
             $req->closeCursor();
         }
     }

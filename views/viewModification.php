@@ -28,7 +28,7 @@ $this->_t = 'MODIFICATION DE COMPTE';
 	</div>
 	<br>
 	<div>
-		<label for="checkbox">Voulez-vous recevoir les notifications par email</label>
+		<label for="checkbox">Souhaitez-vous recevoir les notifications par email</label>
 		<?php if ((bool)$user->getNotifCom()) {?>
 			<input type="checkbox" name="checkbox1" checked>
 		<?php } else { ?>
@@ -36,7 +36,7 @@ $this->_t = 'MODIFICATION DE COMPTE';
 		<?php } ?>
 	</div>
 	<div>
-		<label for="checkbox">Vous ne souhaitez plus recevoir les notifications par email</label>
+		<label for="checkbox">Souhaitez-vous ne plus recevoir les notifications par email</label>
 		<?php if ((bool)$user->getNotifCom()) {?>
 			<input type="checkbox" name="checkbox0">
 		<?php } else { ?>

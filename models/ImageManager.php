@@ -70,7 +70,7 @@ class ImageManager extends Model
     //        var_dump($user);
             //$img = $_POST['image'];
             //var_dump($fileimg);
-            $legend = $_POST['legend'];
+            $legend = $this->secureString($_POST['legend']);
        //     var_dump($legend);
             $req = $this->getBdd()->prepare("INSERT INTO image (path, nbLike, idUsers, legend)
             VALUES (:fileimg, :nbLike, :user, :legend)");

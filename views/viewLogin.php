@@ -11,7 +11,7 @@ $this->_t = 'LOGIN';
 	<br>
 	<div>
 		<label for="mdp" id="labelmdp">Enter your password</label>
-		<input type="password" name="mdp" id="mdp">
+		<input type="password" name="password" id="mdp">
 	</div>
 	<br>
 	<input type="submit" value="LOGIN">
